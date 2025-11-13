@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: task_cli_security.html 
+keywords: administer, administering, cli, security 
+summary: Es gibt mehrere damit verbundene Aufgaben, die Sie im Rahmen der Sicherung einer ONTAP Select Bereitstellung durchführen können. 
+---
+= Sichern Sie eine ONTAP Select Bereitstellung
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Es gibt mehrere damit verbundene Aufgaben, die Sie im Rahmen der Sicherung einer ONTAP Select Bereitstellung durchführen können.
+
+
+
+= Ändern des Deploy-Administratorkennworts
+
+Sie können das Kennwort für das Administratorkonto der virtuellen Maschine bei Bedarf über die Befehlszeilenschnittstelle ändern.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der CLI des Bereitstellungsdienstprogramms an.
+. Ändern Sie das Passwort:
+`password modify`
+. Reagieren Sie auf alle Eingabeaufforderungen entsprechend Ihrer Umgebung.
+

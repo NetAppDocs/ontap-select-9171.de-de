@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: concept_adm_before.html 
+keywords: administer, administering, web, before you begin 
+summary: Nach der Erstellung eines ONTAP Select Clusters können Sie die Bereitstellung durch verschiedene administrative Aufgaben unterstützen. Beachten Sie dabei einige allgemeine Hinweise. 
+---
+= Bevor Sie mit der Verwaltung von ONTAP Select beginnen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Nach der Erstellung eines ONTAP Select Clusters können Sie die Bereitstellung durch verschiedene administrative Aufgaben unterstützen. Beachten Sie dabei einige allgemeine Hinweise.
+
+Im Allgemeinen fallen die Verfahren, die Sie über die Deploy-Weboberfläche durchführen können, in eine von drei Kategorien.
+
+.Bereitstellen eines ONTAP Select Clusters
+Sie können einen Einzelknoten- oder Mehrknotencluster bereitstellen. Sehenlink:task_deploy_cluster.html["Bereitstellen eines ONTAP Select Clusters"] für weitere Informationen.
+
+.Ausführen eines Vorgangs mit einem vorhandenen ONTAP Select Cluster
+Die Verwaltungsverfahren sind in verschiedene Kategorien wie _Sicherheit_ und _Cluster_ unterteilt.
+
+.Führen Sie einen Vorgang im Bereitstellungsdienstprogramm aus
+Es gibt mehrere Deploy-spezifische Verfahren (z. B. das Ändern des Administratorkennworts).
+
+
+
+== ONTAP Select
+
+Im Rahmen der Unterstützung von ONTAP Select stehen zahlreiche verschiedene Verwaltungsverfahren zur Verfügung. Darüber hinaus gibt es spezifische Verfahren für das Verwaltungsdienstprogramm „Deploy“. Die wichtigsten dieser Verfahren werden im Folgenden vorgestellt. In der Regel verwenden alle Verfahren die Deploy-Webbenutzeroberfläche.
+
+
+NOTE: Sie können auchlink:https://docs.netapp.com/us-en/ontap-select/task_cli_signing_in.html["Verwenden Sie die Befehlszeilenschnittstelle"] ONTAP Select verwalten.
+
+
+
+== Führen Sie eine zusätzliche ONTAP -Konfiguration durch
+
+Nach der Bereitstellung eines ONTAP Select Clusters können Sie diesen wie ein hardwarebasiertes ONTAP -System konfigurieren und verwalten. Beispielsweise können Sie den ONTAP Select Cluster mit dem ONTAP System Manager oder der ONTAP CLI konfigurieren.
+
+.NetApp Client-Software
+Sie können mit der folgenden unterstützten NetApp Clientsoftware eine Verbindung zu ONTAP Select herstellen:
+
+* ONTAP System Manager
+* Active IQ Unified Manager
+* OnCommand Insight
+* OnCommand Workflow Automation
+* SnapCenter
+* Virtuelle Speicherkonsole für VMware vSphere
+
+
+Um die unterstützten Versionen der Client-Software zu ermitteln, überprüfen Sie dielink:https://mysupport.netapp.com/matrix/["Interoperabilitätsmatrix-Tool"^] Die wird dieselbe Version auch mit ONTAP Select unterstützt.
+
+
+NOTE: Für die Nutzung von SnapCenter und den entsprechenden Plug-ins sind serverbasierte Lizenzen erforderlich. Die Speichersystemlizenzierung der SnapCenter Plug-ins wird derzeit mit ONTAP Select nicht unterstützt.
+
+Jede andere NetApp -Clientsoftware, die nicht in der Liste enthalten ist, wird von ONTAP Select nicht unterstützt.
+
+.Mögliche Konfigurationsoptionen
+Beim Konfigurieren des Clusters stehen mehrere Optionen zur Verfügung, darunter die folgenden:
+
+* Erstellen der Netzwerkkonfiguration
+* Auslegen Ihrer Aggregate
+* Erstellen der Datenspeicher-VMs (SVMs)
+
+
+.Gekaufte Lizenzen mit Speicherkapazität
+Wenn Sie sich entschieden haben, die Lizenzdateien mit Speicherkapazität nicht im Rahmen der Bereitstellung des ONTAP Select Clusters zu installieren, müssen Sie die Lizenzdateien erwerben und installieren, bevor die Nachfrist für Cluster abläuft, die mit einer erworbenen Lizenz ausgeführt werden.
+
+.Gespiegelte Aggregate
+Das Deploy-Verwaltungsprogramm erstellt auf jedem ONTAP Select Knoten Ersatzfestplatten aus dem verfügbaren Datenspeicherplatz (z. B. Pool0 und Pool1). Um Hochverfügbarkeit für Ihre Daten in einem Multi-Node-Cluster zu erreichen, müssen Sie mithilfe dieser Ersatzfestplatten ein gespiegeltes Aggregat erstellen.
+
+
+NOTE: Die Übernahme hoher Verfügbarkeit wird nur unterstützt, wenn Datenaggregate als gespiegelte Aggregate konfiguriert sind.

@@ -1,0 +1,119 @@
+---
+sidebar: sidebar 
+permalink: task_cli_migrate_deploy.html 
+keywords: administer, administering, cli, deploy, deploy instance, migrate 
+summary: Sie können eine vorhandene Instanz des Deploy-Verwaltungsprogramms mithilfe der Befehlszeilenschnittstelle auf eine neue virtuelle Maschine migrieren. 
+---
+= Migrieren Sie eine ONTAP Select Deploy-Instanz auf eine neue virtuelle Maschine
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können eine vorhandene Instanz des Deploy-Verwaltungsprogramms mithilfe der Befehlszeilenschnittstelle auf eine neue virtuelle Maschine migrieren.
+
+Dieses Verfahren basiert auf der Erstellung einer neuen virtuellen Maschine, die die Konfigurationsdaten der ursprünglichen virtuellen Maschine verwendet. Die neue und die ursprüngliche virtuelle Maschine müssen dieselbe Version und dasselbe Release des Bereitstellungsprogramms ausführen. Eine Migration auf eine andere Version und ein anderes Release des Bereitstellungsprogramms ist nicht möglich.
+
+
+
+== Schritt 1: Sichern Sie die Bereitstellungskonfigurationsdaten.
+
+Im Rahmen der Migration der virtuellen Maschine müssen Sie eine Sicherungskopie der Deploy-Konfigurationsdaten erstellen. Auch nach der Bereitstellung eines ONTAP Select Clusters sollten Sie eine Sicherungskopie erstellen. Die Daten werden in einer einzigen verschlüsselten Datei gespeichert, die Sie auf Ihre lokale Workstation herunterladen können.
+
+.Bevor Sie beginnen
+* Stellen Sie sicher, dass Deploy während des Sicherungsvorgangs keine anderen Aufgaben ausführt.
+* Speichern Sie das ursprüngliche Deploy-Image der virtuellen Maschine.
++
+
+CAUTION: Das ursprüngliche Deploy-Image der virtuellen Maschine wird später in diesem Verfahren benötigt, wenn Sie die Deploy-Konfigurationsdaten vom Original auf der neuen virtuellen Maschine wiederherstellen.
+
+
+
+.Informationen zu diesem Vorgang
+Die von Ihnen erstellte Sicherungsdatei erfasst alle Konfigurationsdaten der virtuellen Maschine. Diese Daten beschreiben Aspekte Ihrer Bereitstellungsumgebung, einschließlich der ONTAP Select Cluster.
+
+.Schritte
+. Sign in mit dem Administratorkonto per SSH bei der CLI des Bereitstellungsdienstprogramms an.
+. Erstellen Sie eine Sicherungskopie der Deploy-Konfigurationsdaten, die in einem internen Verzeichnis auf dem Deploy-Server gespeichert werden:
++
+[source, cli]
+----
+deploy backup create
+----
+. Geben Sie bei der entsprechenden Aufforderung ein Kennwort für die Sicherung ein.
++
+Die Sicherungsdatei wird anhand des Kennworts verschlüsselt.
+
+. Anzeige der im System verfügbaren Backups:
++
+[source, cli]
+----
+deploy backup show -detailed
+----
+. Wählen Sie Ihre Sicherungsdatei basierend auf dem Datum im Feld *Erstellt* aus und notieren Sie den Wert *Download-URL*.
++
+Sie können über die URL auf die Sicherungsdatei zugreifen.
+
+. Laden Sie die Sicherungsdatei mithilfe eines Webbrowsers oder Dienstprogramms wie Curl mit der URL auf Ihre lokale Arbeitsstation herunter.
+
+
+
+
+== Schritt 2: Installieren Sie eine neue Instanz der virtuellen Maschine „Deploy“.
+
+Sie müssen eine neue Instanz der virtuellen Deploy-Maschine erstellen, die Sie mit den Konfigurationsdaten der ursprünglichen virtuellen Maschine aktualisieren können.
+
+.Bevor Sie beginnen
+Sie müssen mit den Verfahren zum Herunterladen und Bereitstellen der virtuellen ONTAP Select Deploy-Maschine in einer VMware-Umgebung vertraut sein.
+
+.Informationen zu diesem Vorgang
+Diese Aufgabe wird auf hoher Ebene beschrieben.
+
+.Schritte
+. Erstellen Sie eine neue Instanz der virtuellen Deploy-Maschine:
++
+.. Laden Sie das Image der virtuellen Maschine herunter.
+.. Stellen Sie die virtuelle Maschine bereit und konfigurieren Sie die Netzwerkschnittstelle.
+.. Greifen Sie per SSH auf das Bereitstellungsprogramm zu.
+
+
+
+
+.Ähnliche Informationen
+link:task_install_deploy.html["Installieren Sie ONTAP Select Deploy"]
+
+
+
+== Schritt 3: Wiederherstellung der Bereitstellungskonfigurationsdaten auf der neuen virtuellen Maschine
+
+Sie müssen die Konfigurationsdaten der ursprünglichen virtuellen Maschine mit dem Bereitstellungsdienstprogramm auf der neuen virtuellen Maschine wiederherstellen. Die Daten befinden sich in einer einzelnen Datei, die Sie von Ihrer lokalen Arbeitsstation hochladen müssen.
+
+.Bevor Sie beginnen
+Sie benötigen die Konfigurationsdaten aus einer vorherigen Sicherung. Die Daten sind in einer einzigen Datei enthalten und müssen auf Ihrer lokalen Arbeitsstation verfügbar sein.
+
+.Schritte
+. Verwenden Sie in einer Befehlsshell auf Ihrer lokalen Workstation das Dienstprogramm sftp, um die Sicherungsdatei auf die virtuelle Maschine „Deploy“ hochzuladen, wie im folgenden Beispiel gezeigt:
++
+....
+sftp admin@10.234.81.101 (provide password when prompted)
+put deploy_backup_20190601162151.tar.gz
+exit
+....
+. Sign in mit dem Administratorkonto per SSH bei der CLI des Bereitstellungsdienstprogramms an.
+. Konfigurationsdaten wiederherstellen:
++
+[source, cli]
+----
+deploy backup restore -path <path_name> -filename <file_name>
+----
++
+Beispielbefehl
+
++
+`deploy backup restore -path /home/admin -filename deploy_backup_20180601162151.tar.gz`
+
+

@@ -1,0 +1,86 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_vcenter.html 
+keywords: plan, planning, vmware vcenter, vcenter server, vcenter 
+summary: Es gibt mehrere Planungsanforderungen im Zusammenhang mit VMware vCenter, die Sie berücksichtigen sollten. 
+---
+= ONTAP Select den VMware vCenter-Server auf ESXi aus
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie müssen ein vCenter-Serverkonto definieren und es einer Rolle zuordnen, die die erforderlichen Administratorrechte enthält.
+
+
+NOTE: Sie benötigen außerdem den vollqualifizierten Domänennamen oder die IP-Adresse des vCenter-Servers, der die ESXi-Hypervisor-Hosts verwaltet, auf denen ONTAP Select bereitgestellt wird.
+
+
+
+== Administratorrechte
+
+Die zum Erstellen und Verwalten eines ONTAP Select Clusters erforderlichen Mindestadministratorrechte werden unten aufgeführt.
+
+
+
+=== Datenspeicher
+
+* Speicherplatz zuweisen
+* Datenspeicher durchsuchen
+* Dateivorgänge auf niedriger Ebene
+* Aktualisieren der Dateien der virtuellen Maschine
+* Aktualisieren der Metadaten virtueller Maschinen
+
+
+
+
+=== Gastgeber
+
+Konfiguration::
++
+--
+* Netzwerkkonfiguration
+* Systemverwaltung
+
+
+--
+Lokale Operationen::
++
+--
+* Erstellen einer virtuellen Maschine
+* Virtuelle Maschine löschen
+* Virtuelle Maschine neu konfigurieren
+
+
+--
+
+
+
+
+=== Netzwerk
+
+* Netzwerk zuweisen
+
+
+
+
+=== Virtuelle Maschine
+
+Konfiguration:: Alle Berechtigungen in der Kategorie.
+Interaktion:: Alle Berechtigungen in der Kategorie.
+Inventar:: Alle Berechtigungen in der Kategorie.
+Bereitstellung:: Alle Berechtigungen in der Kategorie.
+
+
+
+
+=== vApp
+
+Alle Berechtigungen in der Kategorie.
+
+.Ähnliche Informationen
+link:https://docs.netapp.com/us-en/ontap-select/reference_plan_dep_vmware.html#ontap-select-deploy-vmware-vcenter-server-considerations["Erfahren Sie mehr über VMware vSphere-Berechtigungen für vSAN ESA in vCenter"]

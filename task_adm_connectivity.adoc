@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: task_adm_connectivity.html 
+keywords: administer, administering, web, connectivity, network connectivity, network checker 
+summary: Sie können die Netzwerkkonnektivität zwischen zwei oder mehr ONTAP Select Knoten im internen Cluster-Netzwerk testen. Normalerweise führen Sie diesen Test vor der Bereitstellung eines Multi-Node-Clusters durch, um Probleme zu erkennen, die zu einem Fehlschlagen des Vorgangs führen können. 
+---
+= Bestätigen Sie die Konnektivität zwischen den ONTAP Select Knoten
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können die Netzwerkkonnektivität zwischen zwei oder mehr ONTAP Select Knoten im internen Cluster-Netzwerk testen. Normalerweise führen Sie diesen Test vor der Bereitstellung eines Multi-Node-Clusters durch, um Probleme zu erkennen, die zu einem Fehlschlagen des Vorgangs führen können.
+
+.Bevor Sie beginnen
+Alle im Test enthaltenen ONTAP Select Knoten müssen konfiguriert und eingeschaltet sein.
+
+.Informationen zu diesem Vorgang
+Bei jedem Teststart wird im Hintergrund ein neuer Prozesslauf erstellt und mit einer eindeutigen Laufkennung versehen. Es kann immer nur ein Lauf aktiv sein.
+
+Der Test verfügt über zwei Modi, die seinen Betrieb steuern:
+
+* Schnell: Dieser Modus führt einen grundlegenden, unterbrechungsfreien Test durch. Es wird ein PING-Test sowie ein Test der Netzwerk-MTU-Größe und des vSwitch durchgeführt.
+* Erweitert: Dieser Modus führt einen umfassenderen Test aller redundanten Netzwerkpfade durch. Wenn Sie diesen Modus auf einem aktiven ONTAP Select Cluster ausführen, kann dies die Leistung des Clusters beeinträchtigen.
+
+
+
+NOTE: Es wird empfohlen, vor dem Erstellen eines Clusters mit mehreren Knoten immer einen Schnelltest durchzuführen. Nach erfolgreichem Abschluss des Schnelltests können Sie optional einen erweiterten Test basierend auf Ihren Produktionsanforderungen durchführen.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Klicken Sie oben auf der Seite auf die Registerkarte *Administration* und dann auf *Netzwerkprüfung*.
+. Klicken Sie auf *Neuen Lauf starten* und wählen Sie die Hosts und Netzwerke für das HA-Paar aus
++
+Sie können bei Bedarf zusätzliche HA-Paare hinzufügen und konfigurieren.
+
+. Klicken Sie auf *Start*, um den Netzwerkkonnektivitätstest zu beginnen.
+

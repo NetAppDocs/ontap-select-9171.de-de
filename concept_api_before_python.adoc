@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: concept_api_before_python.html 
+keywords: rest api, deploy rest api, rest, python, before you begin 
+summary: Sie müssen die Umgebung vorbereiten, bevor Sie die Python-Beispielskripts ausführen. 
+---
+= Bevor Sie auf die ONTAP Select Deploy API mit Python zugreifen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie müssen die Umgebung vorbereiten, bevor Sie die Python-Beispielskripts ausführen.
+
+Bevor Sie die Python-Skripte ausführen, müssen Sie sicherstellen, dass die Umgebung richtig konfiguriert ist:
+
+* Die neueste Version von Python2 muss installiert sein. Die Beispielcodes wurden mit Python2 getestet. Sie sollten auch auf Python3 portierbar sein, wurden jedoch nicht auf Kompatibilität getestet.
+* Die Bibliotheken Requests und urllib3 müssen installiert sein. Sie können je nach Umgebung pip oder ein anderes Python-Verwaltungstool verwenden.
+* Die Client-Workstation, auf der die Skripte ausgeführt werden, muss über Netzwerkzugriff auf die virtuelle ONTAP Select Deploy-Maschine verfügen.
+
+
+Darüber hinaus müssen Sie über folgende Informationen verfügen:
+
+* IP-Adresse der virtuellen Deploy-Maschine
+* Benutzername und Kennwort eines Deploy-Administratorkontos
+

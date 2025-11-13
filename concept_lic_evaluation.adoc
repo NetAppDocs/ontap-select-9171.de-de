@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_evaluation.html 
+keywords: license, licensing, evaluation, upgrade license 
+summary: Sie können eine Testlizenz verwenden, wenn Sie ONTAP Select vor dem Kauf testen möchten. Die Testlizenz ist im Verwaltungsdienstprogramm ONTAP Select Deploy enthalten und wird im Rahmen einer Testbereitstellung automatisch auf jeden ONTAP Select Knoten angewendet. 
+---
+= Evaluierungslizenzen für ONTAP Select Bereitstellungen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können ONTAP Select mit einer Testlizenz oder einer gekauften Lizenz bereitstellen. Die gewählte Lizenz muss für jeden Knoten im ONTAP Select Cluster und somit für den gesamten Cluster gelten. Sie können eine Testlizenz verwenden, wenn Sie ONTAP Select vor dem Kauf testen möchten. Die Testlizenz ist im Verwaltungsdienstprogramm ONTAP Select Deploy enthalten und wird im Rahmen einer Testbereitstellung automatisch auf jeden ONTAP Select Knoten angewendet.
+
+[NOTE]
+====
+Zum Herunterladen des ONTAP Select Deploy-Verwaltungsprogramms benötigen Sie Folgendes:
+
+* Ein registriertes NetApp Support Site-Konto. Falls Sie noch kein Konto haben, siehe https://mysupport.netapp.com/site/user/registration["Benutzerregistrierung"^] Die
+* Zu https://mysupport.netapp.com/site/downloads/evaluation/ontap-select["Akzeptieren Sie die Endbenutzer-Lizenzvereinbarung"^] für eine ONTAP Select Bereitstellung mit einer Evaluierungslizenz.
+
+
+====
+Bei der Bereitstellung und Unterstützung eines Evaluierungsclusters sind mehrere Aspekte zu berücksichtigen:
+
+* Sie können den Cluster nur zu Evaluierungszwecken verwenden. Sie dürfen einen Cluster mit einer Evaluierungslizenz nicht in einer Produktionsumgebung verwenden.
+* Sie sollten das Verwaltungsdienstprogramm ONTAP Select Deploy beim Konfigurieren der einzelnen Hosts wie folgt verwenden:
++
+** Geben Sie keine Seriennummer an
+** Konfigurieren Sie die Verwendung einer Evaluierungslizenz
+
+
+
+
+
+
+== Lizenzierungsmerkmale
+
+Die ONTAP Select Evaluierungslizenz weist die folgenden Merkmale auf:
+
+* Eine Produktionslizenz mit Speicherkapazität ist nicht erforderlich
+* Die Knotenseriennummer ist zwanzigstellig und wird automatisch von ONTAP Select Deploy generiert
++
+(Sie erwerben es nicht direkt von NetApp)
+
+* Der von der Lizenz bereitgestellte Evaluierungszeitraum kann bis zu 90 Tage betragen
+* Der maximale Speicher, der jedem Knoten zugewiesen wird, entspricht einer Produktionslizenz
+
+
+
+
+== Upgrade auf eine Produktionslizenz
+
+Sie können einen ONTAP Select Evaluation-Cluster auf eine Produktionslizenz upgraden. Beachten Sie dabei die folgenden Einschränkungen:
+
+* Sie müssen das Deploy-Verwaltungsprogramm verwenden, um das Lizenz-Upgrade durchzuführen
+* Sie können eine Capacity Tier-Lizenz verwenden, die Lizenzierung von Capacity Pools wird jedoch nicht unterstützt.
+* Jedem Knoten muss ausreichend Speicherplatz zugewiesen sein, um das für eine Produktionslizenz erforderliche Minimum basierend auf der Clustergröße zu unterstützen.
+
+
+Sehenlink:task_adm_licenses.html["Konvertieren einer Evaluierungslizenz in eine Produktionslizenz"] für weitere Informationen.
+
+.Ähnliche Informationen
+* link:concept_lic_production.html["Erfahren Sie mehr über Lizenzen für Produktionsbereitstellungen"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["Stellen Sie eine 90-tägige Testinstanz eines ONTAP Select Clusters bereit"]
+

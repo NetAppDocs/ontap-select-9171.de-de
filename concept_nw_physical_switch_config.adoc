@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: concept_nw_physical_switch_config.html 
+keywords: ontap select, upstream physical switch configuration 
+summary: Details zur Konfiguration des physischen Upstream-Switches basierend auf Umgebungen mit einem oder mehreren Switches. 
+---
+= ONTAP Select physische Switch-Konfiguration
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Details zur Konfiguration des physischen Upstream-Switches basierend auf Umgebungen mit einem oder mehreren Switches.
+
+Bei der Auswahl der Konnektivität von der virtuellen Switch-Ebene zu physischen Switches ist sorgfältige Überlegung erforderlich. Die Trennung des internen Cluster-Verkehrs von externen Datendiensten sollte durch die Isolation von Layer-2-VLANs bis zur vorgelagerten physischen Netzwerkebene reichen.
+
+Physische Switch-Ports sollten als Trunkports konfiguriert werden. Der externe ONTAP Select Verkehr kann auf zwei Arten über mehrere Layer-2-Netzwerke verteilt werden. Eine Methode ist die Verwendung von ONTAP VLAN-getaggten virtuellen Ports mit einer einzigen Portgruppe. Die andere Methode besteht darin, dem Management-Port e0a separate Portgruppen im VST-Modus zuzuweisen. Je nach ONTAP Select Version und Einzel- oder Mehrknotenkonfiguration müssen Sie auch Datenports e0b und e0c/e0g zuweisen. Wenn der externe Verkehr über mehrere Layer-2-Netzwerke verteilt ist, sollten die physischen Uplink-Switch-Ports diese VLANs in der Liste der zulässigen VLANs enthalten.
+
+Der interne Netzwerkverkehr von ONTAP Select erfolgt über virtuelle Schnittstellen, die mit lokalen Link-IP-Adressen definiert sind. Da diese IP-Adressen nicht routingfähig sind, muss der interne Datenverkehr zwischen Clusterknoten über ein einzelnes Layer-2-Netzwerk fließen. Routensprünge zwischen ONTAP Select Clusterknoten werden nicht unterstützt.
+
+
+
+== Gemeinsam genutzter physischer Switch
+
+Die folgende Abbildung zeigt eine mögliche Switch-Konfiguration, die von einem Knoten in einem ONTAP Select Cluster mit mehreren Knoten verwendet wird. In diesem Beispiel sind die physischen Netzwerkkarten der vSwitches, die sowohl die internen als auch die externen Netzwerkportgruppen hosten, mit demselben Upstream-Switch verbunden. Der Switch-Verkehr wird durch Broadcast-Domänen in separaten VLANs isoliert.
+
+
+NOTE: Für das interne ONTAP Select Netzwerk erfolgt die Kennzeichnung auf Portgruppenebene. Während im folgenden Beispiel VGT für das externe Netzwerk verwendet wird, werden in dieser Portgruppe sowohl VGT als auch VST unterstützt.
+
+*Netzwerkkonfiguration mit gemeinsam genutztem physischen Switch*
+
+image:DDN_06.jpg["Netzwerkkonfiguration mit gemeinsam genutztem physischen Switch"]
+
+
+NOTE: In dieser Konfiguration wird der gemeinsam genutzte Switch zum Single Point of Failure. Wenn möglich, sollten mehrere Switches verwendet werden, um zu verhindern, dass ein physischer Hardwarefehler einen Ausfall des Clusternetzwerks verursacht.
+
+
+
+== Mehrere physische Schalter
+
+Wenn Redundanz erforderlich ist, sollten mehrere physische Netzwerk-Switches verwendet werden. Die folgende Abbildung zeigt eine empfohlene Konfiguration für einen Knoten in einem ONTAP Select Cluster mit mehreren Knoten. NICs der internen und externen Portgruppen sind an verschiedene physische Switches angeschlossen, um den Benutzer vor dem Ausfall eines einzelnen Hardware-Switches zu schützen. Zwischen den Switches wird ein virtueller Portkanal konfiguriert, um Spanning-Tree-Probleme zu vermeiden.
+
+*Netzwerkkonfiguration mit mehreren physischen Switches*
+
+image:DDN_07.jpg["Netzwerkkonfiguration mit mehreren physischen Switches"]

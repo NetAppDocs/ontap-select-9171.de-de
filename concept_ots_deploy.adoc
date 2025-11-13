@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: concept_ots_deploy.html 
+keywords: ontap select deploy, deploy administration utility, deploy utility, functionality, accessing 
+summary: ONTAP Select Deploy ist das Verwaltungsdienstprogramm zum Bereitstellen und Verwalten von ONTAP Select Clustern. 
+---
+= ONTAP Select Bereitstellung
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select Deploy ist das Verwaltungsdienstprogramm zum Bereitstellen und Verwalten von ONTAP Select Clustern. Deploy ist als virtuelle Linux-Maschine verpackt, die Sie vor dem Erstellen eines ONTAP Select Clusters installieren müssen.
+
+
+
+== Kernfunktionalität
+
+Das Deploy-Verwaltungsprogramm führt die folgenden Kernfunktionen aus:
+
+* Notieren Sie die Details jedes Hypervisor-Hosts, auf dem ONTAP Select bereitgestellt wird.
+* Konfigurieren Sie die Hosts und installieren Sie die erforderlichen Lizenzen
+* Bereitstellen und Verwalten der ONTAP Select Cluster
+* Verwalten Sie ein Inventar der ONTAP Select -Cluster und -Hosts
+* Sammeln und senden Sie AutoSupport -Daten an NetApp
+* Verwalten Sie einen internen Satz von ONTAP Select Knotenbildern
+* Unterstützung der Hypervisor-spezifischen Befehlsformate und Protokolle
+
+
+
+
+== Möglichkeiten für den Zugriff auf das Bereitstellungsdienstprogramm
+
+Für den Zugriff auf das Deploy-Verwaltungsprogramm stehen Ihnen mehrere Optionen zur Verfügung. Alle externen Schnittstellen sind funktional gleichwertig. Wählen Sie die Zugriffsoption, die Ihren spezifischen Bereitstellungszielen und -anforderungen am besten entspricht. In jedem Fall müssen Sie sich mit dem Administratorkonto und einem gültigen Kennwort anmelden.
+
+
+
+=== Grafische Web-Benutzeroberfläche
+
+Sie können über einen modernen Webbrowser auf das Bereitstellungsprogramm zugreifen. Die Web-UI bietet eine intuitive und benutzerfreundliche Oberfläche und ist in den meisten Fällen Ihre primäre Schnittstelle bei der Verwendung des Dienstprogramms.
+
+
+
+=== Befehlszeilenschnittstelle
+
+Über die Verwaltungsshell steht eine textbasierte Befehlszeilenschnittstelle zur Verfügung. Sie können auf die CLI-Verwaltungsshell folgendermaßen zugreifen:
+
+* Sichere Shell (SSH)
+* Konsole der virtuellen Maschine
+
+
+Normalerweise verwenden Sie die Konsole der virtuellen Maschine im Rahmen der Installation und Erstkonfiguration. In den meisten Fällen ist SSH jedoch eine flexiblere und bequemere Option.
+
+
+
+=== REST-Webdienst-API
+
+Die für externe Clients verfügbare REST-Webdienst-API bietet eine weitere Option für die Verbindung mit dem Bereitstellungsprogramm. Sie können mit jeder gängigen Programmiersprache oder jedem Tool, das REST-Webdienste unterstützt, auf die API zugreifen. Beliebte Optionen sind:
+
+* Python
+* Java
+* Locken
+
+
+Durch die Verwendung einer Programmier- oder Skriptsprache können Sie die Bereitstellung und Verwaltung der ONTAP Select Cluster automatisieren.
+
+
+
+=== ONTAP Select Online-Dokumentationswebseite
+
+Die Anzeige der Online-Dokumentationswebseite im Bereitstellungsprogramm ist eine alternative Möglichkeit, auf die REST-Webdienst-API zuzugreifen. Anstatt eine Programmiersprache zu verwenden, greifen Sie jedoch über einen Browser auf die Verwaltungs-API zu. Folgende Funktionen stehen zur Verfügung:
+
+* Eine detaillierte Beschreibung jedes Aufrufs in der REST-Webdienst-API
+* Die Möglichkeit, API-Aufrufe manuell auszuführen
+
+
+Sie können über die IP-Adresse oder den Domänennamen der Deploy-VM auf die Online-Dokumentationsseite zugreifen. Um die Seite anzuzeigen, geben Sie in Ihrem Browser eine URL im folgenden Format ein (ersetzen Sie dabei die IP-Adresse oder den Domänennamen durch die entsprechende Adresse Ihrer Deploy VM-Instanz): `\http://<ip_address>/api/ui`

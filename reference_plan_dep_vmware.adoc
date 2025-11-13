@@ -1,0 +1,126 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_dep_vmware.html 
+keywords: plan, planning, ontap select deploy, vmware requirements 
+summary: Es gibt mehrere Anforderungen und Einschränkungen, die speziell für die VMware-Umgebung gelten und die Sie berücksichtigen sollten, bevor Sie das Dienstprogramm ONTAP Select Deploy in einer VMware-Umgebung installieren. 
+---
+= Überlegungen zum ONTAP Select Deploy-Hypervisor-Host
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Es gibt mehrere Planungsaspekte im Zusammenhang mit dem Hypervisor-Host, die Sie berücksichtigen sollten.
+
+
+CAUTION: Sie sollten die Konfiguration einer virtuellen ONTAP Select Maschine nicht direkt ändern, es sei denn, Sie werden vom NetApp Support dazu aufgefordert. Eine virtuelle Maschine sollte ausschließlich über das Deploy-Administrationsdienstprogramm konfiguriert und geändert werden. Änderungen an einer virtuellen ONTAP Select Maschine außerhalb des Deploy-Dienstprogramms ohne Unterstützung des NetApp Supports können zum Ausfall der virtuellen Maschine führen und sie unbrauchbar machen.
+
+
+
+== Hypervisor-unabhängig
+
+Sowohl ONTAP Select als auch das Verwaltungsdienstprogramm ONTAP Select Deploy sind Hypervisor-unabhängig.
+
+Die folgenden Hypervisoren werden sowohl für ONTAP Select als auch für die ONTAP Select Deploy-Verwaltung unterstützt:
+
+* VMware ESXi
+* Kernelbasierte virtuelle Maschine (KVM)
+
+
+
+NOTE: Weitere Einzelheiten zu den unterstützten Plattformen finden Sie in den hypervisorspezifischen Planungsinformationen und Versionshinweisen.
+
+.Hypervisor für ONTAP Select Knoten und Verwaltungsdienstprogramm
+Sowohl das Deploy-Verwaltungsprogramm als auch die ONTAP Select Knoten werden als virtuelle Maschinen ausgeführt. Der für das Deploy-Dienstprogramm gewählte Hypervisor ist unabhängig vom Hypervisor für die ONTAP Select Knoten. Sie genießen bei der Kombination beider Systeme volle Flexibilität:
+
+* Das auf VMware ESXi ausgeführte Bereitstellungsprogramm kann ONTAP Select Cluster entweder auf VMware ESXi oder KVM erstellen und verwalten
+* Das auf KVM ausgeführte Bereitstellungsprogramm kann ONTAP Select Cluster entweder auf VMware ESXi oder KVM erstellen und verwalten
+
+
+.Eine oder mehrere Instanzen von ONTAP Select Knoten pro Host
+Jeder ONTAP Select Knoten wird als dedizierte virtuelle Maschine ausgeführt. Sie können mehrere Knoten auf demselben Hypervisor-Host erstellen, wobei die folgenden Einschränkungen gelten:
+
+* Mehrere Knoten eines einzelnen ONTAP Select Clusters können nicht auf demselben Host ausgeführt werden. Alle Knoten auf einem bestimmten Host müssen aus unterschiedlichen ONTAP Select Clustern stammen.
+* Sie müssen externen Speicher verwenden.
+* Wenn Sie Software-RAID verwenden, können Sie nur einen ONTAP Select Knoten auf dem Host bereitstellen.
+
+
+.Hypervisor-Konsistenz für die Knoten innerhalb eines Clusters
+Alle Hosts innerhalb eines ONTAP Select Clusters müssen mit derselben Version und demselben Release der Hypervisor-Software ausgeführt werden.
+
+.Anzahl der physischen Ports auf jedem Host
+Sie müssen jeden Host so konfigurieren, dass er einen, zwei oder vier physische Ports verwendet. Obwohl Sie bei der Konfiguration der Netzwerkports flexibel sind, sollten Sie nach Möglichkeit die folgenden Empfehlungen befolgen:
+
+* Ein Host in einem Einzelknotencluster sollte über zwei physische Ports verfügen.
+* Jeder Host in einem Multi-Node-Cluster sollte über vier physische Ports verfügen
+
+
+.Integrieren Sie ONTAP Select in einen hardwarebasierten ONTAP -Cluster
+Sie können einen ONTAP Select Knoten nicht direkt zu einem hardwarebasierten ONTAP Cluster hinzufügen. Sie können jedoch optional eine Cluster-Peering-Beziehung zwischen einem ONTAP Select Cluster und einem hardwarebasierten ONTAP Cluster herstellen.
+
+
+
+== VMware-Hypervisor-Umgebung
+
+Es gibt mehrere Anforderungen und Einschränkungen, die speziell für die VMware-Umgebung gelten und die Sie berücksichtigen sollten, bevor Sie das Dienstprogramm ONTAP Select Deploy in einer VMware-Umgebung installieren.
+
+.Hardwareanforderungen für ESXi-Hostserver
+Es gibt mehrere Mindestressourcenanforderungen, die Ihr ESXi-Hypervisor-Host erfüllen muss. Stellen Sie sicher, dass die Hosts, auf denen ONTAP Select bereitgestellt wird, die folgenden grundlegenden Anforderungen erfüllen:
+
+* ESXi-Server:
++
+** Hardware und Software müssen 64-Bit sein
+** Muss denselben unterstützten Versionen entsprechen, die für einen ONTAP Select Knoten definiert sind
+
+
+* Virtuelle CPUs (2)
+* Virtueller Speicher (4 GB)
+* Speicher (40 GB)
+* DHCP aktiviert (kann auch eine statische IP-Adresse zuweisen)
+
+
+.Netzwerkkonnektivität
+Stellen Sie sicher, dass die Netzwerkschnittstelle der virtuellen Maschine von ONTAP Select Deploy konfiguriert ist und über eine einzelne Verwaltungs-IP-Adresse verfügt. Sie können DHCP verwenden, um eine IP-Adresse dynamisch zuzuweisen, oder manuell eine statische IP-Adresse konfigurieren.
+
+Abhängig von Ihren Bereitstellungsentscheidungen muss die Bereitstellungs-VM eine Verbindung zum vCenter-Server, den ESXi-Hypervisor-Hosts und den von ihr verwalteten ONTAP Select -Knoten herstellen können. Sie müssen Ihre Firewalls so konfigurieren, dass der erforderliche Datenverkehr zugelassen wird.
+
+Deploy nutzt die VMware VIX API zur Kommunikation mit dem vCenter-Server und den ESXi-Hosts. Zunächst wird eine Verbindung per SOAP über SSL auf TCP-Port 443 hergestellt. Anschließend wird eine SSL-Verbindung auf Port 902 geöffnet. Zusätzlich führt Deploy PING-Befehle aus, um zu überprüfen, ob sich unter der angegebenen IP-Adresse ein ESXi-Host befindet.
+
+Deploy muss außerdem in der Lage sein, mithilfe der folgenden Protokolle mit den ONTAP Select Knoten- und Cluster-Management-IP-Adressen zu kommunizieren:
+
+* PING-Befehl (ICMP)
+* SSH (Port 22)
+* SSL (Port 443)
+
+
+.Unterstützung für IP-Version 4
+ONTAP Select Deploy unterstützt nur IP-Version 4 (IPv4). IP-Version 6 (IPv6) wird nicht unterstützt. Diese Einschränkung wirkt sich wie folgt auf ONTAP Select aus:
+
+* Sie müssen dem Verwaltungs-LIF der virtuellen Bereitstellungsmaschine eine IPv4-Adresse zuweisen.
+* Durch die Bereitstellung können keine ONTAP Select Knoten erstellt werden, die für die Verwendung von IPv6 auf den ONTAP LIFs konfiguriert sind.
+
+
+
+
+== Überlegungen zur Bereitstellung von ONTAP Select VMware vCenter-Servern
+
+
+
+=== VMware vSphere-Berechtigungen für ESA
+
+Im Folgenden sind die spezifischen Berechtigungen für die vSphere-Inhaltsbibliothek aufgeführt, die Sie zum Erstellen und Verwalten der vSAN Express Storage Architecture (ESA) in vCenter benötigen:
+
+* Bibliothekselement hinzufügen
+* Lokale Bibliothek erstellen
+* Bibliothekselement löschen
+* Lokale Bibliothek löschen
+* Lesespeicher
+* Dateien aktualisieren
+* Bibliothek aktualisieren
+* Bibliothekselement aktualisieren
+* Lokale Bibliothek aktualisieren
+

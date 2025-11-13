@@ -1,0 +1,119 @@
+---
+sidebar: sidebar 
+permalink: task_adm_clusters.html 
+keywords: administer, administering, web, clusters 
+summary: Zur Verwaltung eines ONTAP Select Clusters können Sie mehrere verwandte Aufgaben ausführen. 
+---
+= Verwalten von ONTAP Select Clustern
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Zur Verwaltung eines ONTAP Select Clusters können Sie mehrere verwandte Aufgaben ausführen.
+
+
+
+== Verschieben eines ONTAP Select Clusters offline und online
+
+Nachdem Sie einen Cluster erstellt haben, können Sie ihn nach Bedarf offline und online verschieben.
+
+.Bevor Sie beginnen
+Nachdem ein Cluster erstellt wurde, befindet er sich zunächst im Online-Status.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Klicken Sie oben auf der Seite auf die Registerkarte *Cluster* und wählen Sie den gewünschten Cluster aus der Liste aus.
+. Klickenimage:icon_kebab.gif["Optionen"] Rechts neben dem Cluster wählen Sie *Offline schalten*.
++
+Wenn die Offline-Option nicht verfügbar ist, befindet sich der Cluster bereits im Offline-Status.
+
+. Klicken Sie im Popup-Fenster auf *Ja*, um die Anfrage zu bestätigen.
+. Klicken Sie gelegentlich auf *Aktualisieren*, um zu bestätigen, dass der Cluster offline ist.
+. Um den Cluster wieder online zu bringen, klicken Sie hier.image:icon_kebab.gif["Optionen"] und wählen Sie *Online schalten*.
+. Klicken Sie gelegentlich auf *Aktualisieren*, um zu bestätigen, dass der Cluster online ist.
+
+
+
+
+== Löschen eines ONTAP Select Clusters
+
+Sie können einen ONTAP Select Cluster löschen, wenn er nicht mehr benötigt wird.
+
+.Bevor Sie beginnen
+Der Cluster muss sich im Offline-Zustand befinden.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Klicken Sie oben auf der Seite auf die Registerkarte *Cluster* und wählen Sie den gewünschten Cluster aus der Liste aus.
+. Klickenimage:icon_kebab.gif["Optionen"] Rechts neben dem Cluster und wählen Sie *Löschen*.
++
+Wenn die Löschoption nicht verfügbar ist, befindet sich der Cluster nicht im Offline-Zustand.
+
+. Klicken Sie gelegentlich auf *Aktualisieren*, um zu bestätigen, dass der Cluster aus der Liste entfernt wurde.
+
+
+
+
+== Aktualisieren Sie die Bereitstellungsclusterkonfiguration
+
+Nach der Erstellung eines ONTAP Select Clusters können Sie Änderungen am Cluster oder an der Konfiguration der virtuellen Maschine außerhalb des Deploy-Dienstprogramms mithilfe der ONTAP oder Hypervisor-Verwaltungstools vornehmen. Die Konfiguration einer virtuellen Maschine kann sich auch nach der Migration ändern.
+
+Wenn diese Änderungen am Cluster oder an der virtuellen Maschine auftreten, wird die Konfigurationsdatenbank des Deploy-Dienstprogramms nicht automatisch aktualisiert und kann daher nicht mehr mit dem Status des Clusters synchronisiert sein. In diesen und anderen Situationen sollten Sie eine Clusteraktualisierung durchführen, um die Deploy-Datenbank basierend auf dem aktuellen Status des Clusters zu aktualisieren.
+
+.Bevor Sie beginnen
+Erforderliche Informationen:: Sie müssen über die aktuellen Konfigurationsinformationen für den Cluster verfügen, einschließlich:
++
+--
+* ONTAP Administratoranmeldeinformationen
+* IP-Adresse für die Clusterverwaltung
+* Namen der Knoten im Cluster
+
+
+--
+Stabiler Clusterzustand:: Der Cluster muss sich in einem stabilen Zustand befinden. Sie können einen Cluster nicht aktualisieren, wenn er gerade erstellt oder gelöscht wird oder wenn er sich im Zustand _create_failed_ oder _delete_failed_ befindet.
+Nach einer VM-Migration:: Nachdem eine virtuelle Maschine mit ONTAP Select migriert wurde, müssen Sie mit dem Deploy-Dienstprogramm einen neuen Host erstellen, bevor Sie eine Clusteraktualisierung durchführen.
+
+
+.Informationen zu diesem Vorgang
+Sie können eine Clusteraktualisierung durchführen, um die Deploy-Konfigurationsdatenbank über die Webbenutzeroberfläche zu aktualisieren.
+
+
+NOTE: Anstatt die Bereitstellungs-UI zu verwenden, können Sie den Befehl „Cluster aktualisieren“ in der Bereitstellungs-CLI-Shell verwenden, um einen Cluster zu aktualisieren.
+
+Cluster- und virtuelle Maschinenkonfiguration:: Zu den Konfigurationswerten, die sich ändern und dazu führen können, dass die Deploy-Datenbank nicht mehr synchron ist, gehören:
++
+--
+* Cluster- und Knotennamen
+* ONTAP Netzwerkkonfiguration
+* ONTAP -Version (nach einem Upgrade)
+* Namen virtueller Maschinen
+* Host-Netzwerknamen
+* Speicherpoolnamen
+
+
+--
+Cluster- und Knotenzustände:: Ein ONTAP Select Cluster oder Knoten kann sich in einem Zustand befinden, der den ordnungsgemäßen Betrieb verhindert. Führen Sie eine Clusteraktualisierung durch, um die folgenden Bedingungen zu beheben:
++
+--
+* Knoten im _unbekannten_ Zustand. Ein ONTAP Select Knoten kann sich aus mehreren Gründen im _unbekannten_ Zustand befinden, unter anderem, wenn der Knoten nicht gefunden wird.
+* Cluster im Zustand „degradiert“: Wenn ein Knoten ausgeschaltet ist, kann es sein, dass er im Bereitstellungsprogramm immer noch online erscheint. In diesem Fall befindet sich der Cluster im Zustand „degradiert“.
+
+
+--
+
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Klicken Sie oben links auf der Seite auf die Registerkarte *Cluster* und wählen Sie den gewünschten Cluster aus der Liste aus.
+. Klickenimage:icon_kebab.gif["Optionen"] Auf der rechten Seite der Seite wählen Sie *Cluster aktualisieren*.
+. Geben Sie unter *Cluster-Anmeldeinformationen* das ONTAP -Administratorkennwort für den Cluster ein.
+. Klicken Sie auf *Aktualisieren*.
+
+
+.Nach Abschluss
+Wenn der Vorgang erfolgreich ist, wird das Feld „Letzte Aktualisierung“ aktualisiert. Sie sollten die Bereitstellungskonfigurationsdaten nach Abschluss der Clusteraktualisierung sichern.

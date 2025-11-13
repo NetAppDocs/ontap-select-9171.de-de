@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: task_cli_deploy_image_remove.html 
+keywords: administer, administering, cli, deploy, ontap select image, remove 
+summary: Sie können ONTAP Select Images aus Ihrer Instanz des Deploy-Verwaltungsprogramms entfernen, wenn sie nicht mehr benötigt werden. 
+---
+= Entfernen eines ONTAP Select Images aus Deploy
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können ONTAP Select Images aus Ihrer Instanz des Deploy-Verwaltungsprogramms entfernen, wenn sie nicht mehr benötigt werden.
+
+
+CAUTION: Sie sollten keine ONTAP Select Images entfernen, die von einem Cluster verwendet werden.
+
+.Informationen zu diesem Vorgang
+Sie können ältere ONTAP Select Images entfernen, die derzeit nicht von einem Cluster verwendet werden oder für die Verwendung bei einer zukünftigen Clusterbereitstellung geplant sind.
+
+.Schritte
+. Sign in .
+. Zeigen Sie die von Deploy verwalteten Cluster an und zeichnen Sie die verwendeten ONTAP -Images auf:
++
+[source, cli]
+----
+cluster show
+----
++
+Notieren Sie sich jeweils die Versionsnummer und die Hypervisor-Plattform.
+
+. Starten Sie die Bash-Shell:
++
+[source, cli]
+----
+shell bash
+----
+. Alle verfügbaren ONTAP Select Images anzeigen:
++
+[source, cli]
+----
+ls -lh /opt/netapp/images
+----
+. Entfernen Sie optional das ONTAP Select Image mit Ihrem Hypervisor-Host.
++
+[role="tabbed-block"]
+====
+.ESXi-Beispiel
+--
+[source, asciidoc]
+----
+rm -r /opt/netapp/images/DataONTAPv-9.3RC1-vidconsole-esx.ova
+----
+--
+.KVM-Beispiel
+--
+[source, asciidoc]
+----
+rm -r /opt/netapp/images/DataONTAPv-9.3RC1-serialconsole-kvm.raw.tar
+----
+--
+====
+

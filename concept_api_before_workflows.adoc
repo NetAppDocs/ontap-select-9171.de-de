@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: concept_api_before_workflows.html 
+keywords: rest api, deploy rest api, rest, workflows, before you begin 
+summary: Sie sollten sich darauf vorbereiten, die Workflow-Prozesse zu überprüfen und zu verwenden. 
+---
+= Bevor Sie die ONTAP Select Deploy API-Workflows verwenden
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie sollten sich darauf vorbereiten, die Workflow-Prozesse zu überprüfen und zu verwenden.
+
+
+
+== Verstehen Sie die in den Workflows verwendeten API-Aufrufe
+
+Die Online-Dokumentationsseite von ONTAP Select enthält die Details jedes REST-API-Aufrufs. Anstatt diese Details hier zu wiederholen, enthält jeder in den Workflow-Beispielen verwendete API-Aufruf nur die Informationen, die Sie zum Auffinden des Aufrufs auf der Dokumentationsseite benötigen. Nachdem Sie einen bestimmten API-Aufruf gefunden haben, können Sie die vollständigen Details des Aufrufs überprüfen, einschließlich der Eingabeparameter, Ausgabeformate, HTTP-Statuscodes und des Anfrageverarbeitungstyps.
+
+Die folgenden Informationen sind für jeden API-Aufruf innerhalb eines Workflows enthalten, um das Auffinden des Aufrufs auf der Dokumentationsseite zu erleichtern:
+
+* Kategorie Die API-Aufrufe sind auf der Dokumentationsseite in funktional verwandte Bereiche oder Kategorien unterteilt. Um einen bestimmten API-Aufruf zu finden, scrollen Sie zum Ende der Seite und klicken Sie auf die entsprechende API-Kategorie.
+* HTTP-Verb: Das HTTP-Verb identifiziert die für eine Ressource ausgeführte Aktion. Jeder API-Aufruf wird über ein einzelnes HTTP-Verb ausgeführt.
+* Pfad: Der Pfad bestimmt die spezifische Ressource, auf die die Aktion im Rahmen eines Aufrufs angewendet wird. Die Pfadzeichenfolge wird an die Kern-URL angehängt, um die vollständige URL zur Identifizierung der Ressource zu bilden.
+
+
+
+
+== Erstellen Sie eine URL für den direkten Zugriff auf die REST-API
+
+Zusätzlich zur ONTAP Select Dokumentationsseite können Sie auch direkt über eine Programmiersprache wie Python auf die Deploy REST API zugreifen. In diesem Fall unterscheidet sich die Kern-URL geringfügig von der URL, die beim Zugriff auf die Online-Dokumentationsseite verwendet wird. Beim direkten Zugriff auf die API müssen Sie /api an die Domänen- und Portzeichenfolge anhängen. Zum Beispiel:
+`\http://deploy.mycompany.com/api`

@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_workflow.html 
+keywords: license, licensing, purchase, purchasing, workflow 
+summary: Sie können einem Workflow folgen, um eine Lizenz für Ihre ONTAP Select Bereitstellung zu erwerben und anzuwenden. 
+---
+= Workflow beim Kauf einer ONTAP Select Lizenz
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Der folgende Workflow veranschaulicht den Kauf und die Beantragung einer Lizenz für Ihre ONTAP Select Bereitstellung. Beim Kauf einer Lizenz müssen Sie das Lizenzmodell und die Speicherkapazität auswählen.
+
+Der genaue Vorgang hängt davon ab, ob Sie eine Capacity Tier- oder eine Capacity Pool-Lizenz verwenden:
+
+Neunstellige Lizenzseriennummer:: Die Seriennummer gilt entweder für einen Knoten (Kapazitätsstufen) oder einen Speicherpool (Kapazitätspools).
+Lizenzsperr-ID:: Sie müssen über die Lizenzsperr-ID für Ihre Deploy-Instanz verfügen, wenn Sie eine Capacity Pool-Lizenz verwenden
+Lizenzierungswebsite:: Sie erhalten eine Capacity Tier- und Capacity Pool-Lizenz auf verschiedenen Websites
+
+
+image:purchased_license_workflow.png["Beschreibt den Prozess zum Erwerb und zur Installation einer Speicherlizenz für eine ONTAP Select Produktionsbereitstellung."]
+
+.Ähnliche Informationen
+link:task_adm_licenses.html["ONTAP Select Lizenzen"]

@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_kvm.html 
+keywords: plan, planning, vnas, kvm 
+summary: Bei der Verwendung des KVM-Hypervisors gibt es mehrere Planungsaspekte, die Sie berücksichtigen sollten. 
+---
+= ONTAP Select KVM-Anforderungen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können ONTAP Select auf dem KVM-Hypervisor mit einem externen Speicher-Array konfigurieren.
+
+
+
+== Grundlegende Anforderungen und Einschränkungen
+
+Wenn Sie ein externes Array für die ONTAP Select Speicherpools verwenden, gelten die folgenden Konfigurationseinschränkungen:
+
+* Sie müssen den logischen Pooltyp mithilfe von CLVM definieren.
+* Sie müssen eine Speicherkapazitätsgrenze angeben.
+* Die Konfiguration unterstützt nur die Protokolle FC, Fibre Channel over Ethernet (FCoE) und iSCSI.
+* Die Konfiguration erkennt keinen Thin Provisioning-Speicher.
+
+
+
+CAUTION: Die angegebene Speicherkapazität muss innerhalb der zulässigen Speichergrenzen des externen Speichers liegen. Wenn Sie keine Kapazitätsgrenze angeben oder während der Datenträgererstellung nicht genügend Speicherplatz auf dem externen Speicher vorhanden ist, tritt ein Fehler auf.
+
+
+
+== Best Practices
+
+Sie sollten die folgenden Empfehlungen einhalten:
+
+* Definieren Sie dedizierte Netzwerkports, Bandbreite und vSwitch-Konfigurationen für die ONTAP Select Netzwerke und den externen Speicher
+* Konfigurieren Sie die Kapazitätsoption, um die Speichernutzung einzuschränken (ONTAP Select kann nicht die gesamte Kapazität eines externen Speicherpools nutzen).
+* Stellen Sie sicher, dass alle externen Speicher-Arrays die verfügbaren Redundanz- und Hochverfügbarkeitsfunktionen (HA) nutzen, sofern dies möglich ist.
+

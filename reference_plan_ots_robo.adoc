@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_robo.html 
+keywords: plan, planning, remote and branch office, robo 
+summary: 'Sie können ONTAP Select in einer Remote-Office-/Branch-Office-Umgebung (ROBO) bereitstellen. Bei der Planung einer ROBO-Bereitstellung müssen Sie die Konfiguration auswählen, die Ihre Ziele unterstützt.' 
+---
+= ONTAP Select Bereitstellungen in Remote- und Zweigstellen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können ONTAP Select in einer Remote-Office-/Branch-Office-Umgebung (ROBO) bereitstellen. Bei der Planung einer ROBO-Bereitstellung müssen Sie die Konfiguration auswählen, die Ihre Ziele unterstützt.
+
+Beim Bereitstellen von ONTAP Select in einer ROBO-Umgebung stehen zwei primäre Konfigurationen zur Verfügung.
+
+
+NOTE: Sie können bei der Bereitstellung von ONTAP Select jede beliebige VMware vSphere-Lizenz verwenden.
+
+.ONTAP Select Zwei-Knoten-Cluster mit ONTAP HA
+Der ONTAP Select -Cluster mit zwei Knoten besteht aus einem HA-Paar und ist ideal für ROBO-Bereitstellungen.
+
+.ONTAP Select Single-Node-Cluster mit VMware-Unterstützung
+Sie können einen ONTAP Select Single-Node-Cluster in einer ROBO-Umgebung bereitstellen. Obwohl ein einzelner Node keine native HA-Funktionalität bietet, können Sie den Cluster auf eine der folgenden Arten bereitstellen, um Speicherschutz zu gewährleisten:
+
+* Gemeinsam genutzter externer Speicher mit VMware HA
+* VMware vSAN
+
+
+
+NOTE: Wenn Sie vSAN verwenden, müssen Sie über eine VMware vSAN ROBO-Lizenz verfügen.

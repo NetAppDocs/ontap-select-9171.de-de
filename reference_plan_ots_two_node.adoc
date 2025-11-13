@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_two_node.html 
+keywords: plan, planning, two nodes, two node clusters 
+summary: Die Bereitstellung eines Zwei-Knoten-Clusters mit Hochverfügbarkeit erfordert die gleiche Planung und Konfiguration wie bei anderen Clusterknotenkonfigurationen. Es gibt jedoch einige Unterschiede, die Sie beim Erstellen eines Zwei-Knoten-Clusters beachten sollten. 
+---
+= ONTAP Select Zwei-Knoten-Cluster mit HA
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Die Bereitstellung eines Zwei-Knoten-Clusters mit Hochverfügbarkeit erfordert die gleiche Planung und Konfiguration wie bei anderen Clusterknotenkonfigurationen. Es gibt jedoch einige Unterschiede, die Sie beim Erstellen eines Zwei-Knoten-Clusters beachten sollten.
+
+.Zielumgebung
+Der Zwei-Knoten-Cluster besteht aus einem HA-Paar und wurde speziell für den Einsatz in Remote-Offices und Zweigstellen entwickelt.
+
+
+NOTE: Obwohl es in erster Linie für Remote- und Zweigstellenumgebungen konzipiert ist, können Sie bei Bedarf auch einen Cluster mit zwei Knoten im Rechenzentrum bereitstellen.
+
+.Lizenzierung
+Sie können einen Zwei-Knoten-Cluster mit jeder VMware vSphere-Lizenz bereitstellen. Die VMware ROBO Standard- und Advanced-Lizenzen eignen sich jedoch ideal für Remote- und Zweigstellenbereitstellungen.
+
+.Vermittlungsdienst
+Besteht ein Cluster aus zwei Knoten, kann das erforderliche Quorum nicht erreicht werden, wenn ein Knoten ausfällt oder die Kommunikation abbricht. Um solche Split-Brain-Situationen zu vermeiden, enthält jede Instanz des ONTAP Select Deploy-Dienstprogramms einen Mediator-Dienst. Dieser Dienst verbindet sich mit jedem Knoten in den aktiven Zwei-Knoten-Clustern, um die HA-Paare zu überwachen und bei der Fehlerbewältigung zu helfen. Der Mediator-Dienst verwaltet die HA-Statusinformationen auf einem dedizierten iSCSI-Ziel, das jedem Zwei-Knoten-Cluster zugeordnet ist.
+
+
+CAUTION: Wenn Sie über einen oder mehrere aktive Zwei-Knoten-Cluster verfügen, muss die virtuelle ONTAP Select Deploy-Maschine, die die Cluster verwaltet, ständig ausgeführt werden. Wenn die virtuelle Maschine ONTAP Select Deploy angehalten wird oder ausfällt, ist der Mediatordienst nicht verfügbar und die HA-Funktionalität für die Zwei-Knoten-Cluster geht verloren.
+
+.Standort des Clusters und des Mediatordienstes
+Da die Zwei-Knoten-Cluster typischerweise in einer Außenstelle oder Zweigstelle eingesetzt werden, können sie vom Rechenzentrum des Unternehmens und dem ONTAP Select Deploy-Dienstprogramm, das administrative Unterstützung bietet, getrennt sein. Bei dieser Konfiguration fließt der Management-Datenverkehr zwischen dem ONTAP Select Deploy-Dienstprogramm und dem Cluster über das WAN. Weitere Informationen zu Einschränkungen und Beschränkungen finden Sie in den Versionshinweisen.
+
+.Sichern Sie die Deploy-Konfigurationsdaten
+Es ist eine bewährte Vorgehensweise,link:task_cli_clusters.html["Sichern Sie die ONTAP Select Deploy-Konfigurationsdaten"] regelmäßig, auch nach der Erstellung eines Clusters. Dies ist insbesondere bei Clustern mit zwei Knoten wichtig, da die Mediator-Konfigurationsdaten in der Sicherung enthalten sind.
+
+.Statische IP-Adresse für Deploy zugewiesen
+Sie müssen dem Verwaltungsprogramm ONTAP Select Deploy eine statische IP-Adresse zuweisen. Diese Anforderung gilt für alle ONTAP Select Deploy-Instanzen, die einen oder mehrere ONTAP Select Zwei-Knoten-Cluster verwalten.

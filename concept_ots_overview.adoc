@@ -1,0 +1,137 @@
+---
+sidebar: sidebar 
+permalink: concept_ots_overview.html 
+keywords: overview, software defined storage, sds, typical deployment, ontap 9 
+summary: ONTAP Select ist eine reine Softwareversion von ONTAP , die Sie als virtuelle Maschine auf einem Hypervisor-Host bereitstellen. Es ergänzt die gängigen FAS und AFF ONTAP Angebote sowie andere reine Softwareoptionen wie Cloud Volumes ONTAP. 
+---
+= Erfahren Sie mehr über ONTAP Select
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select ist eine reine Softwareversion von ONTAP , die Sie als virtuelle Maschine auf einem Hypervisor-Host bereitstellen können. Es ergänzt die gängigen FAS -, AFF - und ASA ONTAP -Angebote sowie andere reine Softwareoptionen wie Cloud Volumes ONTAP.
+
+ONTAP Select wandelt interne Festplatten, NVMe, SSDs oder HDDs sowie externen Array-Speicher in ein flexibles Speichersystem um, das viele der Vorteile dedizierter ONTAP Speichersysteme bietet. Sie können ONTAP Select auch auf neuen Servern oder in Ihrer bestehenden Serverinfrastruktur einsetzen. ONTAP Select ist einfach zu verwalten und nutzt dieselbe Verwaltungssoftware wie ONTAP basierte Lösungen. Das reduziert den Betriebsaufwand und den Schulungsaufwand.
+
+ONTAP Select passt sich mit zwei ergänzenden Lizenzmodellen – Capacity Tiers und den völlig flexiblen Capacity Pools – an Ihren Kapazitätsbedarf an. Beide Lizenzmodelle ermöglichen Ihnen eine Kapazitätserweiterung in Schritten von nur 1 TB. Sie können beispielsweise mit wenigen Terabyte beginnen und die Kapazität dynamisch erweitern, während Ihr Projekt wächst. Wenn Sie Capacity Pools verwenden, können Sie die Kapazität nach Abschluss Ihres Projekts nach Belieben neu verteilen.
+
+ONTAP Select ist in Cloud-Management-Frameworks wie VMware vSphere integriert. Dies beschleunigt die Bereitstellung neuer Projekte wie Dateidienste, Home-Verzeichnisse, Softwareentwicklungsumgebungen und Anwendungstests.
+
+Mit der SnapMirror -Software können Sie Daten zwischen ONTAP -Speichern in der Hybrid Cloud verschieben und so problemlos von jedem beliebigen Ort auf Ihre Daten zugreifen. So können Sie beispielsweise schnell eine Umgebung einrichten, um eine Idee zu testen. Später können Sie das Projekt für die Produktionsbereitstellung auf eine dedizierte Speicherplattform verschieben oder es im Rahmen eines Entwicklungs-Workflows in der Cloud leichter zugänglich machen.
+
+
+
+== Softwaredefinierter Speicher
+
+Die Implementierung und Bereitstellung von IT-Services über Software ermöglicht Administratoren eine schnelle und flexible Bereitstellung von Ressourcen. Moderne Rechenzentren wechseln zu einer softwaredefinierten Infrastruktur (SDI). Dadurch können Sie die wertvollsten IT-Ressourcen von der zugrunde liegenden physischen Infrastruktur trennen und so Flexibilität, Skalierbarkeit und Programmierbarkeit erreichen.
+
+In einer Welt der Massendaten, in der Daten über Silos von Direct Attached Storage (DAS) fragmentiert sind, sind Datenmobilität und -verwaltung zu komplexeren Problemen geworden. Software-Defined Storage (SDS) hat sich als wichtiger Bestandteil der SDI-Landschaft herausgestellt, um diese und andere Probleme zu lösen.
+
+ONTAP Select ist die NetApp Lösung für den SDS-Markt. ONTAP Select bringt Speicherverwaltungsfunktionen der Enterprise-Klasse in das softwaredefinierte Rechenzentrum und erweitert die NetApp Data Fabric-Architektur auf extreme Edge-Anwendungsfälle, einschließlich des Internets der Dinge (IoT) und taktischer Server.
+
+
+
+== Zwei Softwarekomponenten
+
+ONTAP Select besteht aus zwei Hauptsoftwarekomponenten:
+
+
+
+=== ONTAP Select Knoten
+
+Ein ONTAP Select Cluster besteht aus einem, zwei, vier, sechs oder acht Knoten. Jeder Clusterknoten wird als separate virtuelle Maschine bereitgestellt und führt eine speziell entwickelte Version der ONTAP 9 Software aus.
+
+
+
+=== ONTAP Select Deploy-Verwaltungsprogramm
+
+Das Deploy-Verwaltungsprogramm wird als separate virtuelle Linux-Maschine gepackt und installiert. Sie müssen das Dienstprogramm verwenden, um ONTAP Select Cluster in einer Produktionsumgebung bereitzustellen. Eine aktuelle Version des ONTAP Select Knoten-Images ist im Deploy-Dienstprogramm enthalten.
+
+
+NOTE: Dem Deploy-Verwaltungsprogramm ist keine separate Versionsnummer zugewiesen. Deploy hat dieselbe Versionsnummer wie die zugehörige ONTAP Select Version. Jedes Update des Deploy-Dienstprogramms innerhalb einer bestimmten ONTAP Select Version hat jedoch eine eindeutige Build-Nummer.
+
+
+
+== Abbildung einer typischen Bereitstellung
+
+Die folgende Abbildung zeigt das NetApp ONTAP Select Deploy-Administrationsdienstprogramm bei der Bereitstellung und Unterstützung eines ONTAP Select Clusters mit vier Knoten. Das Deploy-Dienstprogramm und die ONTAP Select Knoten werden als separate virtuelle Maschinen auf dedizierten Hypervisor-Hosts ausgeführt.
+
+image:ots_architecture.png["Veranschaulicht einen ONTAP Select -Cluster mit vier Knoten, der mit dem Verwaltungsdienstprogramm „Deploy“ erstellt wurde."]
+
+
+
+== Vergleichen Sie ONTAP Select und ONTAP 9
+
+Sowohl das hardwarebasierte ONTAP als auch das ONTAP Select bieten Speicherlösungen der Enterprise-Klasse. Da sie jedoch unterschiedlich konzipiert und implementiert sind, können sie jeweils unterschiedliche Geschäftsanforderungen und Nutzungsszenarien erfüllen. Machen Sie sich mit den wichtigsten Unterschieden zwischen den Plattformen vertraut, bevor Sie eine ONTAP Select Bereitstellung planen.
+
+
+
+=== Unterschiedliche HA-Architektur
+
+Abhängig von der Anzahl der Knoten, die Sie in einem Cluster definieren, bietet ONTAP Select eine HA-Funktion. Ein Cluster mit vier Knoten besteht beispielsweise aus zwei HA-Paaren. Die mit ONTAP Select verwendete HA-Architektur basiert auf einem nicht gemeinsam genutzten Speichermodell. Das bedeutet, dass ein Knoten in einem HA-Paar nicht direkt auf den Speicher des anderen Knotens zugreifen kann. Dieses Design kann bestimmte Betriebseigenschaften von ONTAP Select beeinträchtigen.
+
+
+
+=== Kapazitätslizenzierung
+
+ONTAP Select führt ein verbrauchsbasiertes Lizenzmodell ein. Beim Einsatz eines ONTAP Select Clusters in einer Produktionsumgebung müssen Sie für jeden Knoten oder gemeinsam genutzten Kapazitätspool eine Lizenz mit Speicherkapazität erwerben. Mit dem Deploy-Dienstprogramm müssen Sie die Lizenzdateien anwenden, die die Speicherkapazität für die Clusterknoten festlegen.
+
+
+
+=== ONTAP -Funktionslizenzierung
+
+Jeder Knoten in einem ONTAP Select Cluster ist automatisch für die Nutzung verschiedener ONTAP Funktionen lizenziert. Sie müssen diese Funktionslizenzen nicht manuell installieren oder anwenden.
+
+
+
+=== ONTAP -Funktionen werden in ONTAP Select nicht unterstützt
+
+Einige ONTAP -Funktionen werden von ONTAP Select nicht unterstützt. In den meisten Fällen erfordern diese Funktionen spezielle Hardware, die in der virtualisierten ONTAP Select Umgebung nicht verfügbar ist.
+
+* Automatische Updates für Autonomous Ransomware Protection (ARP)
++
+
+NOTE: Ab ONTAP Select 9.16.1 werden manuelle Updates für ARP unterstützt und die ARP-Funktionslizenz ist in der NetApp -Lizenzdatei (NLF) enthalten.
+
+* Cluster-IPspace
++
+Jegliche Änderung am Cluster-IPspace, einschließlich des Hinzufügens oder Entfernens von Ports, virtuellen LANs (VLANs) oder Link-Aggregationsgruppen, wird nicht unterstützt.
+
+* Fibre Channel
++
+Fibre Channel und Fibre Channel über Ethernet werden nicht unterstützt.
+
+* Gesundheitsmonitore
++
+Die herkömmliche Integritätsüberwachung bei einer hardwarebasierten ONTAP Bereitstellung ist auf die zugrunde liegenden Hardwarekomponenten beschränkt. Aufgrund der virtualisierten Umgebung, die mit ONTAP Select verwendet wird, sind Integritätsüberwachungen nicht aktiv.
+
+* Schnittstellengruppen
++
+Schnittstellengruppen werden nicht unterstützt.
+
+* Multi-Tenant-Schlüsselmanager (MTKM)
+* NIC-Offload-Unterstützung
++
+Aufgrund der mit ONTAP Select verwendeten virtualisierten Umgebung wird die NIC-Offload-Funktion nicht unterstützt.
+
+* NetApp Storage-Verschlüsselungslaufwerke
+* ONTAP -Porteigenschaften
++
+Das Ändern der Eigenschaften der ONTAP Ports, einschließlich Geschwindigkeit, Duplex und Flusssteuerung, wird nicht unterstützt.
+
+* Serviceprozessoren
+* SVM-Migration
+* SnapLock Compliance
+* SnapMirror aktive Synchronisierung
+* VMware HCX
+
+
+.Ähnliche Informationen
+* link:reference_lic_ontap_features.html#ontap-features-automatically-enabled-by-default["Erfahren Sie mehr über die standardmäßig aktivierten ONTAP -Funktionen"]
+* link:concept_lic_evaluation.html["Erfahren Sie mehr über die ONTAP Select Lizenzoptionen"]
+

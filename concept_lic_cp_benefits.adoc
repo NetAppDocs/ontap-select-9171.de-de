@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_cp_benefits.html 
+keywords: license, licensing, Capacity Pools, benefits 
+summary: Die Verwendung des Capacity Pools-Lizenzmodells anstelle des Capacity Tiers-Lizenzmodells bietet mehrere Vorteile. 
+---
+= Zusammenfassung der Vorteile der ONTAP Select Capacity Pools-Lizenzierung
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Die Verwendung des Capacity Pools-Lizenzmodells anstelle des Capacity Tiers-Lizenzmodells bietet mehrere Vorteile.
+
+
+
+== Effizientere Nutzung der Speicherkapazität
+
+Bei der Capacity Tiers-Lizenzierung weisen Sie jedem Knoten eine feste Speicherkapazität zu. Nicht genutzter Speicherplatz kann nicht mit anderen Knoten geteilt werden und wird effektiv verschwendet. Bei der Capacity Pools-Lizenzierung verbraucht jeder Knoten nur die Kapazität, die er benötigt, basierend auf der Größe der Datenaggregate.
+
+Und da die Kapazität in einem zentralen Pool verankert ist, kann sie von vielen Knoten in Ihrer Organisation gemeinsam genutzt werden.
+
+
+
+== Deutlich reduzierter Verwaltungsaufwand und damit geringere Kosten
+
+Wenn Sie Capacity Tier-Lizenzen verwenden, müssen Sie für jeden Knoten eine Lizenz erwerben und installieren. Bei der Verwendung von Capacity Pools gibt es für jeden gemeinsam genutzten Pool eine Lizenz. Dies kann den Verwaltungsaufwand erheblich reduzieren und zu niedrigeren Kosten führen.
+
+
+
+== Verbesserte Nutzungsmetriken
+
+Die Web-Benutzeroberfläche „Deploy“ bietet erweiterte Nutzungsinformationen für die Kapazitätspools. Sie können schnell ermitteln, wie viel Speicher in einem Kapazitätspool verwendet wird und verfügbar ist, welche Knoten Speicher aus einem Pool verwenden und aus welchen Pools ein Cluster Kapazität zuweist.

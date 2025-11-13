@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: concept_ha_other.html 
+keywords: ontap select, ha, high availability, disk heartbeating, heartbeating, mailbox, failover, giveback 
+summary: HA-Disk-Heartbeating, HA-Mailbox, HA-Heartbeating, HA-Failover und Giveback verbessern den Datenschutz. 
+---
+= ONTAP Select HA verbessert den Datenschutz
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Hochverfügbarkeit (HA) Disk Heartbeating, HA-Mailbox, HA Heartbeating, HA-Failover und Giveback verbessern den Datenschutz.
+
+
+
+== Festplatten-Heartbeat
+
+Obwohl die ONTAP Select HA-Architektur viele der Codepfade herkömmlicher FAS Arrays nutzt, gibt es einige Ausnahmen. Eine davon betrifft die Implementierung des festplattenbasierten Heartbeatings, einer nicht netzwerkbasierten Kommunikationsmethode, die von Clusterknoten verwendet wird, um zu verhindern, dass Netzwerkisolation zu Split-Brain-Verhalten führt. Ein Split-Brain-Szenario ist das Ergebnis einer Clusterpartitionierung, die typischerweise durch Netzwerkausfälle verursacht wird. Dabei glaubt jede Seite, die andere sei ausgefallen, und versucht, Clusterressourcen zu übernehmen.
+
+Hochverfügbarkeitsimplementierungen der Enterprise-Klasse müssen solche Szenarien reibungslos bewältigen. ONTAP erreicht dies durch eine angepasste, festplattenbasierte Heartbeating-Methode. Diese Aufgabe übernimmt die HA-Mailbox, ein Speicherort auf dem physischen Speicher, der von Clusterknoten zur Übermittlung von Heartbeat-Nachrichten genutzt wird. Dies hilft dem Cluster, die Konnektivität zu ermitteln und somit das Quorum im Falle eines Failovers festzulegen.
+
+Auf FAS Arrays, die eine Shared-Storage-HA-Architektur verwenden, löst ONTAP Split-Brain-Probleme auf folgende Weise:
+
+* SCSI-persistente Reservierungen
+* Persistente HA-Metadaten
+* HA-Status über HA-Verbindung gesendet
+
+
+Innerhalb der Shared-Nothing-Architektur eines ONTAP Select Clusters kann ein Knoten jedoch nur seinen eigenen lokalen Speicher sehen, nicht den des HA-Partners. Wenn die Netzwerkpartitionierung beide Seiten eines HA-Paares isoliert, sind die oben beschriebenen Methoden zur Bestimmung des Cluster-Quorums und des Failover-Verhaltens daher nicht verfügbar.
+
+Obwohl die bestehende Methode zur Split-Brain-Erkennung und -Vermeidung nicht verwendet werden kann, ist dennoch eine Mediationsmethode erforderlich, die den Einschränkungen einer Shared-Nothing-Umgebung gerecht wird. ONTAP Select erweitert die vorhandene Postfachinfrastruktur und kann so im Falle einer Netzwerkpartitionierung als Mediationsmethode fungieren. Da kein gemeinsam genutzter Speicher verfügbar ist, erfolgt die Mediation durch Zugriff auf die Postfachfestplatten über NAS. Diese Festplatten sind über das iSCSI-Protokoll im gesamten Cluster verteilt, einschließlich des Mediators in einem Cluster mit zwei Knoten. Daher können Clusterknoten basierend auf dem Zugriff auf diese Festplatten intelligente Failover-Entscheidungen treffen. Wenn ein Knoten auf die Postfachfestplatten anderer Knoten außerhalb seines HA-Partners zugreifen kann, ist er wahrscheinlich aktiv und fehlerfrei.
+
+
+NOTE: Die Mailbox-Architektur und die festplattenbasierte Heartbeating-Methode zur Lösung von Cluster-Quorum- und Split-Brain-Problemen sind der Grund, warum die Multinode-Variante von ONTAP Select entweder vier separate Knoten oder einen Mediator für einen Zwei-Knoten-Cluster erfordert.
+
+
+
+== HA-Postfach-Posteingang
+
+Die HA-Postfacharchitektur verwendet ein Nachrichtenpostmodell. Clusterknoten senden in regelmäßigen Abständen Nachrichten an alle anderen Postfachdatenträger im Cluster, einschließlich des Mediators, und bestätigen damit, dass der Knoten betriebsbereit ist. Innerhalb eines fehlerfreien Clusters werden zu jedem Zeitpunkt Nachrichten von allen anderen Clusterknoten an einen einzelnen Postfachdatenträger eines Clusterknotens gesendet.
+
+An jeden Select-Clusterknoten ist eine virtuelle Festplatte angeschlossen, die speziell für den Zugriff auf freigegebene Postfächer verwendet wird. Diese Festplatte wird als Mediator-Postfachfestplatte bezeichnet, da ihre Hauptfunktion darin besteht, bei Knotenausfällen oder Netzwerkpartitionierung als Clustervermittlung zu fungieren. Diese Postfachfestplatte enthält Partitionen für jeden Clusterknoten und wird von anderen Select-Clusterknoten über ein iSCSI-Netzwerk eingebunden. Diese Knoten senden regelmäßig Integritätsstatus an die entsprechende Partition der Postfachfestplatte. Durch die Verwendung von über das Netzwerk erreichbaren Postfachfestplatten im gesamten Cluster können Sie über eine Erreichbarkeitsmatrix auf den Knotenzustand schließen. Beispielsweise können die Clusterknoten A und B an das Postfach von Clusterknoten D senden, aber nicht an das Postfach von Knoten C. Darüber hinaus kann Clusterknoten D nicht an das Postfach von Knoten C senden. Daher ist Knoten C wahrscheinlich entweder ausgefallen oder vom Netzwerk isoliert und sollte übernommen werden.
+
+
+
+== HA Herzschlag
+
+Wie NetApp FAS Plattformen sendet ONTAP Select regelmäßig HA-Heartbeat-Nachrichten über die HA-Verbindung. Innerhalb des ONTAP Select Clusters erfolgt dies über eine TCP/IP-Netzwerkverbindung zwischen den HA-Partnern. Zusätzlich werden festplattenbasierte Heartbeat-Nachrichten an alle HA-Mailbox-Festplatten, einschließlich der Mediator-Mailbox-Festplatten, gesendet. Diese Nachrichten werden alle paar Sekunden gesendet und regelmäßig zurückgelesen. Dank der Häufigkeit, mit der diese Nachrichten gesendet und empfangen werden, erkennt der ONTAP Select Cluster HA-Ausfälle innerhalb von etwa 15 Sekunden – dem gleichen Zeitfenster wie auf FAS Plattformen. Wenn keine Heartbeat-Nachrichten mehr gelesen werden, wird ein Failover-Ereignis ausgelöst.
+
+Die folgende Abbildung zeigt den Prozess des Sendens und Empfangens von Heartbeat-Nachrichten über die HA-Verbindung und Mediator-Festplatten aus der Perspektive eines einzelnen ONTAP Select Clusterknotens, Knoten C.
+
+
+NOTE: Netzwerk-Heartbeats werden über die HA-Verbindung an den HA-Partner, Knoten D, gesendet, während Festplatten-Heartbeats Postfachfestplatten auf allen Clusterknoten A, B, C und D verwenden.
+
+*HA-Herzschlag in einem Vier-Knoten-Cluster: stabiler Zustand*image:DDHA_05.jpg["HA-Heartbeating in einem Cluster mit vier Knoten: stabiler Zustand"]
+
+
+
+== HA-Failover und Giveback
+
+Während eines Failover-Vorgangs übernimmt der verbleibende Knoten die Datenbereitstellung für seinen Peer-Knoten mithilfe der lokalen Kopie der Daten seines HA-Partners. Die Client-E/A kann ohne Unterbrechung fortgesetzt werden, Änderungen an diesen Daten müssen jedoch repliziert werden, bevor eine Rückgabe erfolgen kann. Beachten Sie, dass ONTAP Select keine erzwungene Rückgabe unterstützt, da dadurch die auf dem verbleibenden Knoten gespeicherten Änderungen verloren gehen.
+
+Die Rücksynchronisierung wird automatisch ausgelöst, wenn der neugestartete Knoten wieder dem Cluster beitritt. Die für die Rücksynchronisierung benötigte Zeit hängt von mehreren Faktoren ab. Dazu gehören die Anzahl der zu replizierenden Änderungen, die Netzwerklatenz zwischen den Knoten und die Geschwindigkeit der Festplattensubsysteme auf jedem Knoten. Es ist möglich, dass die für die Rücksynchronisierung benötigte Zeit das automatische Rückgabefenster von 10 Minuten überschreitet. In diesem Fall ist nach der Rücksynchronisierung eine manuelle Rückgabe erforderlich. Der Fortschritt der Rücksynchronisierung kann mit dem folgenden Befehl überwacht werden:
+
+[listing]
+----
+storage aggregate status -r -aggregate <aggregate name>
+----

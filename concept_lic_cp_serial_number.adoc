@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_cp_serial_number.html 
+keywords: license, licensing, Capacity Pools, node serial numbers 
+summary: Beim Lizenzmodell „Capacity Tiers“ ist die neunstellige Knotenseriennummer identisch mit der dem Knoten zugewiesenen Lizenzseriennummer. Die den Knoten beim Lizenzmodell „Capacity Pools“ zugewiesenen Seriennummern haben jedoch ein anderes Format. 
+---
+= Knotenseriennummern für das ONTAP Select Capacity Pools-Lizenzmodell
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Beim Lizenzmodell „Capacity Tiers“ ist die neunstellige Knotenseriennummer identisch mit der dem Knoten zugewiesenen Lizenzseriennummer. Die den Knoten beim Lizenzmodell „Capacity Pools“ zugewiesenen Seriennummern haben jedoch ein anderes Format.
+
+Die Seriennummer eines Knotens mit Capacity Pools-Lizenzierung hat das folgende Format:
+
+`999 ppppppppp nnnnnnnn`
+
+
+NOTE: Zur besseren Übersicht wurden Leerzeichen hinzugefügt, diese sind jedoch nicht Teil der eigentlichen Seriennummer.
+
+Jeder Abschnitt der Knotenseriennummer wird in der folgenden Tabelle von links nach rechts beschrieben.
+
+[cols="15,85"]
+|===
+| Abschnitt | Beschreibung 
+
+
+| '999' | Konstanter dreistelliger Wert, reserviert von NetApp. 
+
+
+| pppppppp | Variable neunstellige Lizenzseriennummer, die dem Kapazitätspool von NetApp zugewiesen wird 
+
+
+| nnnnnnnn | Variabler achtstelliger Wert, der vom Lizenzmanager für jeden Knoten generiert wird, der den Kapazitätspool verwendet 
+|===
+
+NOTE: Achtung: Wenn Sie beim NetApp -Support einen Fall für einen Knoten eröffnen, der eine Capacity Pool-Lizenz verwendet, können Sie nicht die vollständige zwanzigstellige Knotenseriennummer angeben. Stattdessen müssen Sie die neunstellige Seriennummer der Capacity Pool-Lizenz angeben. Sie können die Lizenzseriennummer wie oben gezeigt aus der Knotenseriennummer ableiten. Überspringen Sie die ersten drei Ziffern der Knotenseriennummer ('999') und extrahieren Sie die nächsten neun Ziffern (pppppppppp).

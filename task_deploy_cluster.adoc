@@ -1,0 +1,211 @@
+---
+sidebar: sidebar 
+permalink: task_deploy_cluster.html 
+keywords: install, installing, deploy ontap select cluster, create cluster 
+summary: Sie können die mit dem Verwaltungsdienstprogramm ONTAP Select Deploy bereitgestellte Webbenutzeroberfläche verwenden, um einen ONTAP Select Cluster mit einem oder mehreren Knoten bereitzustellen. 
+---
+= Bereitstellen eines ONTAP Select Clusters
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Sie können die mit dem Verwaltungsdienstprogramm ONTAP Select Deploy bereitgestellte Webbenutzeroberfläche verwenden, um einen ONTAP Select Cluster mit einem oder mehreren Knoten bereitzustellen.
+
+Wenn Sie einen ONTAP Select Cluster über die Weboberfläche des Deploy-Dienstprogramms erstellen, werden Sie durch eine bestimmte Abfolge von Schritten geführt. Der genaue Prozess variiert je nachdem, ob Sie einen Single-Node- oder Multi-Node-Cluster bereitstellen.
+
+
+TIP: Sie können auchlink:https://docs.netapp.com/us-en/ontap-select/task_cli_deploy_cluster.html["Bereitstellen von ONTAP Select Clustern mithilfe der CLI des Bereitstellungsdienstprogramms"] Die
+
+
+
+== Schritt 1: Bereiten Sie die Bereitstellung vor
+
+Bereiten Sie die Bereitstellung vor, um sicherzustellen, dass sie erfolgreich ist.
+
+.Schritte
+. Erste Planung.
++
+Überprüfen Sie dielink:concept_workflow_deploy.html["Planen"] Undlink:concept_lic_evaluation.html["Lizenz"] Abschnitte. Basierend auf dieser Überprüfung können Sie Entscheidungen über den Cluster treffen, darunter:
+
++
+** Hypervisor
+** Anzahl der Knoten
+** Lizenztyp
+** Plattformgröße (Instanztyp)
+** ONTAP Select Version
+
+
+. Bereiten Sie den Host vor.
++
+Sie müssen die Hypervisor-Hosts vorbereiten, auf denen die ONTAP Select -Knoten ausgeführt werden, und die erforderlichen Speicherlizenzdateien basierend auf Ihrem Lizenzmodell bereitstellen. So zeigen Sie die Vorbereitungsanforderungen an:
+
++
+.. Sign in .
+.. Wählenimage:icon_question_mark.gif["Fragezeichen"] oben auf der Seite.
+.. Wählen Sie *Voraussetzungen* aus.
+.. Scrollen Sie nach unten, um die Anforderungen zu überprüfen, und wählen Sie *OK*.
+
+
+. Erwerben Sie die Lizenzdateien.
++
+Wenn Sie den Cluster in einer Produktionsumgebung bereitstellen möchten, müssen Sie die Speicherlizenzdateien basierend auf Ihrem Lizenzmodell erwerben.
+
+. Stellen Sie Installations- und Kontoanmeldeinformationen bereit.
++
+link:task_install_deploy.html["Installieren Sie das Deploy-Verwaltungsprogramm und führen Sie die Erstkonfiguration durch"]. Sie benötigen das Kennwort für das Deploy-Administratorkonto, das im Rahmen des Installationsvorgangs konfiguriert wurde.
+
+. Installieren Sie optional frühere ONTAP Select Knotenimages.
++
+Standardmäßig enthält das Deploy-Verwaltungsprogramm die aktuellste Version von ONTAP Select zum Zeitpunkt der Veröffentlichung. Wenn Sie Cluster mit einer früheren Version von ONTAP Select bereitstellen möchten, müssen Sielink:task_cli_deploy_image_add.html["Fügen Sie das ONTAP Select Image zu Ihrer Deploy-Instanz hinzu"] Die
+
+. Informieren Sie sich über die Startseite „Erste Schritte“.
++
+Die Startseite „Erste Schritte mit ONTAP Select Deploy“ führt Sie durch den mehrstufigen Prozess der Clustererstellung. Der Prozess umfasst fünf Hauptschritte:
+
++
+** Lizenzen hinzufügen
+** Hosts zum Inventar hinzufügen
+** Erstellen Sie einen Cluster
+** Netzwerk-Vorabprüfung
+** Bereitstellen des Clusters
++
+
+NOTE: Sie können dieselben Schritte unabhängig voneinander ausführen, indem Sie die Registerkarten oben auf der Seite auswählen (Cluster, Hypervisor-Hosts, Verwaltung).
+
+
+
+. Überprüfen Sie den Netzwerkprüfer.
++
+Wenn Sie einen Cluster mit mehreren Knoten bereitstellen, sollten Sie mit dem Netzwerk-Checker vertraut sein. Sie können den Netzwerkverbindungs-Checker mit folgendem Befehl ausführen:link:task_adm_connectivity.html["Web-Benutzeroberfläche"] oder dielink:task_cli_connectivity.html["Befehlszeilenschnittstelle (CLI)"] Die
+
+
+
+
+
+== Schritt 2: Erstellen eines Einzelknoten- oder Mehrknotenclusters
+
+Sie können die Web-Benutzeroberfläche von ONTAP Select Deploy verwenden, um einen ONTAP Select Cluster mit einem oder mehreren Knoten bereitzustellen.
+
+.Bevor Sie beginnen
+Stellen Sie sicher, dass Sie die Bereitstellungsverwaltung installiert und die Erstkonfiguration (Kennwort, AutoSupport und vCenter) abgeschlossen haben.
+
+.Informationen zu diesem Vorgang
+Für eine Produktionsbereitstellung wird ein ONTAP Select Cluster mit einem oder mehreren Knoten erstellt.
+
+.Schritte
+Die auszuführenden Schritte hängen davon ab, ob Sie einen Einzelknoten- oder einen Mehrknoten-Cluster erstellen möchten. Ein Mehrknoten-Cluster kann zwei, vier, sechs oder acht Knoten umfassen.
+
+[role="tabbed-block"]
+====
+.Einzelknotencluster
+--
+. Sign in über die Weboberfläche mit dem Administratorkonto (admin) beim Bereitstellungsprogramm an.
+. Wenn das Popup-Fenster *Willkommen bei ONTAP Select* angezeigt wird, bestätigen Sie, dass Sie die Konfigurationsvoraussetzungen erfüllt haben, und wählen Sie *OK*.
+. Wenn die Cluster-Startseite „Erste Schritte“ nicht angezeigt wird, wählen Sieimage:icon_question_mark.gif["Fragezeichen"] Klicken Sie oben auf der Seite und wählen Sie *Erste Schritte*.
+. Wählen Sie auf der Seite *Erste Schritte* die Option *Hochladen* aus, wählen Sie dann eine Lizenz von Ihrer lokalen Arbeitsstation aus und wählen Sie *Öffnen*, um die Lizenz hochzuladen.
+. Wählen Sie *Aktualisieren* und bestätigen Sie, dass die Lizenz hinzugefügt wurde.
+. Wählen Sie *Weiter*, um einen Hypervisor-Host hinzuzufügen, und wählen Sie dann *Hinzufügen*.
++
+Sie können den Hypervisor-Host direkt oder durch Verbindung mit einem vCenter-Server hinzufügen. Geben Sie bei Bedarf die entsprechenden Hostdetails und Anmeldeinformationen an.
+
+. Wählen Sie *Aktualisieren* und bestätigen Sie, dass der *Typ*-Wert für den Host *ESX* oder *KVM* ist.
++
+Alle von Ihnen angegebenen Kontoanmeldeinformationen werden der Anmeldeinformationsdatenbank „Deploy“ hinzugefügt.
+
+. Wählen Sie *Weiter* aus, um mit der Clustererstellung zu beginnen.
+. Geben Sie im Abschnitt *Clusterdetails* alle erforderlichen Informationen zur Beschreibung des Clusters ein und wählen Sie *Fertig* aus.
+. Geben Sie unter *Knoten-Setup* die IP-Adresse für die Knotenverwaltung ein und wählen Sie die Lizenz für den Knoten aus. Sie können bei Bedarf eine neue Lizenz hochladen. Sie können den Knotennamen bei Bedarf auch ändern.
+. Geben Sie die *Hypervisor*- und *Netzwerk*-Konfiguration an.
++
+Es gibt drei Knotenkonfigurationen, die die Größe der virtuellen Maschine und den verfügbaren Funktionsumfang definieren. Diese Instanztypen werden jeweils von den Standard-, Premium- und Premium XL-Angeboten der erworbenen Lizenz unterstützt. Die für den Knoten ausgewählte Lizenz muss dem Instanztyp entsprechen oder diesen übertreffen.
+
++
+Wählen Sie den Hypervisor-Host sowie die Verwaltungs- und Datennetzwerke aus.
+
+. Geben Sie die *Speicher*-Konfiguration an und wählen Sie *Fertig*.
++
+Sie können die Laufwerke basierend auf Ihrer Plattformlizenzstufe und Hostkonfiguration auswählen.
+
+. Überprüfen und bestätigen Sie die Konfiguration des Clusters.
++
+Sie können die Konfiguration ändern, indem Sie Folgendes auswählen:image:icon_pencil.gif["Bearbeiten"] im entsprechenden Abschnitt.
+
+. Wählen Sie *Weiter* und geben Sie das ONTAP Administratorkennwort ein.
+. Wählen Sie *Cluster erstellen*, um mit der Clustererstellung zu beginnen, und wählen Sie dann im Popup-Fenster *OK*.
++
+Die Erstellung des Clusters kann bis zu 30 Minuten dauern.
+
+. Überwachen Sie den mehrstufigen Clustererstellungsprozess, um zu bestätigen, dass der Cluster erfolgreich erstellt wurde.
++
+Die Seite wird in regelmäßigen Abständen automatisch aktualisiert.
+
+
+
+--
+.Mehrknotencluster
+--
+. Sign in über die Weboberfläche mit dem Administratorkonto (admin) beim Bereitstellungsprogramm an.
+. Wenn das Popup-Fenster *Willkommen bei ONTAP Select* angezeigt wird, bestätigen Sie, dass Sie die Konfigurationsvoraussetzungen erfüllt haben, und wählen Sie *OK*.
+. Wenn die Cluster-Startseite „Erste Schritte“ nicht angezeigt wird, wählen Sieimage:icon_question_mark.gif["Fragezeichen"] Klicken Sie oben auf der Seite und wählen Sie *Erste Schritte*.
+. Wählen Sie auf der Seite *Erste Schritte* die Option *Hochladen* und anschließend eine Lizenz von Ihrem lokalen Arbeitsplatzrechner aus. Klicken Sie anschließend auf *Öffnen*, um die Lizenz hochzuladen. Wiederholen Sie den Vorgang, um weitere Lizenzen hinzuzufügen.
+. Wählen Sie *Aktualisieren* und bestätigen Sie, dass die Lizenzen hinzugefügt wurden.
+. Wählen Sie *Weiter*, um alle Hypervisor-Hosts hinzuzufügen, und wählen Sie dann *Hinzufügen*.
++
+Sie können die Hypervisor-Hosts direkt oder über eine Verbindung zu einem vCenter-Server hinzufügen. Geben Sie bei Bedarf die entsprechenden Hostdetails und Anmeldeinformationen an.
+
+. Wählen Sie *Aktualisieren* und bestätigen Sie, dass der *Typ*-Wert für den Host *ESX* oder *KVM* ist.
++
+Alle von Ihnen angegebenen Kontoanmeldeinformationen werden der Anmeldeinformationsdatenbank „Deploy“ hinzugefügt.
+
+. Wählen Sie *Weiter* aus, um mit der Clustererstellung zu beginnen.
+. Wählen Sie im Abschnitt *Clusterdetails* die gewünschte *Clustergröße* aus, geben Sie alle erforderlichen Informationen zur Beschreibung der Cluster ein und wählen Sie *Fertig* aus.
+. Geben Sie unter *Knoten-Setup* die IP-Adressen für die Knotenverwaltung an und wählen Sie die Lizenzen für jeden Knoten aus. Sie können bei Bedarf eine neue Lizenz hochladen. Sie können bei Bedarf auch die Knotennamen ändern.
+. Geben Sie die *Hypervisor*- und *Netzwerk*-Konfiguration an.
++
+Es gibt drei Knotenkonfigurationen, die die Größe der virtuellen Maschine und den verfügbaren Funktionsumfang definieren. Diese Instanztypen werden jeweils von den Standard-, Premium- und Premium XL-Angeboten der erworbenen Lizenz unterstützt. Die für die Knoten ausgewählte Lizenz muss dem Instanztyp entsprechen oder diesen übertreffen.
+
++
+Wählen Sie die Hypervisor-Hosts sowie die Verwaltungs-, Daten- und internen Netzwerke aus.
+
+. Geben Sie die *Speicher*-Konfiguration an und wählen Sie *Fertig*.
++
+Sie können die Laufwerke basierend auf Ihrer Plattformlizenzstufe und Hostkonfiguration auswählen.
+
+. Überprüfen und bestätigen Sie die Konfiguration des Clusters.
++
+Sie können die Konfiguration ändern, indem Sie Folgendes auswählen:image:icon_pencil.gif["Bearbeiten"] im entsprechenden Abschnitt.
+
+. Wählen Sie *Weiter* und führen Sie die Netzwerkvorprüfung durch Auswahl von *Ausführen* aus. Dadurch wird überprüft, ob das für den ONTAP Clusterverkehr ausgewählte interne Netzwerk ordnungsgemäß funktioniert.
+. Wählen Sie *Weiter* und geben Sie das ONTAP Administratorkennwort ein.
+. Wählen Sie *Cluster erstellen*, um mit der Clustererstellung zu beginnen, und wählen Sie dann im Popup-Fenster *OK*.
++
+Die Erstellung des Clusters kann bis zu 45 Minuten dauern.
+
+. Überwachen Sie den mehrstufigen Clustererstellungsprozess, um zu bestätigen, dass der Cluster erfolgreich erstellt wurde.
++
+Die Seite wird in regelmäßigen Abständen automatisch aktualisiert.
+
+
+
+--
+====
+
+
+== Schritt 3: Schließen Sie die Bereitstellung ab.
+
+Nach der Bereitstellung des Clusterslink:https://docs.netapp.com/us-en/ontap/system-admin/setup-autosupport-task.html["Prüfen Sie, ob die ONTAP Select AutoSupport Funktion konfiguriert ist."^] und dannlink:task_cli_clusters.html["Sichern Sie die ONTAP Select Deploy-Konfigurationsdaten"] Die
+
+[TIP]
+====
+Wenn die Clustererstellung zwar initiiert, aber nicht abgeschlossen wird, wird das von Ihnen definierte ONTAP -Administratorkennwort möglicherweise nicht angewendet. In diesem Fall können Sie das temporäre Administratorkennwort für den ONTAP Select Cluster mit dem folgenden CLI-Befehl ermitteln:
+
+[source, cli]
+----
+(ONTAPdeploy) !/opt/netapp/tools/get_cluster_temp_credentials --cluster-name my_cluster
+----
+====

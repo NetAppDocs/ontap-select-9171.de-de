@@ -1,0 +1,55 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_cp_compare_ct.html 
+keywords: license, licensing, Capacity Pools, Capacity Tiers, comparing 
+summary: Es gibt mehrere Unterschiede zwischen den Lizenzmodellen „Capacity Pools“ und „Capacity Tiers“. 
+---
+= Vergleichen Sie die Lizenzierung von ONTAP Select Capacity Pools und Capacity Tiers
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+In der folgenden Tabelle werden die beiden von ONTAP Select unterstützten Produktionslizenzmodelle verglichen.
+
+[cols="20,40,40"]
+|===
+|  | Kapazitätsstufen | Kapazitätspools 
+
+
+| Lizenzseriennummer | Neun von NetApp generierte und einem Knoten zugewiesene Ziffern | Neun Ziffern, die von NetApp generiert und einem Kapazitätspool zugewiesen werden 
+
+
+| Lizenzsperre | An ONTAP Select Knoten gebunden | An die License Manager-Instanz gebunden 
+
+
+| Lizenzdauer | Unbefristet (keine Verlängerung erforderlich) | Feste Laufzeit basierend auf dem Kauf (Verlängerung erforderlich) 
+
+
+| Mietdauer für Datenaggregate | Nicht zutreffend | Eine Stunde bis sieben Tage 
+
+
+| Knotenseriennummer | Neun Ziffern und gleich der Lizenzseriennummer | Zwanzig Ziffern und vom Lizenzmanager generiert 
+
+
+| Support | Add-on und zeitlich begrenzt | Eingeschlossen und gleichzeitig 
+
+
+| Lizenztypen | Standard, Premium, Premium XL | Standard, Premium, Premium XL 
+
+
+| Evaluierungslizenz verfügbar | Ja | Ja 
+
+
+| Von der Evaluierung bis zum Produktionsupgrade | Ja | Nein 
+
+
+| ONTAP Select – Größenänderung der virtuellen Maschine (klein bis mittel, mittel bis groß) | Ja | Ja 
+
+
+| Durchsetzung: Lizenz abgelaufen | k. A. | Ja (keine Schonfrist) 
+|===

@@ -1,0 +1,291 @@
+---
+sidebar: sidebar 
+permalink: task_adm_replace_drives_swraid.html 
+keywords: administer, administering, web, software raid, replace drive 
+summary: 'Wenn ein Laufwerk im Software-RAID ausfällt, verwendet ONTAP Select ein Ersatzlaufwerk (sofern verfügbar) und startet den Wiederaufbau automatisch. Dies ähnelt der Funktionsweise von ONTAP auf FAS und AFF . Wenn jedoch kein Ersatzlaufwerk verfügbar ist, müssen Sie dem ONTAP Select Knoten ein solches hinzufügen.' 
+---
+= Ersetzen Sie ausgefallene Software-RAID-Laufwerke für ONTAP Select
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Wenn ein Laufwerk mit Software-RAID ausfällt, weist ONTAP Select ein Ersatzlaufwerk zu, sofern eines verfügbar ist, und startet den Wiederherstellungsprozess automatisch. Dies ähnelt der Funktionsweise von ONTAP auf FAS und AFF. Wenn jedoch kein Ersatzlaufwerk verfügbar ist, müssen Sie dem ONTAP Select Knoten ein solches hinzufügen.
+
+
+NOTE: Sowohl das Entfernen des ausgefallenen Laufwerks als auch das Hinzufügen eines neuen Laufwerks (als Ersatzlaufwerk gekennzeichnet) muss über ONTAP Select Deploy erfolgen. Das Anschließen eines Laufwerks an die ONTAP Select VM über vSphere wird nicht unterstützt.
+
+
+
+== Identifizieren Sie das ausgefallene Laufwerk
+
+Wenn ein Laufwerk ausfällt, müssen Sie die ONTAP CLI verwenden, um die ausgefallene Festplatte zu identifizieren.
+
+[role="tabbed-block"]
+====
+.KVM
+--
+.Bevor Sie beginnen
+Sie müssen über die VM-ID der virtuellen ONTAP Select Maschine sowie über die Anmeldeinformationen für das ONTAP Select und ONTAP Select Deploy-Administratorkonto verfügen.
+
+.Informationen zu diesem Vorgang
+Sie sollten dieses Verfahren nur verwenden, wenn der ONTAP Select Knoten auf KVM ausgeführt wird und für die Verwendung von Software-RAID konfiguriert ist.
+
+.Schritte
+. Identifizieren Sie in der ONTAP Select CLI die zu ersetzende Festplatte:
++
+.. Identifizieren Sie die Festplatte anhand der Seriennummer, UUID oder Zieladresse in der virtuellen Maschine.
++
+[listing]
+----
+disk show -fields serial,vmdisk-target-address,uuid
+----
+.. Optional können Sie eine vollständige Liste der freien Festplattenkapazität mit den partitionierten Festplatten anzeigen. Speicheraggregat show-spare-disks
+
+
+. Suchen Sie in der Linux-Befehlszeilenschnittstelle nach der Festplatte.
++
+.. Untersuchen Sie die Systemgeräte und suchen Sie nach der Seriennummer oder UUID (Datenträgername) der Festplatte:
++
+[listing]
+----
+find /dev/disk/by-id/<SN|ID>
+----
+.. Untersuchen Sie die Konfiguration der virtuellen Maschine und suchen Sie nach der Zieladresse:
++
+[listing]
+----
+virsh dumpxml VMID
+----
+
+
+
+
+--
+.ESXi
+--
+.Schritte
+. Sign in mit dem Administratorkonto bei der ONTAP CLI an.
+. Identifizieren Sie das ausgefallene Festplattenlaufwerk.
++
+[listing]
+----
+<cluster name>::> storage disk show -container-type broken
+Usable Disk Container Container
+Disk Size Shelf Bay Type Type Name Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+NET-1.4 893.3GB - - SSD broken - sti-rx2540-346a'
+----
+
+
+--
+====
+
+
+== Entfernen Sie das ausgefallene Laufwerk
+
+Nachdem Sie das fehlerhafte Laufwerk identifiziert haben, entfernen Sie die Festplatte.
+
+[role="tabbed-block"]
+====
+.KVM mit Deploy
+--
+Sie können eine Festplatte von einem KVM-Host trennen, wenn Sie sie austauschen oder wenn sie nicht mehr benötigt wird.
+
+.Bevor Sie beginnen
+Sie müssen über die Anmeldeinformationen für das Administratorkonto ONTAP Select und ONTAP Select Deploy verfügen.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Wählen Sie oben auf der Seite die Registerkarte *Cluster* und wählen Sie den gewünschten Cluster aus der Liste aus.
+. Wählen Sie *+* neben dem gewünschten HA-Paar oder Knoten.
++
+Wenn die Option deaktiviert ist, aktualisiert Deploy derzeit die Speicherinformationen.
+
+. Wählen Sie auf der Seite *Knotenspeicher bearbeiten* die Option *Speicher bearbeiten* aus.
+. Deaktivieren Sie die vom Knoten zu trennenden Datenträger, geben Sie die ONTAP Administratoranmeldeinformationen ein und wählen Sie *Speicher bearbeiten*, um die Änderungen anzuwenden.
+. Wählen Sie *Ja*, um die Warnung im Popup-Fenster zu bestätigen.
+. Wählen Sie die Registerkarte *Ereignisse* für den zu überwachenden Cluster aus und bestätigen Sie den Abtrennvorgang.
++
+Sie können die physische Festplatte vom Host entfernen, wenn sie nicht mehr benötigt wird.
+
+
+
+--
+.KVM über CLI
+--
+Nachdem Sie die Festplatte identifiziert haben, führen Sie die folgenden Schritte aus.
+
+.Schritte
+. Trennen Sie die Festplatte von der virtuellen Maschine:
++
+.. Sichern Sie die Konfiguration.
++
+[listing]
+----
+virsh dumpxml VMNAME > /PATH/disk.xml
+----
+.. Bearbeiten Sie die Datei und entfernen Sie alles außer der Festplatte, die von der virtuellen Maschine getrennt werden soll.
++
+Die Zieladresse für die Festplatte sollte dem Feld „vmdisk-target-address“ in ONTAP entsprechen.
+
++
+[listing]
+----
+<disk type='block' device='lun'>
+  <driver name='qemu' type='raw' cache='directsync'/>
+  <source dev='/dev/disk/by-id/ata- Micron_5100_MTFDDAK960TCC_171616D35277'/>
+  <backingStore/>
+  <target dev='sde' bus='scsi'/>
+  <alias name='scsi0-0-0-4'/>
+  <address type='drive' controller='0' bus='0' target='0' unit='4'/>
+</disk>
+----
+.. Trennen Sie die Festplatte.
++
+[listing]
+----
+virsh detach-disk --persistent /PATH/disk.xml
+----
+
+
+. Ersetzen Sie die physische Festplatte:
++
+Sie können ein Hilfsprogramm wie beispielsweise verwenden `ledctl locate=` um gegebenenfalls die physische Festplatte zu lokalisieren.
+
++
+.. Entfernen Sie die Festplatte vom Host.
+.. Wählen Sie eine neue Festplatte aus und installieren Sie sie bei Bedarf im Host.
+
+
+. Bearbeiten Sie die ursprüngliche Datenträgerkonfigurationsdatei und fügen Sie den neuen Datenträger hinzu.
++
+Sie sollten den Datenträgerpfad und alle anderen Konfigurationsinformationen nach Bedarf aktualisieren.
+
++
+[listing]
+----
+<disk type='block' device='lun'>
+  <driver name='qemu' type='raw' cache='directsync'/>
+  <source dev='/dev/disk/by-id/ata-Micron_5100_MTFDDAK960TCC_171616D35277'/>
+  <backingStore/>
+  <target dev='sde' bus='scsi'/>
+  <alias name='scsi0-0-0-4'/>
+  <address type='drive' controller='0' bus='0' target='0' unit='4'/>
+</disk>
+----
+
+
+--
+.ESXi
+--
+.Schritte
+. Sign in mit dem Administratorkonto bei der Deploy-Webbenutzeroberfläche an.
+. Wählen Sie die Registerkarte *Cluster* und wählen Sie den entsprechenden Cluster aus.
++
+image:ST_22.jpg["Knotendetails"]
+
+. Wählen Sie *+*, um die Speicheransicht zu erweitern.
++
+image:ST_23.jpg["Knotenspeicher bearbeiten"]
+
+. Wählen Sie *Bearbeiten*, um Änderungen an den angeschlossenen Festplatten vorzunehmen und das ausgefallene Laufwerk zu deaktivieren.
++
+image:ST_24.jpg["Details zum Speicherdatenträger"]
+
+. Geben Sie die Cluster-Anmeldeinformationen ein und wählen Sie *Speicher bearbeiten*.
++
+image:ST_25.jpg["ONTAP -Anmeldeinformationen"]
+
+. Bestätigen Sie den Vorgang.
++
+image:ST_26.jpg["Warnung"]
+
+
+
+--
+====
+
+
+== Fügen Sie das neue Ersatzlaufwerk hinzu
+
+Nachdem Sie das ausgefallene Laufwerk entfernt haben, fügen Sie die Ersatzfestplatte hinzu.
+
+[role="tabbed-block"]
+====
+.KVM mit Deploy
+--
+.Anhängen einer Festplatte mit Deploy
+Sie können eine Festplatte an einen KVM-Host anschließen, um eine Festplatte auszutauschen oder die Speicherkapazität zu erhöhen.
+
+.Bevor Sie beginnen
+Sie müssen über die Anmeldeinformationen für das Administratorkonto ONTAP Select und ONTAP Select Deploy verfügen.
+
+Die neue Festplatte muss physisch auf dem KVM-Linux-Host installiert werden.
+
+.Schritte
+. Sign in mit dem Administratorkonto bei der Web-Benutzeroberfläche des Bereitstellungsdienstprogramms an.
+. Wählen Sie oben auf der Seite die Registerkarte *Cluster* und wählen Sie den gewünschten Cluster aus der Liste aus.
+. Wählen Sie *+* neben dem gewünschten HA-Paar oder Knoten.
++
+Wenn die Option deaktiviert ist, aktualisiert Deploy derzeit die Speicherinformationen.
+
+. Wählen Sie auf der Seite *Knotenspeicher bearbeiten* die Option *Speicher bearbeiten* aus.
+. Wählen Sie die Festplatten aus, die an den Knoten angeschlossen werden sollen, geben Sie die Anmeldeinformationen des ONTAP Administrators ein und wählen Sie *Speicher bearbeiten*, um die Änderungen anzuwenden.
+. Wählen Sie die Registerkarte *Ereignisse* aus, um den Anfügevorgang zu überwachen und zu bestätigen.
+. Überprüfen Sie die Knotenspeicherkonfiguration, um zu bestätigen, dass die Festplatte angeschlossen ist.
+
+
+--
+.KVM über CLI
+--
+Nachdem Sie das ausgefallene Laufwerk identifiziert und entfernt haben, können Sie ein neues Laufwerk anschließen.
+
+.Schritte
+. Schließen Sie die neue Festplatte an die virtuelle Maschine an.
++
+[listing]
+----
+virsh attach-disk --persistent /PATH/disk.xml
+----
+
+
+.Ergebnisse
+Die Festplatte wird als Ersatzfestplatte zugewiesen und steht ONTAP Select zur Verfügung. Es kann eine Minute oder länger dauern, bis die Festplatte verfügbar ist.
+
+.Nach Abschluss
+Da sich die Knotenkonfiguration geändert hat, sollten Sie mit dem Verwaltungsdienstprogramm „Deploy“ eine Clusteraktualisierung durchführen.
+
+--
+.ESXi
+--
+.Schritte
+. Sign in mit dem Administratorkonto bei der Deploy-Webbenutzeroberfläche an.
+. Wählen Sie die Registerkarte *Cluster* und wählen Sie den entsprechenden Cluster aus.
++
+image:ST_27.jpg["HA-Paar"]
+
+. Wählen Sie *+*, um die Speicheransicht zu erweitern.
++
+image:ST_28.jpg["Knotenspeicher bearbeiten"]
+
+. Wählen Sie *Bearbeiten*, bestätigen Sie, dass das neue Laufwerk verfügbar ist, und wählen Sie es aus.
++
+image:ST_29.jpg["Details zum Speicherdatenträger"]
+
+. Geben Sie die Cluster-Anmeldeinformationen ein und wählen Sie *Speicher bearbeiten*.
++
+image:ST_30.jpg["Details zum Speicherdatenträger"]
+
+. Bestätigen Sie den Vorgang.
++
+image:ST_31.jpg["Details zum Speicherdatenträger"]
+
+
+
+--
+====

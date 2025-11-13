@@ -1,0 +1,191 @@
+---
+sidebar: sidebar 
+permalink: concept_api_transaction.html 
+keywords: rest api, deploy rest api, rest, transaction, request, response, headers, input, output 
+summary: Jeder Deploy-API-Aufruf wird als HTTP-Anfrage an die Deploy-VM ausgeführt, die eine entsprechende Antwort an den Client generiert. Dieses Anfrage-/Antwort-Paar gilt als API-Transaktion. Bevor Sie die Deploy-API verwenden, sollten Sie mit den verfügbaren Eingabevariablen zur Steuerung einer Anfrage und dem Inhalt der Antwortausgabe vertraut sein. 
+---
+= Anforderungs- und Antwort-API-Transaktion für ONTAP Select
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Jeder Deploy-API-Aufruf wird als HTTP-Anfrage an die Deploy-VM ausgeführt, die eine entsprechende Antwort an den Client generiert. Dieses Anfrage-/Antwort-Paar gilt als API-Transaktion. Bevor Sie die Deploy-API verwenden, sollten Sie mit den verfügbaren Eingabevariablen zur Steuerung einer Anfrage und dem Inhalt der Antwortausgabe vertraut sein.
+
+
+
+== Eingabevariablen, die eine API-Anfrage steuern
+
+Sie können die Verarbeitung eines API-Aufrufs über in der HTTP-Anforderung festgelegte Parameter steuern.
+
+
+
+=== Anforderungsheader
+
+Sie müssen mehrere Header in die HTTP-Anforderung aufnehmen, darunter:
+
+* Inhaltstyp: Wenn der Anforderungstext JSON enthält, muss dieser Header auf application/json gesetzt werden.
+* Akzeptieren. Wenn der Antworttext JSON enthält, muss dieser Header auf application/json gesetzt werden.
+* Autorisierung: Die Basisauthentifizierung muss mit dem Benutzernamen und dem Kennwort in einer Base64-Zeichenfolge codiert sein.
+
+
+
+
+=== Anforderungstext
+
+Der Inhalt des Anforderungstexts variiert je nach Aufruf. Der HTTP-Anforderungstext besteht aus einem der folgenden Elemente:
+
+* JSON-Objekt mit Eingabevariablen (z. B. dem Namen eines neuen Clusters)
+* Leer
+
+
+
+
+=== Filterobjekte
+
+Wenn Sie einen API-Aufruf mit GET ausführen, können Sie die zurückgegebenen Objekte basierend auf einem beliebigen Attribut einschränken oder filtern. Sie können beispielsweise einen genauen Wert angeben, der übereinstimmen soll:
+
+`<field>=<query value>`
+
+Neben der exakten Übereinstimmung stehen weitere Operatoren zur Verfügung, um eine Reihe von Objekten über einen Wertebereich zurückzugeben. ONTAP Select unterstützt die unten gezeigten Filteroperatoren.
+
+[cols="30,70"]
+|===
+| Operator | Beschreibung 
+
+
+| = | Gleich 
+
+
+| < | Weniger als 
+
+
+| > | Größer als 
+
+
+| <= | Kleiner oder gleich 
+
+
+| >= | Größer als oder gleich 
+
+
+|  | Oder 
+
+
+| ! | Ungleich 
+
+
+| * | Gieriger Platzhalter 
+|===
+Sie können auch eine Reihe von Objekten zurückgeben, basierend darauf, ob ein bestimmtes Feld festgelegt ist oder nicht, indem Sie das Schlüsselwort „Null“ oder seine Negation (!null) als Teil der Abfrage verwenden.
+
+
+
+=== Auswählen von Objektfeldern
+
+Standardmäßig gibt ein API-Aufruf mit GET nur die Attribute zurück, die das Objekt bzw. die Objekte eindeutig identifizieren. Dieser Mindestsatz an Feldern dient als Schlüssel für jedes Objekt und variiert je nach Objekttyp. Sie können zusätzliche Objekteigenschaften mit dem Abfrageparameter „Felder“ wie folgt auswählen:
+
+* Preiswerte Felder angeben `fields=*` um die Objektfelder abzurufen, die im lokalen Serverspeicher verwaltet werden oder für deren Zugriff nur geringe Verarbeitung erforderlich ist.
+* Teure Felder angeben `fields=**` um alle Objektfelder abzurufen, einschließlich derjenigen, für deren Zugriff eine zusätzliche Serververarbeitung erforderlich ist.
+* Auswahl benutzerdefinierter Felder `fields=FIELDNAME` um das gewünschte Feld genau anzugeben. Wenn Sie mehrere Felder anfordern, müssen die Werte durch Kommas und ohne Leerzeichen getrennt werden.
+
+
+
+TIP: Als Best Practice sollten Sie immer die gewünschten Felder angeben. Rufen Sie die kostengünstigen und teuren Felder nur bei Bedarf ab. Die Klassifizierung in kostengünstige und teure Felder wird von NetApp anhand interner Performanceanalysen festgelegt. Die Klassifizierung für ein bestimmtes Feld kann sich jederzeit ändern.
+
+
+
+=== Sortieren von Objekten im Ausgabesatz
+
+Die Datensätze einer Ressourcensammlung werden in der vom Objekt definierten Standardreihenfolge zurückgegeben. Sie können die Reihenfolge mithilfe des Abfrageparameters order_by mit dem Feldnamen und der Sortierrichtung wie folgt ändern:
+`order_by=<field name> asc|desc`
+
+Sie können beispielsweise das Feld „Typ“ in absteigender Reihenfolge und anschließend das Feld „ID“ in aufsteigender Reihenfolge sortieren:
+`order_by=type desc, id asc`
+
+Wenn Sie mehrere Parameter angeben, müssen Sie die Felder durch ein Komma trennen.
+
+
+
+=== Pagination
+
+Wenn Sie einen API-Aufruf mit GET ausführen, um auf eine Sammlung von Objekten desselben Typs zuzugreifen, werden standardmäßig alle übereinstimmenden Objekte zurückgegeben. Bei Bedarf können Sie die Anzahl der zurückgegebenen Datensätze mit dem Abfrageparameter max_records in der Anfrage begrenzen. Zum Beispiel:
+`max_records=20`
+
+Bei Bedarf können Sie diesen Parameter mit anderen Abfrageparametern kombinieren, um das Ergebnis einzugrenzen. Beispielsweise werden im Folgenden bis zu 10 Systemereignisse zurückgegeben, die nach der angegebenen Zeit generiert wurden:
+`time=> 2019-04-04T15:41:29.140265Z&max_records=10`
+
+Sie können mehrere Anfragen stellen, um die Ereignisse (oder einen beliebigen Objekttyp) durchzublättern. Jeder nachfolgende API-Aufruf sollte einen neuen Zeitwert basierend auf dem letzten Ereignis im letzten Ergebnissatz verwenden.
+
+
+
+== Interpretieren einer API-Antwort
+
+Jede API-Anfrage generiert eine Antwort an den Client. Sie können die Antwort überprüfen, um festzustellen, ob sie erfolgreich war, und bei Bedarf weitere Daten abrufen.
+
+
+
+=== HTTP-Statuscode
+
+Die von der Deploy REST API verwendeten HTTP-Statuscodes werden unten beschrieben.
+
+[cols="15,20,65"]
+|===
+| Code | Bedeutung | Beschreibung 
+
+
+| 200 | OK | Zeigt den Erfolg von Aufrufen an, die kein neues Objekt erstellen. 
+
+
+| 201 | Erstellt | Ein Objekt wurde erfolgreich erstellt. Der Location-Antwortheader enthält die eindeutige Kennung für das Objekt. 
+
+
+| 202 | Akzeptiert | Zur Ausführung der Anforderung wurde ein zeitintensiver Hintergrundjob gestartet, der Vorgang ist jedoch noch nicht abgeschlossen. 
+
+
+| 400 | Ungültige Anforderung | Die Anfrageeingabe wird nicht erkannt oder ist unpassend. 
+
+
+| 403 | Verboten | Der Zugriff wird aufgrund eines Autorisierungsfehlers verweigert. 
+
+
+| 404 | Nicht gefunden | Die in der Anfrage genannte Ressource existiert nicht. 
+
+
+| 405 | Methode nicht zulässig | Das HTTP-Verb in der Anforderung wird für die Ressource nicht unterstützt. 
+
+
+| 409 | Konflikt | Der Versuch, ein Objekt zu erstellen, ist fehlgeschlagen, da das Objekt bereits vorhanden ist. 
+
+
+| 500 | Interner Fehler | Auf dem Server ist ein allgemeiner interner Fehler aufgetreten. 
+
+
+| 501 | Nicht implementiert | Die URI ist bekannt, kann die Anfrage jedoch nicht ausführen. 
+|===
+
+
+=== Antwortheader
+
+Die vom Deploy-Server generierte HTTP-Antwort enthält mehrere Header, darunter:
+
+* Anfrage-ID: Jeder erfolgreichen API-Anfrage wird eine eindeutige Anfragekennung zugewiesen.
+* Standort: Wenn ein Objekt erstellt wird, enthält der Standort-Header die vollständige URL zum neuen Objekt einschließlich der eindeutigen Objektkennung.
+
+
+
+
+=== Antworttext
+
+Der Inhalt der mit einer API-Anfrage verknüpften Antwort unterscheidet sich je nach Objekt, Verarbeitungstyp und Erfolg oder Misserfolg der Anfrage. Der Antworttext wird in JSON gerendert.
+
+* Einzelnes Objekt Ein einzelnes Objekt kann basierend auf der Anforderung mit einer Reihe von Feldern zurückgegeben werden. Beispielsweise können Sie GET verwenden, um ausgewählte Eigenschaften eines Clusters mithilfe der eindeutigen Kennung abzurufen.
+* Mehrere Objekte Mehrere Objekte aus einer Ressourcensammlung können zurückgegeben werden. In allen Fällen wird ein einheitliches Format verwendet, `num_records` Angabe der Anzahl der Datensätze und Datensätze, die ein Array der Objektinstanzen enthalten. Sie können beispielsweise alle in einem bestimmten Cluster definierten Knoten abrufen.
+* Job-Objekt: Wenn ein API-Aufruf asynchron verarbeitet wird, wird ein Job-Objekt zurückgegeben, das die Hintergrundaufgabe verankert. Beispielsweise wird die POST-Anforderung zum Bereitstellen eines Clusters asynchron verarbeitet und gibt ein Job-Objekt zurück.
+* Fehlerobjekt: Wenn ein Fehler auftritt, wird immer ein Fehlerobjekt zurückgegeben. Beispielsweise erhalten Sie eine Fehlermeldung, wenn Sie versuchen, einen Cluster mit einem bereits vorhandenen Namen zu erstellen.
+* Leer: In bestimmten Fällen werden keine Daten zurückgegeben und der Antworttext ist leer. Beispielsweise ist der Antworttext leer, nachdem mit DELETE ein vorhandener Host gelöscht wurde.
+
