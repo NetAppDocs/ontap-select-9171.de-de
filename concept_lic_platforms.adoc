@@ -166,11 +166,11 @@ Die folgende Tabelle enthält den für den angegebenen Speicher erforderlichen M
 
 
 2+| Hypervisor-Unterstützung (KVM)  a| 
-Red Hat Enterprise Linux (RHEL) 64-Bit (KVM) 10.0, 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, 8.8, 8.7 und 8.6
+Red Hat Enterprise Linux (RHEL) 64-bit (KVM) 10.1, 10.0, 9.7, 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, 8.8, 8.7 und 8.6
 
-Rocky Linux (KVM) 10.0, 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, 8.9, 8.8, 8.7 und 8.6
+Rocky Linux (KVM) 10.1, 10.0, 9.7, 9.6, 9.5, 9.4, 9.3, 9.2, 9.1, 9.0, 8.9, 8.8, 8.7 und 8.6
 
-*Hinweis*: Für KVM-Hypervisoren auf RHEL 10.0- und Rocky Linux 10.0-Hosts gibt es Einschränkungen im Software-RAID-Workflow. Weitere Informationen finden Sie in den folgenden Artikeln unserer Wissensdatenbank:
+*Hinweis*: Für KVM-Hypervisoren auf RHEL 10.1 und 10.0 sowie Rocky Linux 10.1 und 10.0 Hosts gelten Einschränkungen hinsichtlich des Software-RAID-Workflows. Weitere Informationen finden Sie in den folgenden Knowledge Base-Artikeln:
 
 * link:https://kb.netapp.com/on-prem/ontap/ontap-select/Select-Issues/CDEPLOY-4020["CDEPLOY-4020: ONTAP Select Deploy: Warnmeldung beim Erstellen der Cluster-Hardware unter Verwendung von RHEL 10 und ROCKY 10"^]
 * link:https://kb.netapp.com/on-prem/ontap/ontap-select/Select-Issues/CDEPLOY-4025["CDEPLOY-4025: ONTAP Select DeployGUI: Speicherpools und Speicherdatenträger werden für SWR auf der Seite zur Clustererstellung auf Hosts mit RHEL10/Rocky 10 nicht angezeigt."^]
