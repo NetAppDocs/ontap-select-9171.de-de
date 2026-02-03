@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: task_cli_deploy_image_add.html 
 keywords: administer, administering, cli, deploy, ontap select image, add 
-summary: Sie können Ihrer Instanz des Deploy-Verwaltungsprogramms ein ONTAP Select Image hinzufügen. Nach der Installation können Sie das Image bei der Bereitstellung eines ONTAP Select Clusters verwenden. 
+summary: Fügen Sie ein ONTAP Select-Image zu Ihrer Instanz des Deploy-Verwaltungsprogramms hinzu. Nach der Installation können Sie es beim Bereitstellen eines ONTAP Select Clusters verwenden. 
 ---
 = Fügen Sie ein ONTAP Select Image zur Bereitstellung hinzu
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: Sie können Ihrer Instanz des Deploy-Verwaltungsprogramms ein ONTAP Sel
 
 
 [role="lead"]
-Sie können Ihrer Instanz des Deploy-Verwaltungsprogramms ein ONTAP Select Image hinzufügen. Nach der Installation können Sie das Image bei der Bereitstellung eines ONTAP Select Clusters verwenden.
+Fügen Sie ein ONTAP Select-Image zu Ihrer Instanz des Deploy-Verwaltungsprogramms hinzu. Nach der Installation des Images können Sie es beim Bereitstellen eines ONTAP Select Clusters verwenden.
 
 .Bevor Sie beginnen
 Bevor Sie neue ONTAP Select Images zu Deploy hinzufügen, sollten Sie zunächst alle nicht benötigten Images entfernen.
@@ -29,14 +29,11 @@ NOTE: Sie sollten nur ein ONTAP Select Image mit einer Version hinzufügen, die 
 Um ein ONTAP Select Image zu einer Instanz des Deploy-Dienstprogramms hinzuzufügen, müssen Sie das Installationsimage von der NetApp Support-Site herunterladen. Das ONTAP Select Installationsimage ist als einzelne komprimierte Datei formatiert.
 
 .Schritte
-. Rufen Sie die NetApp -Supportseite über einen Webbrowser auf und wählen Sie *Support-Schnelllinks*.
-. Wählen Sie unter *Top-Aufgaben* die Option *Software herunterladen* und melden Sie sich auf der Website an.
-. Wählen Sie *Produkt finden*.
-. Scrollen Sie nach unten und wählen Sie * ONTAP Select*.
-. Unter *Andere verfügbare Software auswählen* wählen Sie *Upgrade bereitstellen, Knoten-Upgrade, Image installieren*.
-. Wählen Sie die gewünschte Version des Upgrade-Pakets aus.
-. Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA) und klicken Sie auf *Akzeptieren und fortfahren*.
-. Wählen Sie das entsprechende Paket aus und laden Sie es herunter. Beantworten Sie dabei alle Eingabeaufforderungen entsprechend Ihrer Umgebung.
+. Rufen Sie die link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site Downloads"^] Seite auf.
+. Scrollen Sie nach unten und wählen Sie *ONTAP Select Image* aus.
+. Wählen Sie die gewünschte Version des Installationsabbilds aus.
+. Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA) und wählen Sie *Akzeptieren und fortfahren*.
+. Wählen Sie das passende *ONTAP Select Image Install*-Paket aus und laden Sie es herunter. Beantworten Sie alle erforderlichen Eingabeaufforderungen.
 
 
 
@@ -46,7 +43,7 @@ Um ein ONTAP Select Image zu einer Instanz des Deploy-Dienstprogramms hinzuzufü
 Nachdem Sie das ONTAP Select Installationsimage erworben haben, müssen Sie die Datei auf die virtuelle Deploy-Maschine hochladen.
 
 .Bevor Sie beginnen
-Die Installationsimagedatei muss auf Ihrer lokalen Arbeitsstation verfügbar sein. Außerdem benötigen Sie das Kennwort für das Deploy-Administrator-Benutzerkonto.
+Vergewissern Sie sich, dass die Installationsabbilddatei auf Ihrem lokalen Rechner verfügbar ist. Sie müssen außerdem das Kennwort für das Deploy-Administratorkonto haben.
 
 .Informationen zu diesem Vorgang
 In dieser Aufgabe wird eine Methode zum Hochladen der Datei auf die virtuelle Deploy-Maschine beschrieben. Möglicherweise gibt es andere Optionen, die für Ihre Umgebung besser geeignet sind.
@@ -80,9 +77,8 @@ Sie müssen wissen, in welchem Verzeichnis die Installationsimagedatei auf der v
 .Schritte
 . Sign in .
 . Starten Sie die Bash-Shell:
-
-
-[listing]
++
+[source, cli]
 ----
 shell bash
 ----

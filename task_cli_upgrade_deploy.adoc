@@ -1,43 +1,34 @@
----
-sidebar: sidebar 
-permalink: task_cli_upgrade_deploy.html 
-keywords: administer, administering, cli, deploy, upgrade deploy 
-summary: Sie können eine vorhandene virtuelle Maschine des Bereitstellungsdienstprogramms direkt über die Befehlszeilenschnittstelle aktualisieren. 
----
-= Upgrade einer ONTAP Select Deploy-Instanz
-:hardbreaks:
+= Schritt 1: Laden Sie das Upgrade-Paket herunter
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ./media/
 
+
+sidebar: sidebar permalink: task_cli_upgrade_deploy.html keywords: administer, administering, cli, deploy, upgrade deploy summary: Sie können eine vorhandene Deploy-Dienstprogramm-Virtual Machine direkt über die Befehlszeile aktualisieren. --- = Upgrade einer ONTAP Select Deploy-Instanz :hardbreaks: :nofooter: :icons: font :linkattrs: :imagesdir: ./media/
 
 [role="lead"]
-Sie können eine vorhandene virtuelle Maschine des ONTAP Select Deploy-Dienstprogramms direkt mithilfe der CLI des ONTAP Select Deploy-Dienstprogramms aktualisieren.
+Aktualisieren Sie eine vorhandene ONTAP Select Deploy Utility-VM direkt mit der ONTAP Select Deploy Utility-CLI.
 
 .Bevor Sie beginnen
-Stellen Sie sicher, dass ONTAP Select Deploy während des Upgrades nicht zum Ausführen anderer Aufgaben verwendet wird. Informationen und Einschränkungen zum Upgrade des Dienstprogramms ONTAP Select Deploy finden Sie in den aktuellen Versionshinweisen.
+Stellen Sie sicher, dass ONTAP Select Deploy während des Upgrades nicht für andere Aufgaben verwendet wird. Siehe die link:reference_release_notes.html["Versionshinweise"] für Informationen und Einschränkungen zum Upgrade des ONTAP Select Deploy-Dienstprogramms.
 
 [NOTE]
 ====
 Wenn Sie eine ältere Instanz des ONTAP Select Deploy-Verwaltungsprogramms installiert haben, sollten Sie auf die aktuelle Version aktualisieren. Der ONTAP Select Knoten und die ONTAP Select Deploy-Komponente werden unabhängig voneinander aktualisiert. Sehenlink:concept_adm_upgrading_nodes.html["Upgrade der ONTAP Select Knoten"^] für weitere Einzelheiten.
 
-Sie können direkt von ONTAP Select Deploy 9.16.1 oder 9.15.1 auf ONTAP Select Deploy 9.17.1 aktualisieren. Um ein Upgrade von ONTAP Select Deploy 9.14.1 oder früher durchzuführen, lesen Sie die Versionshinweise für Ihre ONTAP Select -Version.
+Sie können direkt auf ONTAP Select Deploy 9.18.1 von ONTAP Select Deploy 9.17.1 oder 9.16.1 aktualisieren. Um von ONTAP Select Deploy 9.15.1 oder einer früheren Version zu aktualisieren, lesen Sie die Versionshinweise für Ihre ONTAP Select Version.
 
 ====
 
 
-== Schritt 1: Laden Sie das Paket herunter
+== Schritt 1: Laden Sie das Upgrade-Paket herunter
 
-Um den Aktualisierungsprozess zu starten, laden Sie die entsprechende ONTAP Select Deploy-Aktualisierungsdatei für die virtuelle Maschine von der folgenden Webseite herunter:link:https://mysupport.netapp.com/site/["NetApp Support Site"^] Die Das Upgrade-Paket ist als einzelne komprimierte Datei formatiert.
+Um den Aktualisierungsprozess zu starten, laden Sie die ONTAP Select Deploy Upgrade-Datei von der NetApp Support Site herunter. Das Upgrade-Paket ist als einzelne komprimierte Datei formatiert.
 
 .Schritte
-. Greifen Sie auf dielink:https://mysupport.netapp.com/site/["NetApp Support Site"^] Öffnen Sie einen Webbrowser und wählen Sie im Menü „Downloads“ die Option „Downloads“.
-. Scrollen Sie nach unten und wählen Sie * ONTAP Select Deploy Upgrade*.
-. Wählen Sie die gewünschte Version des Upgrade-Pakets aus.
+. Rufen Sie die link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site Downloads"^] Seite auf.
+. Scrollen Sie nach unten und wählen Sie *ONTAP Select Deploy* aus.
+. Wählen Sie die gewünschte ONTAP Select Version aus.
 . Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA) und wählen Sie *Akzeptieren und fortfahren*.
-. Wählen Sie das entsprechende Paket aus und laden Sie es herunter. Beantworten Sie dabei alle Eingabeaufforderungen entsprechend Ihrer Umgebung.
+. Wählen Sie das passende *ONTAP Select Deploy Upgrade*-Paket aus und laden Sie es herunter. Beantworten Sie alle erforderlichen Eingabeaufforderungen.
 
 
 
