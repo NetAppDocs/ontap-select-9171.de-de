@@ -18,29 +18,31 @@ Sie müssen das Verwaltungsdienstprogramm ONTAP Select Deploy installieren und d
 
 
 
-== Schritt 1: Laden Sie das Image der virtuellen Maschine herunter
+== Laden Sie das virtuelle Maschinen-Image herunter
 
-Laden Sie das ONTAP Select Paket von der NetApp Support-Website herunter.
+Sie können das ONTAP Select Paket von der NetApp Support-Website herunterladen.
 
 .Bevor Sie beginnen
 https://mysupport.netapp.com/site/user/registration["Sie verfügen über ein registriertes NetApp Support Site-Konto"^].
 
 .Informationen zu diesem Vorgang
-Das ONTAP Select Deploy-Verwaltungsprogramm ist als virtuelle Maschine (VM) basierend auf dem Open Virtualization Format (OVF)-Standard bereitgestellt. Die einzelne komprimierte Datei hat die Endung `OVA` für ESXi-Hosts und `TGZ` für KVM-Hosts. Die VM stellt den Deploy-Server und Installationsabbilder für ONTAP Select-Knoten bereit.
+Das ONTAP Select Deploy Verwaltungsprogramm ist als virtuelle Maschine (VM) im Open Virtualization Format (OVF)-Standard verpackt. Die einzelne komprimierte Datei hat die Endung `ova`. Die VM stellt den Deploy-Server und Installationsabbilder für ONTAP Select-Knoten bereit.
 
 .Schritte
-. Rufen Sie die link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site Downloads"^] Seite auf.
-. Scrollen Sie nach unten und wählen Sie *ONTAP Select Deploy* aus.
-. Wählen Sie die gewünschte ONTAP Select Version aus.
+. Greifen Sie mit einem Webbrowser auf link:https://mysupport.netapp.com/site/["NetApp Support Site"^] zu und melden Sie sich an.
+. Wählen Sie *Downloads* im Menü und dann *Downloads* im Dropdown-Menü aus.
+. Auf der Downloads-Seite wählen Sie unter All Products A-Z den Buchstaben *O* aus.
+. Scrollen Sie nach unten und wählen Sie *ONTAP Select* aus.
+. Wählen Sie die gewünschte Version des Pakets aus.
 . Lesen Sie die Endbenutzer-Lizenzvereinbarung (EULA) und wählen Sie *Akzeptieren und fortfahren*.
-. Wählen Sie das passende *ONTAP Select Deploy Install*-Paket aus und laden Sie es herunter. Beantworten Sie alle erforderlichen Eingabeaufforderungen.
+. Wählen Sie das passende Paket aus und laden Sie es herunter, und beantworten Sie alle Eingabeaufforderungen nach Bedarf.
 
 
 
 
-== Schritt 2: Überprüfen Sie die ONTAP Select Deploy OVA-Signatur
+== Überprüfen Sie die ONTAP Select Deploy OVA-Signatur
 
-Überprüfen Sie die Signatur der ONTAP Select Open Virtualization Appliance (OVA), bevor Sie das Installationspaket installieren.
+Sie sollten die Signatur der ONTAP Select Open Virtualization Appliance (OVA) überprüfen, bevor Sie das Installationspaket installieren.
 
 .Bevor Sie beginnen
 Stellen Sie sicher, dass Ihr System die folgenden Anforderungen erfüllt:
@@ -72,9 +74,9 @@ Stellen Sie sicher, dass Ihr System die folgenden Anforderungen erfüllt:
 | `ONTAPdeploy.ova.sig` | Der SHA-256-Algorithmus wird gehasht und anschließend vom Remote Support Agent (RSA) signiert. `csc-prod` Schlüssel und Signatur für das Installationsprogramm. 
 |===
 . Überprüfen Sie, ob die `ONTAPdeploy.ova.sig` Die Datei verwendet die zugehörigen Zertifikate und Validierungsbefehle.
-. Überprüfen Sie die Signatur:
+. Überprüfen Sie die Signatur mit dem folgenden Befehl:
 +
-[source, cli]
+[listing]
 ----
 openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTAPdeploy.ova.sig  ONTAPdeploy.ova
 ----
@@ -82,9 +84,9 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 
 
 
-== Schritt 3: Die virtuelle Maschine bereitstellen
+== Stellen Sie die virtuelle Maschine bereit
 
-Installieren und starten Sie die ONTAP Select Deploy VM mithilfe des OVF-VM-Images. Im Rahmen der Installation konfigurieren Sie die Netzwerkschnittstelle für die Verwendung von DHCP oder einer statischen IP-Konfiguration.
+Sie müssen die ONTAP Select Deploy VM mithilfe des OVF-VM-Images installieren und starten. Im Rahmen der Installation konfigurieren Sie die Netzwerkschnittstelle für die Verwendung von DHCP oder einer statischen IP-Konfiguration.
 
 .Bevor Sie beginnen
 Für einen ESXi-Hypervisor müssen Sie die Bereitstellung der ONTAP Select Deploy VM vorbereiten:
@@ -115,14 +117,14 @@ Die zu befolgenden Schritte hängen davon ab, ob Sie einen ESXi- oder KVM-Hyperv
 --
 . Greifen Sie auf den vSphere-Client zu und melden Sie sich an.
 . Navigieren Sie zur entsprechenden Stelle in der Hierarchie und wählen Sie *OVF-Vorlage bereitstellen*.
-. Wählen Sie die OVA-Datei aus und schließen Sie den Assistenten zum Bereitstellen der OVF-Vorlage ab. Wählen Sie die für Ihre Umgebung geeigneten Optionen aus.
+. Wählen Sie die OVA-Datei aus und schließen Sie den Assistenten „OVF-Vorlage bereitstellen“ ab, indem Sie die Optionen auswählen, die für Ihre Umgebung geeignet sind.
 +
 Sie müssen das Kennwort für das Administratorkonto festlegen. Sie müssen dieses Kennwort bei der Anmeldung beim Bereitstellungsprogramm angeben.
 
 . Wählen Sie nach der Bereitstellung der VM die neue VM aus. Wenn sie gemäß Ihrer Eingabe im Bereitstellungsassistenten noch nicht eingeschaltet ist, schalten Sie sie manuell ein.
 . Bei Bedarf können Sie das Bereitstellungsnetzwerk mithilfe der VM-Konsole konfigurieren:
 +
-.. Wählen Sie die Registerkarte *Console*, um auf die ESXi-Host-Setup-Shell zuzugreifen und den Einschaltvorgang zu überwachen.
+.. Klicken Sie auf die Registerkarte *Console*, um auf die ESXi-Host-Setup-Shell zuzugreifen und den Einschaltvorgang zu überwachen.
 .. Warten Sie auf die folgende Eingabeaufforderung:
 +
 Hostname:
@@ -198,9 +200,9 @@ Use DHCP to set networking information? [n]:
 ====
 
 
-== Schritt 4: Sign in bei der Deploy-Weboberfläche
+== Sign in bei der Deploy-Weboberfläche an
 
-Sign in zur Web-Benutzeroberfläche, um zu bestätigen, dass das Deploy-Dienstprogramm verfügbar ist, und führen Sie die Erstkonfiguration durch.
+Sie sollten sich in der Web-Benutzeroberfläche anmelden, um zu bestätigen, dass das Deploy-Dienstprogramm verfügbar ist und die Erstkonfiguration durchzuführen.
 
 .Schritte
 . Richten Sie Ihren Browser mithilfe der IP-Adresse oder des Domänennamens auf das Bereitstellungsdienstprogramm:
@@ -209,7 +211,7 @@ Sign in zur Web-Benutzeroberfläche, um zu bestätigen, dass das Deploy-Dienstpr
 
 . Geben Sie den Kontonamen und das Kennwort des Administrators (admin) ein und melden Sie sich an.
 . Wenn das Popup-Fenster *Willkommen bei ONTAP Select* angezeigt wird, überprüfen Sie die Voraussetzungen und wählen Sie *OK*, um fortzufahren.
-. Wenn Sie sich zum ersten Mal anmelden und Deploy nicht mithilfe des mit vCenter verfügbaren Assistenten installiert haben, geben Sie bei entsprechender Aufforderung die folgenden Konfigurationsinformationen ein:
+. Wenn Sie sich zum ersten Mal anmelden und Deploy nicht mithilfe des mit vCenter verfügbaren Assistenten installiert haben, geben Sie die folgenden Konfigurationsinformationen an, wenn Sie dazu aufgefordert werden:
 +
 ** Neues Passwort für das Administratorkonto (erforderlich)
 ** AutoSupport (optional)
@@ -218,10 +220,7 @@ Sign in zur Web-Benutzeroberfläche, um zu bestätigen, dass das Deploy-Dienstpr
 
 
 
-.Was kommt als Nächstes?
-link:task_deploy_cluster.html["Bereitstellen eines ONTAP Select Clusters"]
-
 .Ähnliche Informationen
-* link:task_cli_signing_in.html["Erfahren Sie mehr über die Anmeldung bei Deploy mit SSH"]
-* link:deploy-evaluation-ontap-select-ovf-template.html["Erfahren Sie mehr über die Bereitstellung einer 90-tägigen Evaluierungsinstanz eines ONTAP Select Clusters"]
+* link:task_cli_signing_in.html["Sign in bei Deploy mit SSH"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["Stellen Sie eine 90-tägige Testinstanz eines ONTAP Select Clusters bereit"]
 
