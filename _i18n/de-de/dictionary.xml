@@ -498,7 +498,6 @@
   <block id="c57cd85a32e181fb83420d2adb23427d" category="paragraph">Jede Instanz des Lizenzmanagers und damit auch jede zugehörige Deploy-Utility-Instanz wird durch eine eindeutige 128-Bit-Nummer identifiziert. Diese Nummer wird mit der neunstelligen Seriennummer der Capacity Pool-Lizenz kombiniert, um den Pool an eine bestimmte Lizenzmanager-Instanz (deployment-Instanz) zu binden. Sie müssen beide Werte auf der NetApp Support-Site beim Generieren der NetApp Lizenzdatei (NLF) angeben.</block>
   <block id="c35b911ba82c4e39b4517e38d1a88551" category="paragraph">Sie können die Lizenzsperr-ID für Ihre Deploy-Instanz mithilfe der Web-Benutzeroberfläche auf folgende Weise ermitteln:</block>
   <block id="93147ad40002fa287e2077d09284c452" category="list-text">Seite „Erste Schritte“ Diese Seite wird angezeigt, wenn Sie sich zum ersten Mal bei Deploy anmelden. Sie können die Seite auch aufrufen, indem Sie oben rechts auf der Seite auf das Dropdown-Feld klicken und „Erste Schritte“ auswählen. Die LLID wird im Abschnitt „Lizenzen hinzufügen“ angezeigt.</block>
-  <block id="f51e8d01c52b31dc2ac35fcbc93eca28" category="list-text">Verwaltung Klicken Sie oben auf der Seite auf die Registerkarte *Verwaltung* und dann auf *Systeme* und *Einstellungen*.</block>
   <block id="bc165811908b5de0b53e3fb455b59f7d" category="section-title">Grundlegende Leasingvorgänge</block>
   <block id="3ccfdfb46d04e07ae1d6fe35a8cbb514" category="paragraph">Ein ONTAP Select -Knoten muss bei jeder Erstellung, Erweiterung oder Änderung eines Datenaggregats eine gültige Kapazitätsmiete suchen oder anfordern. Eine noch gültige Miete aus einer vorherigen Anfrage kann verwendet oder bei Bedarf eine neue Miete angefordert werden. Der ONTAP Select Knoten führt die folgenden Schritte aus, um eine Kapazitätspoolmiete zu finden:</block>
   <block id="7d9520f0fa2db8b35655f9495b62e220" category="list-text">Wenn sich am Knoten eine vorhandene Lease befindet, wird diese verwendet, solange alle der folgenden Bedingungen erfüllt sind:</block>
@@ -1662,27 +1661,6 @@
   <block id="6ead2b5cc2e9a07c3c837cd527eae680" category="open-title">Einzelner Knoten innerhalb eines Clusters mit vier Knoten</block>
   <block id="0e17d1b8e444a58b17e21b8d633cf3c9" category="paragraph">Die folgende Abbildung veranschaulicht die typische Netzwerkkonfiguration für eine einzelne ONTAP Select VM in einem Cluster mit vier Knoten. Es gibt zwei separate Netzwerke: ONTAP-intern und ONTAP-extern.</block>
   <block id="ab818ab7a96525155b780ef59003cf8c" category="paragraph"><block ref="ab818ab7a96525155b780ef59003cf8c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c3a20bbad365631eadc5b2dca8f640b3" category="section-title">Schritt 3: Open vSwitch konfigurieren</block>
-  <block id="c44b5d59bfc3b0196028c522c56aa989" category="paragraph">Der vSwitch ist die zentrale Hypervisor-Komponente zur Unterstützung der Konnektivität für interne und externe Netzwerke. Bei der Konfiguration jedes Hypervisor-vSwitches sind verschiedene Punkte zu beachten.</block>
-  <block id="d1beebffe274c5b13d29f2fbfaa10b06" category="paragraph">Die folgenden Schritte beziehen sich auf eine vSwitch-Konfiguration für einen ESXi-Host mit zwei physischen Ports (2 x 10 GB) in einer typischen Netzwerkumgebung.</block>
-  <block id="720708f411d277d77845e1db4cee83de" category="inline-link-macro">Konfigurieren Sie einen vSwitch und weisen Sie dem vSwitch beide Ports zu</block>
-  <block id="f07356480e3047e35b4cb99dbcc748e2" category="list-text"><block ref="2076eeb99e46600240fb1d963411bb31" category="inline-link-macro-rx"></block>.</block>
-  <block id="bf87bb05f214f1b9f8546e218338fb13" category="inline-link-macro">Erstellen Sie ein NIC-Team mit den beiden Ports</block>
-  <block id="32d6da19d2584fe97eb75d6418af8ca3" category="list-text"><block ref="4d5b30272096305aaf5c4ffdca2a1db5" category="inline-link-macro-rx"></block>.</block>
-  <block id="bfb9321c8431589faff7f47c47138df7" category="list-text">Legen Sie die Lastausgleichsrichtlinie auf „Route basierend auf der ursprünglichen virtuellen Port-ID“ fest.</block>
-  <block id="8042c73ffcc0e5ec0c31ae3e4d7b414e" category="list-text">Markieren Sie beide Adapter als „aktiv“ oder markieren Sie einen Adapter als „aktiv“ und den anderen als „Standby“.</block>
-  <block id="5a9f02bdaab74c00379f1d1e19fe6c57" category="list-text">Setzen Sie die Einstellung „Failback“ auf „Ja“.</block>
-  <block id="0cc1ebaa405436d568cee576cc2d2503" category="inline-image-macro">vSwitch-Eigenschaften)</block>
-  <block id="f2456bc45004bdf347023d01536a2379" category="paragraph"><block ref="f2456bc45004bdf347023d01536a2379" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0bd1bd6c1c4f8c07bba0ee34ba53b4b3" category="list-text">Konfigurieren Sie den vSwitch für die Verwendung von Jumbo-Frames (9000 MTU).</block>
-  <block id="e954024be7362eabbc9a349d62fdd4d4" category="list-text">Konfigurieren Sie eine Portgruppe auf dem vSwitch für den internen Datenverkehr (ONTAP-intern):</block>
-  <block id="a75b88570c3f7c89c4fc7aa2f4ab0862" category="list-text">Die Portgruppe ist den virtuellen ONTAP Select -Netzwerkadaptern e0c-e0g zugewiesen, die für den Cluster, die HA-Verbindung und den Spiegelungsverkehr verwendet werden.</block>
-  <block id="98a4f6885e7d5c14cf8637949d2c7084" category="list-text">Die Portgruppe sollte sich in einem nicht routingfähigen VLAN befinden, da dieses Netzwerk als privat gilt. Um dies zu berücksichtigen, sollten Sie der Portgruppe das entsprechende VLAN-Tag hinzufügen.</block>
-  <block id="1d73953b34ca84fbbf679a9071108259" category="list-text">Die Einstellungen für Lastausgleich, Failback und Failover-Reihenfolge der Portgruppe sollten mit denen des vSwitch übereinstimmen.</block>
-  <block id="b7760ca7d6bf308d66b54dafb201dee0" category="list-text">Konfigurieren Sie eine Portgruppe auf dem vSwitch für den externen Datenverkehr (ONTAP-external):</block>
-  <block id="cc60c471b3f7c93bb39710ddf02f3de5" category="list-text">Die Portgruppe ist den virtuellen ONTAP Select -Netzwerkadaptern e0a-e0c zugewiesen, die für Daten- und Verwaltungsverkehr verwendet werden.</block>
-  <block id="9c0cdffd9a10aa81c87d6972a4d9f884" category="list-text">Die Portgruppe kann sich in einem routingfähigen VLAN befinden. Je nach Netzwerkumgebung sollten Sie zusätzlich ein entsprechendes VLAN-Tag hinzufügen oder die Portgruppe für VLAN-Trunking konfigurieren.</block>
-  <block id="fae4bee7c370d0d0391b8ef189079d46" category="list-text">Die Einstellungen für Lastausgleich, Failback und Failover-Reihenfolge der Portgruppe sollten mit denen des vSwitch identisch sein.</block>
   <block id="9450ade0fc753dddabd4ea63d8bb1187" category="summary">Bereiten Sie alle KVM-Hypervisor-Hosts vor, auf denen ein ONTAP Select Knoten bereitgestellt wird. Bei der Vorbereitung der Hosts prüfen Sie sorgfältig die Bereitstellungsumgebung, um sicherzustellen, dass die Hosts ordnungsgemäß konfiguriert und für die Bereitstellung eines ONTAP Select Clusters bereit sind.</block>
   <block id="6ca9942b969b8c587ad10afd9e0ef119" category="doc">Checkliste für die KVM-Hostkonfiguration und -vorbereitung für ONTAP Select</block>
   <block id="75b870251dc6cf53eee7c05860c964ad" category="paragraph">Bereiten Sie jeden KVM-Hypervisor-Host vor, auf dem ein ONTAP Select Knoten bereitgestellt wird. Bei der Vorbereitung der Hosts prüfen Sie sorgfältig die Bereitstellungsumgebung, um sicherzustellen, dass die Hosts korrekt konfiguriert und für die Bereitstellung eines ONTAP Select Clusters bereit sind.</block>
@@ -3944,4 +3922,5 @@
   <block id="28258323eaa4732b0beafbc8b083a5ab" category="list-text">Wenn Sie sich zum ersten Mal anmelden und Deploy nicht mithilfe des mit vCenter verfügbaren Assistenten installiert haben, geben Sie die folgenden Konfigurationsinformationen an, wenn Sie dazu aufgefordert werden:</block>
   <block id="0778e2d9c54386153e2e52bad4129abe" category="inline-link-macro">Sign in bei Deploy mit SSH</block>
   <block id="ccbbd15600c60abef8f9d734d84b4a4e" category="list-text"><block ref="ccbbd15600c60abef8f9d734d84b4a4e" category="inline-link-macro-rx"></block></block>
+  <block id="111ee35eb26cb3daacf7392b146bf0ea" category="list-text">Administration Klicken Sie oben auf der Seite auf die Registerkarte *Administration* und dann auf *Systeme &amp; AutoSupport*.</block>
 </blocks>
