@@ -71,7 +71,7 @@ Unterstützung für SnapMirror Cloud:: Ab ONTAP Select 9.17.1 wird SnapMirror Cl
 https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html["Erfahren Sie mehr über SnapMirror Cloud-Backups auf Objektspeicher"^].
 
 --
-Unterstützung für SnapLock Select Enterprise:: Ab ONTAP Select 9.17.1 wird SnapLock Select Enterprise (einschließlich manipulationssicherer Snapshot-Sperrung) bei neuen Installationen automatisch lizenziert.  Für Upgrades von ONTAP Select 9.16.1 und älteren Versionen müssen Sie die SnapLock Select-Lizenz von der Website herunterladen.link:https://mysupport.netapp.com/site/["NetApp Support Site"^] und es manuell anwenden.
+Unterstützung für SnapLock Select:: Ab ONTAP Select 9.17.1 wird SnapLock Select (einschließlich manipulationssicherer Snapshot-Sperrung) bei neuen Bereitstellungen automatisch lizenziert. Für Upgrades von ONTAP Select 9.16.1 und früher können Sie die SnapLock Select-Lizenz kostenlos von der link:https://mysupport.netapp.com/site/["NetApp Support Site"^] herunterladen und manuell anwenden. Weitere Informationen finden Sie unter link:reference_lic_ontap_features.html#enabled-ontap-features["ONTAP -Funktionen sind standardmäßig automatisch aktiviert"].
 Unterstützung für vSAN ESA auf Clustern mit mehreren Knoten:: Ab ONTAP Select 9.17.1 wird die Unterstützung für vSAN Express Storage Architecture (ESA) erweitert, um Cluster mit mehreren Knoten bereitzustellen. Diese Erweiterung ermöglicht Ihnen die Bereitstellung von vSAN ESA-Konfigurationen.
 +
 --
