@@ -69,7 +69,7 @@ Es gibt Einschränkungen beim Software-RAID-Workflow für KVM-Hypervisoren auf R
 * NVMe-Geräte, die der Spezifikation 1.0 oder höher entsprechen
 
 
-Folgen Sie demlink:kvm-host-configuration-and-preparation-checklist["Checkliste für die Gastgebervorbereitung"] und überprüfen Sie die erforderlichen Informationen für dielink:reference_chk_deploy_req_info.html["Installation des Bereitstellungsdienstprogramms"] und dielink:reference_chk_select_req_info.html["ONTAP Select Installation"] für weitere Informationen.
+Folgen Sie dem link:kvm-host-configuration-and-preparation-checklist.html["Checkliste für die Gastgebervorbereitung"] und überprüfen Sie die erforderlichen Informationen für das link:reference_chk_deploy_req_info.html["Installation des Bereitstellungsdienstprogramms"] und das link:reference_chk_select_req_info.html["ONTAP Select Installation"], um weitere Informationen zu erhalten.
 
 .Informationen zu diesem Vorgang
 Sie müssen dieses Verfahren ausführen, bevor Sie einen neuen ONTAP Select Cluster erstellen. Sie können das Verfahren auch ausführen, um zusätzliche NVMe-Laufwerke für einen vorhandenen Software-RAID-NVMe-Cluster zu konfigurieren. In diesem Fall müssen Sie die Laufwerke nach der Konfiguration über Deploy wie zusätzliche SSD-Laufwerke hinzufügen. Der Hauptunterschied besteht darin, dass Deploy die NVMe-Laufwerke erkennt und die Knoten neu startet. Beachten Sie beim Hinzufügen von NVMe-Laufwerken zu einem vorhandenen Cluster Folgendes zum Neustartvorgang:
