@@ -18,6 +18,7 @@ Es gibt mehrere allgemeine Anforderungen, die Sie bei der Planung einer ONTAP Se
 
 
 
+[[required-linux-knowledge-and-skills-for-kvm]]
 == Erforderliche Linux-Kenntnisse und -Fähigkeiten für KVM
 
 Linux mit dem KVM-Hypervisor ist eine komplexe Arbeitsumgebung. Bevor Sie ONTAP Select auf KVM bereitstellen, müssen Sie über die erforderlichen Kenntnisse und Fähigkeiten verfügen.
@@ -61,6 +62,7 @@ Netzwerk- und Open vSwitch-Konfiguration:: Sie sollten mit Netzwerkkonzepten und
 
 
 
+[[cluster-size-and-related-considerations]]
 == Clustergröße und damit verbundene Überlegungen
 
 Es gibt mehrere Planungsaspekte im Zusammenhang mit der Clustergröße, die Sie berücksichtigen sollten.
@@ -71,6 +73,7 @@ Dediziert versus kolokalisiert:: Basierend auf dem Anwendungstyp sollten Sie bes
 
 
 
+[[hypervisor-host-considerations]]
 == Überlegungen zum Hypervisor-Host
 
 Es gibt mehrere Planungsaspekte im Zusammenhang mit dem Hypervisor-Host, die Sie berücksichtigen sollten.
@@ -124,6 +127,7 @@ Integration von ONTAP Select in einen hardwarebasierten ONTAP Cluster:: Sie kön
 
 
 
+[[storage-considerations]]
 == Überlegungen zur Speicherung
 
 Es gibt mehrere Planungsaspekte im Zusammenhang mit dem Host-Speicher, die Sie berücksichtigen sollten.
@@ -156,6 +160,7 @@ Lizenzmodell für den Produktionseinsatz:: Sie müssen für jeden in einer Produ
 
 
 
+[[authentication-using-the-credential-store]]
 == Authentifizierung über den Anmeldeinformationsspeicher
 
 Der Anmeldeinformationsspeicher von ONTAP Select Deploy ist eine Datenbank mit Kontoinformationen. Deploy verwendet die Kontoanmeldeinformationen zur Hostauthentifizierung im Rahmen der Clustererstellung und -verwaltung. Sie sollten wissen, wie der Anmeldeinformationsspeicher im Rahmen der Planung einer ONTAP Select Bereitstellung verwendet wird.

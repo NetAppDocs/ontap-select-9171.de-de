@@ -18,6 +18,7 @@ Verhindern Sie Datenverlust mit RAID SyncMirror (RSM), gespiegelten Aggregaten u
 
 
 
+[[synchronous-replication]]
 == Synchrone Replikation
 
 Das ONTAP HA-Modell basiert auf dem Konzept der HA-Partner. ONTAP Select erweitert diese Architektur auf die Welt der nicht gemeinsam genutzten Standardserver. Die in ONTAP vorhandene RAID SyncMirror (RSM)-Funktionalität repliziert Datenblöcke zwischen Clusterknoten und stellt so zwei Kopien der Benutzerdaten bereit, die über ein HA-Paar verteilt sind.
@@ -26,6 +27,7 @@ Ein Cluster mit zwei Knoten und einem Mediator kann zwei Rechenzentren umfassen.
 
 
 
+[[mirrored-aggregates]]
 == Gespiegelte Aggregate
 
 Ein ONTAP Select Cluster besteht aus zwei bis acht Knoten. Jedes HA-Paar enthält zwei Kopien der Benutzerdaten, die synchron über ein IP-Netzwerk auf die Knoten gespiegelt werden. Diese Spiegelung ist für den Benutzer transparent und eine Eigenschaft des Datenaggregats, die bei der Erstellung des Datenaggregats automatisch konfiguriert wird.
@@ -54,6 +56,7 @@ NOTE: Bei der Bereitstellung eines ONTAP Select Clusters werden alle im System v
 
 
 
+[[write-path]]
 == Schreibpfad
 
 Die synchrone Spiegelung von Datenblöcken zwischen Clusterknoten und die Anforderung, dass bei einem Systemausfall keine Daten verloren gehen, haben erhebliche Auswirkungen auf den Pfad eingehender Schreibvorgänge auf ihrem Weg durch einen ONTAP Select Cluster. Dieser Prozess besteht aus zwei Phasen:

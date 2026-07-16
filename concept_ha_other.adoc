@@ -18,6 +18,7 @@ Hochverfügbarkeit (HA) Disk Heartbeating, HA-Mailbox, HA Heartbeating, HA-Failo
 
 
 
+[[disk-heartbeating]]
 == Festplatten-Heartbeat
 
 Obwohl die ONTAP Select HA-Architektur viele der Codepfade herkömmlicher FAS Arrays nutzt, gibt es einige Ausnahmen. Eine davon betrifft die Implementierung des festplattenbasierten Heartbeatings, einer nicht netzwerkbasierten Kommunikationsmethode, die von Clusterknoten verwendet wird, um zu verhindern, dass Netzwerkisolation zu Split-Brain-Verhalten führt. Ein Split-Brain-Szenario ist das Ergebnis einer Clusterpartitionierung, die typischerweise durch Netzwerkausfälle verursacht wird. Dabei glaubt jede Seite, die andere sei ausgefallen, und versucht, Clusterressourcen zu übernehmen.
@@ -40,6 +41,7 @@ NOTE: Die Mailbox-Architektur und die festplattenbasierte Heartbeating-Methode z
 
 
 
+[[ha-mailbox-posting]]
 == HA-Postfach-Posteingang
 
 Die HA-Postfacharchitektur verwendet ein Nachrichtenpostmodell. Clusterknoten senden in regelmäßigen Abständen Nachrichten an alle anderen Postfachdatenträger im Cluster, einschließlich des Mediators, und bestätigen damit, dass der Knoten betriebsbereit ist. Innerhalb eines fehlerfreien Clusters werden zu jedem Zeitpunkt Nachrichten von allen anderen Clusterknoten an einen einzelnen Postfachdatenträger eines Clusterknotens gesendet.
@@ -48,6 +50,7 @@ An jeden Select-Clusterknoten ist eine virtuelle Festplatte angeschlossen, die s
 
 
 
+[[ha-heartbeating]]
 == HA Herzschlag
 
 Wie NetApp FAS Plattformen sendet ONTAP Select regelmäßig HA-Heartbeat-Nachrichten über die HA-Verbindung. Innerhalb des ONTAP Select Clusters erfolgt dies über eine TCP/IP-Netzwerkverbindung zwischen den HA-Partnern. Zusätzlich werden festplattenbasierte Heartbeat-Nachrichten an alle HA-Mailbox-Festplatten, einschließlich der Mediator-Mailbox-Festplatten, gesendet. Diese Nachrichten werden alle paar Sekunden gesendet und regelmäßig zurückgelesen. Dank der Häufigkeit, mit der diese Nachrichten gesendet und empfangen werden, erkennt der ONTAP Select Cluster HA-Ausfälle innerhalb von etwa 15 Sekunden – dem gleichen Zeitfenster wie auf FAS Plattformen. Wenn keine Heartbeat-Nachrichten mehr gelesen werden, wird ein Failover-Ereignis ausgelöst.
@@ -61,6 +64,7 @@ NOTE: Netzwerk-Heartbeats werden über die HA-Verbindung an den HA-Partner, Knot
 
 
 
+[[ha-failover-and-giveback]]
 == HA-Failover und Giveback
 
 Während eines Failover-Vorgangs übernimmt der verbleibende Knoten die Datenbereitstellung für seinen Peer-Knoten mithilfe der lokalen Kopie der Daten seines HA-Partners. Die Client-E/A kann ohne Unterbrechung fortgesetzt werden, Änderungen an diesen Daten müssen jedoch repliziert werden, bevor eine Rückgabe erfolgen kann. Beachten Sie, dass ONTAP Select keine erzwungene Rückgabe unterstützt, da dadurch die auf dem verbleibenden Knoten gespeicherten Änderungen verloren gehen.

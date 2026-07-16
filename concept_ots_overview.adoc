@@ -26,6 +26,7 @@ Mit der SnapMirror -Software können Sie Daten zwischen ONTAP -Speichern in der 
 
 
 
+[[software-defined-storage]]
 == Softwaredefinierter Speicher
 
 Die Implementierung und Bereitstellung von IT-Services über Software ermöglicht Administratoren eine schnelle und flexible Bereitstellung von Ressourcen. Moderne Rechenzentren wechseln zu einer softwaredefinierten Infrastruktur (SDI). Dadurch können Sie die wertvollsten IT-Ressourcen von der zugrunde liegenden physischen Infrastruktur trennen und so Flexibilität, Skalierbarkeit und Programmierbarkeit erreichen.
@@ -36,18 +37,21 @@ ONTAP Select ist die NetApp Lösung für den SDS-Markt. ONTAP Select bringt Spei
 
 
 
+[[two-software-components]]
 == Zwei Softwarekomponenten
 
 ONTAP Select besteht aus zwei Hauptsoftwarekomponenten:
 
 
 
+[[ontap-select-node]]
 === ONTAP Select Knoten
 
 Ein ONTAP Select Cluster besteht aus einem, zwei, vier, sechs oder acht Knoten. Jeder Clusterknoten wird als separate virtuelle Maschine bereitgestellt und führt eine speziell entwickelte Version der ONTAP 9 Software aus.
 
 
 
+[[ontap-select-deploy-administration-utility]]
 === ONTAP Select Deploy-Verwaltungsprogramm
 
 Das Deploy-Verwaltungsprogramm wird als separate virtuelle Linux-Maschine gepackt und installiert. Sie müssen das Dienstprogramm verwenden, um ONTAP Select Cluster in einer Produktionsumgebung bereitzustellen. Eine aktuelle Version des ONTAP Select Knoten-Images ist im Deploy-Dienstprogramm enthalten.
@@ -57,6 +61,7 @@ NOTE: Dem Deploy-Verwaltungsprogramm ist keine separate Versionsnummer zugewiese
 
 
 
+[[illustration-of-a-typical-deployment]]
 == Abbildung einer typischen Bereitstellung
 
 Die folgende Abbildung zeigt das NetApp ONTAP Select Deploy-Administrationsdienstprogramm bei der Bereitstellung und Unterstützung eines ONTAP Select Clusters mit vier Knoten. Das Deploy-Dienstprogramm und die ONTAP Select Knoten werden als separate virtuelle Maschinen auf dedizierten Hypervisor-Hosts ausgeführt.
@@ -65,30 +70,35 @@ image:ots_architecture.png["Veranschaulicht einen ONTAP Select -Cluster mit vier
 
 
 
+[[compare-ontap-select-and-ontap-9]]
 == Vergleichen Sie ONTAP Select und ONTAP 9
 
 Sowohl das hardwarebasierte ONTAP als auch das ONTAP Select bieten Speicherlösungen der Enterprise-Klasse. Da sie jedoch unterschiedlich konzipiert und implementiert sind, können sie jeweils unterschiedliche Geschäftsanforderungen und Nutzungsszenarien erfüllen. Machen Sie sich mit den wichtigsten Unterschieden zwischen den Plattformen vertraut, bevor Sie eine ONTAP Select Bereitstellung planen.
 
 
 
+[[different-ha-architecture]]
 === Unterschiedliche HA-Architektur
 
 Abhängig von der Anzahl der Knoten, die Sie in einem Cluster definieren, bietet ONTAP Select eine HA-Funktion. Ein Cluster mit vier Knoten besteht beispielsweise aus zwei HA-Paaren. Die mit ONTAP Select verwendete HA-Architektur basiert auf einem nicht gemeinsam genutzten Speichermodell. Das bedeutet, dass ein Knoten in einem HA-Paar nicht direkt auf den Speicher des anderen Knotens zugreifen kann. Dieses Design kann bestimmte Betriebseigenschaften von ONTAP Select beeinträchtigen.
 
 
 
+[[capacity-licensing]]
 === Kapazitätslizenzierung
 
 ONTAP Select führt ein verbrauchsbasiertes Lizenzmodell ein. Beim Einsatz eines ONTAP Select Clusters in einer Produktionsumgebung müssen Sie für jeden Knoten oder gemeinsam genutzten Kapazitätspool eine Lizenz mit Speicherkapazität erwerben. Mit dem Deploy-Dienstprogramm müssen Sie die Lizenzdateien anwenden, die die Speicherkapazität für die Clusterknoten festlegen.
 
 
 
+[[ontap-feature-licensing]]
 === ONTAP -Funktionslizenzierung
 
 Jeder Knoten in einem ONTAP Select Cluster ist automatisch für die Nutzung verschiedener ONTAP Funktionen lizenziert. Sie müssen diese Funktionslizenzen nicht manuell installieren oder anwenden.
 
 
 
+[[ontap-features-not-supported-in-ontap-select]]
 === ONTAP -Funktionen werden in ONTAP Select nicht unterstützt
 
 Einige ONTAP -Funktionen werden von ONTAP Select nicht unterstützt. In den meisten Fällen erfordern diese Funktionen spezielle Hardware, die in der virtualisierten ONTAP Select Umgebung nicht verfügbar ist.

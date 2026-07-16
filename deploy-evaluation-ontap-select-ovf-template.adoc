@@ -26,6 +26,7 @@ Sie können mithilfe einer OVF-Vorlage auf VMware ESXi schnell eine 90-Tage-Eval
 
 
 
+[[prepare-the-ontap-select-cluster-host]]
 == Vorbereiten des ONTAP Select Clusterhosts
 
 Verwenden Sie die folgenden Anforderungen, um den ESXi-Host vorzubereiten, auf dem der ONTAP Select Cluster bereitgestellt wird. Die Plattformbeschreibung basiert auf der Konfiguration des Standard- oder kleinen Instanztyps mit lokalem Direct Attached Storage (DAS), formatiert mit dem Dateisystem VMFS-5 oder VMFS-6.
@@ -36,6 +37,7 @@ Weitere Informationen zu den Host-Konfigurationsoptionen finden Sie unterlink:es
 
 
 
+[[deploy-a-single-node-ontap-select-cluster-using-an-ovf-template]]
 == Bereitstellen eines ONTAP Select Clusters mit einem einzelnen Knoten mithilfe einer OVF-Vorlage
 
 Führen Sie die folgenden Schritte auf einem unterstützten 64-Bit-ESXi-Hostserver aus.

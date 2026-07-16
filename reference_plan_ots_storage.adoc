@@ -21,6 +21,7 @@ NOTE: Informationen zur Unterstützung externer Speichermedien finden Sie inlink
 
 
 
+[[hardware-raid-controller-requirements]]
 == Hardware-RAID-Controller-Anforderungen
 
 Der RAID-Controller auf dem Hypervisor-Host, auf dem Sie ONTAP Select bereitstellen, muss mehrere Anforderungen erfüllen.
@@ -53,12 +54,14 @@ Zu den Mindestanforderungen für den RAID-Controller gehören:
 
 
 
+[[software-raid-requirements]]
 == Software-RAID-Anforderungen
 
 Beim Einsatz eines ONTAP Select Clusters auf dem Hypervisor können Sie die Software-RAID-Funktionalität von ONTAP Select anstelle eines lokalen Hardware-RAID-Controllers nutzen. Beachten Sie jedoch einige Anforderungen und Einschränkungen, bevor Sie einen Cluster mit Software-RAID einsetzen.
 
 
 
+[[general-requirements]]
 === Allgemeine Anforderungen
 
 Die Umgebung für eine Software-RAID-Bereitstellung muss die folgenden Kernanforderungen erfüllen:
@@ -75,6 +78,7 @@ NOTE: Falls ein Hardware-RAID-Controller vorhanden ist, siehe …link:concept_st
 
 
 
+[[esxi-specific-requirements]]
 === ESXi-spezifische Anforderungen
 
 * VMware ESXi 7.0 GA (Build 15843807) oder höher
@@ -84,6 +88,7 @@ NOTE: Falls ein Hardware-RAID-Controller vorhanden ist, siehe …link:concept_st
 
 
 
+[[kvm-specific-requirements]]
 === KVM-spezifische Anforderungen
 
 Es gibt auch spezifische Konfigurationsanforderungen für Softwarepakete. Siehe dielink:https://docs.netapp.com/us-en/ontap-select/kvm-host-configuration-and-preparation-checklist.html#prepare-linux-server["Vorbereitung des Linux-Servers"] Schritt für weitere Informationen.
@@ -120,6 +125,7 @@ Dies ist ein Satz von SAS- oder SATA-SSD-Laufwerken für die Datenverwaltung. Di
 
 
 
+[[ontap-select-node-configuration]]
 === ONTAP Select Knotenkonfiguration
 
 Sie müssen jeden ONTAP Select Knoten und Hypervisor-Host wie folgt konfigurieren, um die Systemfestplatten vom Stammverzeichnis und den Datenaggregaten zu trennen:
@@ -130,6 +136,7 @@ Sie müssen jeden ONTAP Select Knoten und Hypervisor-Host wie folgt konfiguriere
 
 
 
+[[storage-capacity-restrictions]]
 == Speicherkapazitätsbeschränkungen
 
 Bei der Planung einer ONTAP Select Bereitstellung sollten Sie sich der Einschränkungen hinsichtlich der Speicherzuweisung und -nutzung bewusst sein.
@@ -141,12 +148,14 @@ TIP: ONTAP Select erzwingt verschiedene Einschränkungen hinsichtlich der Speich
 
 
 
+[[calculate-raw-storage-capacity]]
 === Rohspeicherkapazität berechnen
 
 Die ONTAP Select Speicherkapazität entspricht der zulässigen Gesamtgröße der virtuellen Daten- und Root-Festplatten, die an die virtuelle ONTAP Select Maschine angeschlossen sind. Dies sollten Sie bei der Kapazitätszuweisung berücksichtigen.
 
 
 
+[[minimum-storage-capacity-for-a-single-node-cluster]]
 === Mindestspeicherkapazität für einen Einzelknotencluster
 
 Die Mindestgröße des für den Knoten in einem Einzelknotencluster zugewiesenen Speicherpools beträgt:
@@ -159,6 +168,7 @@ Die Mindestzuweisung für eine Produktionsbereitstellung besteht aus 1 TB für B
 
 
 
+[[minimum-storage-capacity-for-a-multi-node-cluster]]
 === Mindestspeicherkapazität für einen Multi-Node-Cluster
 
 Die Mindestgröße des jedem Knoten in einem Cluster mit mehreren Knoten zugewiesenen Speicherpools beträgt:
@@ -180,6 +190,7 @@ Wenn beispielsweise ein 2-TB-Aggregat erstellt wird, werden zwei Plex-Instanzen 
 ====
 
 
+[[storage-capacity-and-multiple-storage-pools]]
 === Speicherkapazität und mehrere Speicherpools
 
 Sie können jeden ONTAP Select Knoten so konfigurieren, dass er bis zu 400 TB Speicher nutzt, wenn Sie lokalen Direct-Attached-Storage, VMware vSAN oder externe Speicher-Arrays verwenden. Ein einzelner Speicherpool hat jedoch eine maximale Größe von 64 TB, wenn Sie Direct-Attached-Storage oder externe Speicher-Arrays verwenden. Wenn Sie in diesen Situationen mehr als 64 TB Speicher nutzen möchten, müssen Sie daher mehrere Speicherpools wie folgt zuordnen:
@@ -193,12 +204,14 @@ NOTE: In jedem Speicherpool bleibt ein Puffer von 2 % ungenutzt und erfordert ke
 
 
 
+[[storage-capacity-and-vmware-vsan]]
 === Speicherkapazität und VMware vSAN
 
 Bei Verwendung von VMware vSAN kann ein Datenspeicher größer als 64 TB sein. Beim Erstellen des ONTAP Select Clusters können Sie jedoch zunächst nur bis zu 64 TB zuweisen. Nach der Clustererstellung können Sie zusätzlichen Speicher aus dem vorhandenen vSAN-Datenspeicher zuweisen. Die von ONTAP Select nutzbare vSAN-Datenspeicherkapazität basiert auf dem VM-Speicherrichtliniensatz.
 
 
 
+[[best-practices]]
 === Best Practices
 
 Sie sollten die folgenden Empfehlungen bezüglich der Kernhardware des Hypervisors berücksichtigen:
@@ -208,6 +221,7 @@ Sie sollten die folgenden Empfehlungen bezüglich der Kernhardware des Hyperviso
 
 
 
+[[additional-disk-drive-requirements-based-on-the-platform-license]]
 == Zusätzliche Festplattenanforderungen basierend auf der Plattformlizenz
 
 Die von Ihnen ausgewählten Laufwerke sind je nach Plattformlizenzangebot begrenzt.
@@ -235,6 +249,7 @@ NOTE: Software-RAID mit lokalen DAS-Laufwerken wird mit der Premium-Lizenz (nur 
 
 
 
+[[nvme-drives-with-software-raid]]
 == NVMe-Laufwerke mit Software-RAID
 
 Sie können Software-RAID für die Verwendung von NVMe-SSD-Laufwerken konfigurieren. Ihre Umgebung muss die folgenden Anforderungen erfüllen:

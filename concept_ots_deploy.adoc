@@ -18,6 +18,7 @@ ONTAP Select Deploy ist das Verwaltungsdienstprogramm zum Bereitstellen und Verw
 
 
 
+[[core-functionality]]
 == Kernfunktionalität
 
 Das Deploy-Verwaltungsprogramm führt die folgenden Kernfunktionen aus:
@@ -33,18 +34,21 @@ Das Deploy-Verwaltungsprogramm führt die folgenden Kernfunktionen aus:
 
 
 
+[[ways-you-can-access-the-deploy-utility]]
 == Möglichkeiten für den Zugriff auf das Bereitstellungsdienstprogramm
 
 Für den Zugriff auf das Deploy-Verwaltungsprogramm stehen Ihnen mehrere Optionen zur Verfügung. Alle externen Schnittstellen sind funktional gleichwertig. Wählen Sie die Zugriffsoption, die Ihren spezifischen Bereitstellungszielen und -anforderungen am besten entspricht. In jedem Fall müssen Sie sich mit dem Administratorkonto und einem gültigen Kennwort anmelden.
 
 
 
+[[web-graphical-user-interface]]
 === Grafische Web-Benutzeroberfläche
 
 Sie können über einen modernen Webbrowser auf das Bereitstellungsprogramm zugreifen. Die Web-UI bietet eine intuitive und benutzerfreundliche Oberfläche und ist in den meisten Fällen Ihre primäre Schnittstelle bei der Verwendung des Dienstprogramms.
 
 
 
+[[command-line-interface]]
 === Befehlszeilenschnittstelle
 
 Über die Verwaltungsshell steht eine textbasierte Befehlszeilenschnittstelle zur Verfügung. Sie können auf die CLI-Verwaltungsshell folgendermaßen zugreifen:
@@ -57,6 +61,7 @@ Normalerweise verwenden Sie die Konsole der virtuellen Maschine im Rahmen der In
 
 
 
+[[rest-web-services-api]]
 === REST-Webdienst-API
 
 Die für externe Clients verfügbare REST-Webdienst-API bietet eine weitere Option für die Verbindung mit dem Bereitstellungsprogramm. Sie können mit jeder gängigen Programmiersprache oder jedem Tool, das REST-Webdienste unterstützt, auf die API zugreifen. Beliebte Optionen sind:
@@ -70,6 +75,7 @@ Durch die Verwendung einer Programmier- oder Skriptsprache können Sie die Berei
 
 
 
+[[ontap-select-online-documentation-web-page]]
 === ONTAP Select Online-Dokumentationswebseite
 
 Die Anzeige der Online-Dokumentationswebseite im Bereitstellungsprogramm ist eine alternative Möglichkeit, auf die REST-Webdienst-API zuzugreifen. Anstatt eine Programmiersprache zu verwenden, greifen Sie jedoch über einen Browser auf die Verwaltungs-API zu. Folgende Funktionen stehen zur Verfügung:

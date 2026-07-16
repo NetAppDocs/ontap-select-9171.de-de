@@ -18,12 +18,14 @@ Jeder Deploy-API-Aufruf wird als HTTP-Anfrage an die Deploy-VM ausgeführt, die 
 
 
 
+[[input-variables-controlling-an-api-request]]
 == Eingabevariablen, die eine API-Anfrage steuern
 
 Sie können die Verarbeitung eines API-Aufrufs über in der HTTP-Anforderung festgelegte Parameter steuern.
 
 
 
+[[request-headers]]
 === Anforderungsheader
 
 Sie müssen mehrere Header in die HTTP-Anforderung aufnehmen, darunter:
@@ -35,6 +37,7 @@ Sie müssen mehrere Header in die HTTP-Anforderung aufnehmen, darunter:
 
 
 
+[[request-body]]
 === Anforderungstext
 
 Der Inhalt des Anforderungstexts variiert je nach Aufruf. Der HTTP-Anforderungstext besteht aus einem der folgenden Elemente:
@@ -45,6 +48,7 @@ Der Inhalt des Anforderungstexts variiert je nach Aufruf. Der HTTP-Anforderungst
 
 
 
+[[filter-objects]]
 === Filterobjekte
 
 Wenn Sie einen API-Aufruf mit GET ausführen, können Sie die zurückgegebenen Objekte basierend auf einem beliebigen Attribut einschränken oder filtern. Sie können beispielsweise einen genauen Wert angeben, der übereinstimmen soll:
@@ -85,6 +89,7 @@ Sie können auch eine Reihe von Objekten zurückgeben, basierend darauf, ob ein 
 
 
 
+[[selecting-object-fields]]
 === Auswählen von Objektfeldern
 
 Standardmäßig gibt ein API-Aufruf mit GET nur die Attribute zurück, die das Objekt bzw. die Objekte eindeutig identifizieren. Dieser Mindestsatz an Feldern dient als Schlüssel für jedes Objekt und variiert je nach Objekttyp. Sie können zusätzliche Objekteigenschaften mit dem Abfrageparameter „Felder“ wie folgt auswählen:
@@ -99,6 +104,7 @@ TIP: Als Best Practice sollten Sie immer die gewünschten Felder angeben. Rufen 
 
 
 
+[[sort-objects-in-the-output-set]]
 === Sortieren von Objekten im Ausgabesatz
 
 Die Datensätze einer Ressourcensammlung werden in der vom Objekt definierten Standardreihenfolge zurückgegeben. Sie können die Reihenfolge mithilfe des Abfrageparameters order_by mit dem Feldnamen und der Sortierrichtung wie folgt ändern:
@@ -111,6 +117,7 @@ Wenn Sie mehrere Parameter angeben, müssen Sie die Felder durch ein Komma trenn
 
 
 
+[[pagination]]
 === Pagination
 
 Wenn Sie einen API-Aufruf mit GET ausführen, um auf eine Sammlung von Objekten desselben Typs zuzugreifen, werden standardmäßig alle übereinstimmenden Objekte zurückgegeben. Bei Bedarf können Sie die Anzahl der zurückgegebenen Datensätze mit dem Abfrageparameter max_records in der Anfrage begrenzen. Zum Beispiel:
@@ -123,12 +130,14 @@ Sie können mehrere Anfragen stellen, um die Ereignisse (oder einen beliebigen O
 
 
 
+[[interpret-an-api-response]]
 == Interpretieren einer API-Antwort
 
 Jede API-Anfrage generiert eine Antwort an den Client. Sie können die Antwort überprüfen, um festzustellen, ob sie erfolgreich war, und bei Bedarf weitere Daten abrufen.
 
 
 
+[[http-status-code]]
 === HTTP-Statuscode
 
 Die von der Deploy REST API verwendeten HTTP-Statuscodes werden unten beschrieben.
@@ -169,6 +178,7 @@ Die von der Deploy REST API verwendeten HTTP-Statuscodes werden unten beschriebe
 |===
 
 
+[[response-headers]]
 === Antwortheader
 
 Die vom Deploy-Server generierte HTTP-Antwort enthält mehrere Header, darunter:
@@ -179,6 +189,7 @@ Die vom Deploy-Server generierte HTTP-Antwort enthält mehrere Header, darunter:
 
 
 
+[[response-body]]
 === Antworttext
 
 Der Inhalt der mit einer API-Anfrage verknüpften Antwort unterscheidet sich je nach Objekt, Verarbeitungstyp und Erfolg oder Misserfolg der Anfrage. Der Antworttext wird in JSON gerendert.

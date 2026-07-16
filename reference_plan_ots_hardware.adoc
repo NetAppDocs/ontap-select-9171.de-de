@@ -18,6 +18,7 @@ Es gibt verschiedene Hardwareanforderungen und Planungsaspekte, die Sie im Zusam
 
 
 
+[[hypervisor-requirements]]
 == Hypervisor-Anforderungen
 
 Es gibt mehrere Anforderungen in Bezug auf den Hypervisor, auf dem ONTAP Select ausgeführt wird.
@@ -27,12 +28,14 @@ NOTE: Sie sollten dielink:reference_release_notes.html["ONTAP Select – Version
 
 
 
+[[vmware-licensing]]
 === VMware-Lizenzierung
 
 Für die Bereitstellung eines ONTAP Select Clusters benötigt Ihr Unternehmen eine gültige VMware vSphere-Lizenz für die Hypervisor-Hosts, auf denen ONTAP Select ausgeführt wird. Verwenden Sie die für Ihre Bereitstellung geeigneten Lizenzen.
 
 
 
+[[software-compatibility]]
 === Softwarekompatibilität
 
 Sie können ONTAP Select auf KVM- und ESXi-Hypervisoren bereitstellen.
@@ -79,12 +82,14 @@ NOTE: ESXi 6.5 GA und ESXi 6.7 GA haben das Ende der Verfügbarkeit erreicht. We
 ====
 
 
+[[vmware-vcenter-and-standalone-esxi-hosts]]
 === VMware vCenter und eigenständige ESXi-Hosts
 
 Wenn ein ESXi-Hypervisor-Host von einem vCenter-Server verwaltet wird, müssen Sie den Host mit den vCenter-Anmeldeinformationen beim Deploy-Verwaltungsprogramm registrieren. Sie können den Host mit den ESXi-Anmeldeinformationen nicht als eigenständigen Host registrieren.
 
 
 
+[[core-hardware-requirements]]
 == Grundlegende Hardwareanforderungen
 
 Der physische Hypervisor-Host, auf dem Sie ONTAP Select bereitstellen, muss verschiedene Hardwareanforderungen erfüllen. Sie können für den Hypervisor-Host eine beliebige Plattform wählen, solange diese die Mindestanforderungen erfüllt. Unterstützte Hardwareplattformen werden von folgenden Anbietern angeboten: Cisco, Dell, HP, Fujitsu, Lenovo und Supermicro.
@@ -96,6 +101,7 @@ Siehe die https://mysupport.netapp.com/matrix["Interoperabilitätsmatrix-Tool,wi
 
 
 
+[[basic-hardware-requirements]]
 === Grundlegende Hardwareanforderungen
 
 Es gibt mehrere allgemeine Hardwareanforderungen, die für alle Plattformen gelten, unabhängig vom Knoteninstanztyp oder Lizenzangebot.
@@ -124,6 +130,7 @@ Je nach Clustergröße werden mehrere Ethernet-Konfigurationen unterstützt.
 |===
 
 
+[[additional-hardware-requirements-based-on-the-instance-type]]
 === Zusätzliche Hardwareanforderungen basierend auf dem Instanztyp
 
 Je nach Knoteninstanztyp gibt es mehrere zusätzliche Hardwareanforderungen.

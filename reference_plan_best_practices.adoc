@@ -18,18 +18,21 @@ Es gibt Best Practices, die Sie bei der Planung einer ONTAP Select Bereitstellun
 
 
 
+[[storage]]
 == Storage
 
 Sie sollten die folgenden Best Practices für die Speicherung berücksichtigen.
 
 
 
+[[all-flash-or-generic-flash-arrays]]
 === All-Flash- oder Generic-Flash-Arrays
 
 Bei der Bereitstellung virtueller ONTAP Select NAS (vNAS) mit All-Flash-VSAN oder generischen Flash-Arrays sollten die Best Practices für ONTAP Select mit Nicht-SSD-DAS-Speicher befolgt werden.
 
 
 
+[[external-storage]]
 === Externer Speicher
 
 Sie sollten die folgenden Empfehlungen einhalten:
@@ -41,12 +44,14 @@ Sie sollten die folgenden Empfehlungen einhalten:
 
 
 
+[[hypervisor-core-hardware]]
 === Hypervisor-Kernhardware
 
 Alle Laufwerke in einem ONTAP Select Aggregat sollten vom gleichen Typ sein. Beispielsweise sollten Sie keine HDD- und SSD-Laufwerke im selben Aggregat mischen.
 
 
 
+[[raid-controller]]
 === RAID-Controller
 
 Der RAID-Controller des Servers sollte für den Writeback-Modus konfiguriert sein. Wenn Leistungsprobleme bei Schreibvorgängen auftreten, überprüfen Sie die Controller-Einstellungen und stellen Sie sicher, dass Writethrough oder Writearound deaktiviert ist.
@@ -57,6 +62,7 @@ Der RAID-Controller-Cache speichert alle eingehenden Blockänderungen, nicht nur
 
 
 
+[[raid-groups]]
 === RAID-Gruppen
 
 Die optimale RAID-Gruppengröße beträgt acht bis zwölf Laufwerke. Die maximale Anzahl von Laufwerken pro RAID-Gruppe beträgt 24.
@@ -69,6 +75,7 @@ ONTAP Select profitiert nicht von der Erhöhung der LUN-Anzahl innerhalb einer R
 
 
 
+[[vmware-esxi-hosts]]
 === VMware ESXi-Hosts
 
 NetApp empfiehlt die Verwendung von ESX 6.5 U2 oder höher und einer NVMe-Festplatte für den Datenspeicher, der die Systemfestplatten hostet. Diese Konfiguration bietet die beste Leistung für die NVRAM Partition.
@@ -84,54 +91,63 @@ Stellen Sie sicher, dass alle generischen externen Speicher-Arrays nach Möglich
 
 
 
+[[vmware-storage-vmotion]]
 === VMware Storage vMotion
 
 Die verfügbare Kapazität eines neuen Hosts ist nicht der einzige Faktor bei der Entscheidung, ob VMware Storage vMotion mit einem ONTAP Select Knoten verwendet werden soll. Der zugrunde liegende Speichertyp, die Hostkonfiguration und die Netzwerkfunktionen sollten die gleiche Arbeitslast wie der ursprüngliche Host bewältigen können.
 
 
 
+[[networking]]
 == Vernetzung
 
 Sie sollten die folgenden Best Practices für die Vernetzung berücksichtigen.
 
 
 
+[[duplicate-mac-addresses]]
 === Doppelte MAC-Adressen
 
 Um die Möglichkeit auszuschließen, dass mehrere Deploy-Instanzen doppelte MAC-Adressen zuweisen, sollte zum Erstellen oder Verwalten eines ONTAP Select Clusters oder -Knotens eine Deploy-Instanz pro Layer-2-Netzwerk verwendet werden.
 
 
 
+[[ems-messages]]
 === EMS-Nachrichten
 
 Der ONTAP Select Cluster mit zwei Knoten sollte sorgfältig auf EMS-Meldungen überwacht werden, die darauf hinweisen, dass das Speicher-Failover deaktiviert ist. Diese Meldungen weisen auf einen Verbindungsverlust zum Mediator-Dienst hin und sollten umgehend behoben werden.
 
 
 
+[[latency-between-nodes]]
 === Latenz zwischen Knoten
 
 Das Netzwerk zwischen den beiden Knoten muss eine mittlere Latenz von 5 ms mit einem zusätzlichen periodischen Jitter von 5 ms unterstützen. Testen Sie das Netzwerk vor der Bereitstellung des Clusters mit dem im technischen Bericht „ONTAP Select Product Architecture and Best Practices“ beschriebenen Verfahren.
 
 
 
+[[load-balancing]]
 === Lastenausgleich
 
 Um den Lastenausgleich sowohl über die internen als auch die externen ONTAP Select Netzwerke hinweg zu optimieren, verwenden Sie die Lastenausgleichsrichtlinie „Route Based on Originating Virtual Port“.
 
 
 
+[[multiple-layer-2-networks]]
 === Mehrere Layer-2-Netzwerke
 
 Wenn der Datenverkehr mehrere Layer-2-Netzwerke umfasst und die Verwendung von VLAN-Ports erforderlich ist oder wenn Sie mehrere IP-Bereiche verwenden, sollte VGT verwendet werden.
 
 
 
+[[physical-switch-configuration]]
 === Physische Switch-Konfiguration
 
 VMware empfiehlt, STP auf den mit den ESXi-Hosts verbundenen Switch-Ports auf Portfast einzustellen. Andernfalls kann die Fähigkeit von ONTAP Select zur Toleranz von Uplink-Ausfällen beeinträchtigt werden. Bei Verwendung von LACP sollte der LACP-Timer auf „schnell“ (1 Sekunde) eingestellt werden. Die Lastausgleichsrichtlinie sollte für die Portgruppe auf „Route basierend auf IP-Hash“ und für die LAG auf „Quell- und Ziel-IP-Adresse sowie TCP/UDP-Port und VLAN“ eingestellt werden.
 
 
 
+[[virtual-switch-options-for-kvm]]
 === Virtuelle Switch-Optionen für KVM
 
 Sie müssen auf jedem ONTAP Select Host einen virtuellen Switch konfigurieren, um das externe und interne Netzwerk zu unterstützen (nur Multi-Node-Cluster). Im Rahmen der Bereitstellung eines Multi-Node-Clusters sollten Sie die Netzwerkkonnektivität im internen Clusternetzwerk testen.
@@ -140,12 +156,14 @@ Weitere Informationen zur Konfiguration eines Open vSwitch auf einem Hypervisor-
 
 
 
+[[ha]]
 == Hochverfügbarkeit
 
 Sie sollten die folgenden Best Practices für hohe Verfügbarkeit berücksichtigen.
 
 
 
+[[deploy-backups]]
 === Bereitstellen von Backups
 
 Es empfiehlt sich, die Deploy-Konfigurationsdaten regelmäßig zu sichern, auch nach der Erstellung eines Clusters. Dies ist besonders bei Clustern mit zwei Knoten wichtig, da die Mediator-Konfigurationsdaten in der Sicherung enthalten sind.
@@ -154,6 +172,7 @@ Nach dem Erstellen oder Bereitstellen eines Clusters sollten Sielink:task_cli_cl
 
 
 
+[[mirrored-aggregates]]
 === Gespiegelte Aggregate
 
 Obwohl das gespiegelte Aggregat für eine aktuelle (RPO 0) Kopie des primären Aggregats erforderlich ist, achten Sie darauf, dass im primären Aggregat nicht zu wenig freier Speicherplatz vorhanden ist. Ein Mangel an Speicherplatz im primären Aggregat kann dazu führen, dass ONTAP die gemeinsame Snapshot-Kopie löscht, die als Basis für die Speicherrückgabe dient. Dies funktioniert wie vorgesehen, um Client-Schreibvorgänge zu ermöglichen. Das Fehlen einer gemeinsamen Snapshot-Kopie beim Failback erfordert jedoch, dass der ONTAP Select Knoten eine vollständige Basislinie vom gespiegelten Aggregat erstellt. Dieser Vorgang kann in einer Shared-Nothing-Umgebung sehr zeitaufwändig sein.
@@ -163,6 +182,7 @@ NOTE: NetApp empfiehlt, für gespiegelte Aggregate mindestens 20 % freien Speich
 
 
 
+[[nic-aggregation-teaming-and-failover]]
 === NIC-Aggregation, Teaming und Failover
 
 ONTAP Select unterstützt eine einzelne 10-GBit-Verbindung für Cluster mit zwei Knoten. Es ist jedoch eine bewährte Methode von NetApp , sowohl im internen als auch im externen Netzwerk des ONTAP Select Clusters über Hardwareredundanz durch NIC-Aggregation oder NIC-Teaming zu verfügen.
@@ -175,6 +195,7 @@ Bei Verwendung eines verteilten vSwitch mit LACP empfiehlt NetApp , die Lastausg
 
 
 
+[[two-node-stretched-ha-metrocluster-sds-best-practices]]
 === Best Practices für gestreckte HA mit zwei Knoten (MetroCluster SDS)
 
 Bevor Sie ein MetroCluster SDS erstellen, verwenden Sie den ONTAP Deploy-Konnektivitätsprüfer, um sicherzustellen, dass die Netzwerklatenz zwischen den beiden Rechenzentren im akzeptablen Bereich liegt.

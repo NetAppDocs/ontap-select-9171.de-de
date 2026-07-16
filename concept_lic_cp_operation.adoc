@@ -18,6 +18,7 @@ Das Capacity Pools-Lizenzmodell unterscheidet sich vom Capacity Tiers-Modell. An
 
 
 
+[[license-manager]]
 == Lizenzmanager
 
 Der Lizenzmanager wird als separater Prozess in jeder Instanz des Deploy-Verwaltungsprogramms ausgeführt. Zu den Funktionen von LM gehören unter anderem:
@@ -29,6 +30,7 @@ Der Lizenzmanager wird als separater Prozess in jeder Instanz des Deploy-Verwalt
 
 
 
+[[lease-characteristics]]
 == Mietvertragsmerkmale
 
 Der für jedes Datenaggregat auf einem Knoten mit einer Kapazitätspool-Lizenz zugewiesene Speicher muss über eine zugehörige Lease verfügen. Der Knoten fordert eine Speicher-Lease an. Wenn die Kapazität verfügbar ist, antwortet der Lizenzmanager mit einer Lease. Jede Lease verfügt über die folgenden expliziten oder impliziten Attribute:
@@ -41,6 +43,7 @@ Der für jedes Datenaggregat auf einem Knoten mit einer Kapazitätspool-Lizenz z
 
 
 
+[[license-lock-id]]
 == Lizenzsperr-ID
 
 Jede Instanz des Lizenzmanagers und damit auch jede zugehörige Deploy-Utility-Instanz wird durch eine eindeutige 128-Bit-Nummer identifiziert. Diese Nummer wird mit der neunstelligen Seriennummer der Capacity Pool-Lizenz kombiniert, um den Pool an eine bestimmte Lizenzmanager-Instanz (deployment-Instanz) zu binden. Sie müssen beide Werte auf der NetApp Support-Site beim Generieren der NetApp Lizenzdatei (NLF) angeben.
@@ -53,6 +56,7 @@ Sie können die Lizenzsperr-ID für Ihre Deploy-Instanz mithilfe der Web-Benutze
 
 
 
+[[basic-lease-operations]]
 == Grundlegende Leasingvorgänge
 
 Ein ONTAP Select -Knoten muss bei jeder Erstellung, Erweiterung oder Änderung eines Datenaggregats eine gültige Kapazitätsmiete suchen oder anfordern. Eine noch gültige Miete aus einer vorherigen Anfrage kann verwendet oder bei Bedarf eine neue Miete angefordert werden. Der ONTAP Select Knoten führt die folgenden Schritte aus, um eine Kapazitätspoolmiete zu finden:
@@ -68,6 +72,7 @@ Ein ONTAP Select -Knoten muss bei jeder Erstellung, Erweiterung oder Änderung e
 
 
 
+[[return-storage-capacity-to-a-capacity-pool]]
 == Geben Sie Speicherkapazität an einen Kapazitätspool zurück
 
 Speicherkapazität wird nach Bedarf aus einem Kapazitätspool zugewiesen. Jede neue Anforderung kann den verfügbaren Speicher im Pool reduzieren. Speicherkapazität wird in verschiedenen Situationen an den Pool zurückgegeben, darunter:

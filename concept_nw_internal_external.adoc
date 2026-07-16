@@ -18,6 +18,7 @@ Eigenschaften von ONTAP Select internen und externen Netzwerken.
 
 
 
+[[ontap-select-internal-network]]
 == ONTAP Select das interne Netzwerk aus
 
 Das interne ONTAP Select Netzwerk, das nur in der Multinode-Variante des Produkts vorhanden ist, ist für die Bereitstellung von Cluster-Kommunikation, HA-Interconnect und synchronen Replikationsdiensten für den ONTAP Select Cluster verantwortlich. Dieses Netzwerk umfasst die folgenden Ports und Schnittstellen:
@@ -49,6 +50,7 @@ Ein Cluster mit zwei Knoten kann entweder vier 1-Gbit-Ports für den internen Da
 
 
 
+[[internal-network-validation-and-troubleshooting]]
 === Interne Netzwerkvalidierung und Fehlerbehebung
 
 Das interne Netzwerk in einem Multinode-Cluster kann mithilfe der Netzwerkkonnektivitätsprüfung validiert werden. Diese Funktion kann über die Deploy CLI aufgerufen werden, die ausgeführt wird. `network connectivity-check start` Befehl.
@@ -67,6 +69,7 @@ Ab ONTAP Deploy 2.10 kann die vom internen Netzwerk verwendete MTU-Größe zwisc
 
 
 
+[[ontap-select-external-network]]
 == ONTAP Select
 
 Das externe ONTAP Select Netzwerk ist für die gesamte ausgehende Kommunikation des Clusters verantwortlich und ist daher sowohl in Einzelknoten- als auch in Multiknotenkonfigurationen vorhanden. Obwohl dieses Netzwerk nicht die streng definierten Durchsatzanforderungen des internen Netzwerks erfüllt, sollte der Administrator darauf achten, keine Netzwerkengpässe zwischen dem Client und der ONTAP VM zu verursachen, da Leistungsprobleme fälschlicherweise als ONTAP Select Probleme interpretiert werden könnten.
@@ -99,12 +102,14 @@ Die folgende Tabelle zeigt die wichtigsten Unterschiede zwischen den internen un
 |===
 
 
+[[nic-teaming]]
 === NIC-Teaming
 
 Um sicherzustellen, dass die internen und externen Netzwerke über die erforderliche Bandbreite und Ausfallsicherheit für hohe Leistung und Fehlertoleranz verfügen, wird die Teambildung physischer Netzwerkadapter empfohlen. Zwei-Knoten-Clusterkonfigurationen mit einer einzelnen 10-Gbit-Verbindung werden unterstützt. NetApp empfiehlt jedoch die Nutzung von NIC-Teaming sowohl im internen als auch im externen Netzwerk des ONTAP Select Clusters.
 
 
 
+[[mac-address-generation]]
 === MAC-Adressgenerierung
 
 Die allen ONTAP Select Netzwerkports zugewiesenen MAC-Adressen werden automatisch vom mitgelieferten Bereitstellungsprogramm generiert. Das Dienstprogramm verwendet eine plattformspezifische, organisatorisch eindeutige Kennung (OUI) für NetApp , um Konflikte mit FAS Systemen zu vermeiden. Eine Kopie dieser Adresse wird anschließend in einer internen Datenbank innerhalb der ONTAP Select Installations-VM (ONTAP Deploy) gespeichert, um eine versehentliche Neuzuweisung bei zukünftigen Knotenbereitstellungen zu verhindern. Der Administrator sollte die zugewiesene MAC-Adresse eines Netzwerkports zu keinem Zeitpunkt ändern.

@@ -18,12 +18,14 @@ Representational State Transfer (REST) ist ein Stil zur Erstellung verteilter We
 
 
 
+[[architecture-and-classic-constraints]]
 == Architektur und klassische Einschränkungen
 
 REST wurde von Roy Fielding in seiner Doktorarbeit formell formuliert. https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm["Dissertation"] an der UC Irvine im Jahr 2000. Es definiert einen Architekturstil durch eine Reihe von Einschränkungen, die zusammengenommen webbasierte Anwendungen und die zugrunde liegenden Protokolle verbessern. Die Einschränkungen etablieren eine RESTful-Webdienstanwendung basierend auf einer Client/Server-Architektur unter Verwendung eines zustandslosen Kommunikationsprotokolls.
 
 
 
+[[resources-and-state-representation]]
 == Ressourcen und staatliche Vertretung
 
 Ressourcen sind die grundlegenden Komponenten eines webbasierten Systems. Zu den ersten Entwurfsaufgaben beim Erstellen einer REST-Webdienstanwendung gehören:
@@ -36,12 +38,14 @@ Zwischen Client und Server werden Nachrichten ausgetauscht, um auf die Ressource
 
 
 
+[[uri-endpoints]]
 == URI-Endpunkte
 
 Jede REST-Ressource muss mithilfe eines klar definierten Adressierungsschemas definiert und bereitgestellt werden. Die Endpunkte, an denen die Ressourcen lokalisiert und identifiziert werden, verwenden einen Uniform Resource Identifier (URI). Der URI bietet einen allgemeinen Rahmen für die Erstellung eines eindeutigen Namens für jede Ressource im Netzwerk. Der Uniform Resource Locator (URL) ist ein URI-Typ, der in Webdiensten zur Identifizierung und zum Zugriff auf Ressourcen verwendet wird. Ressourcen werden typischerweise in einer hierarchischen Struktur ähnlich einem Dateiverzeichnis bereitgestellt.
 
 
 
+[[http-messages]]
 == HTTP-Nachrichten
 
 HTTP (Hypertext Transfer Protocol) ist das Protokoll, das vom Webdienst-Client und -Server zum Austausch von Anforderungs- und Antwortnachrichten zu Ressourcen verwendet wird. Beim Entwurf einer Webdienstanwendung werden HTTP-Verben (wie GET und POST) den Ressourcen und den entsprechenden Statusverwaltungsaktionen zugeordnet.
@@ -50,6 +54,7 @@ HTTP ist zustandslos. Um eine Reihe zusammengehöriger Anfragen und Antworten ei
 
 
 
+[[json-formatting]]
 == JSON-Formatierung
 
 Informationen können auf verschiedene Weise strukturiert und zwischen Client und Server übertragen werden. Die beliebteste Option (und die mit der Deploy REST API verwendete) ist JavaScript Object Notation (JSON). JSON ist ein Industriestandard für die Darstellung einfacher Datenstrukturen in Klartext und wird zur Übertragung von Statusinformationen verwendet, die die Ressourcen beschreiben.

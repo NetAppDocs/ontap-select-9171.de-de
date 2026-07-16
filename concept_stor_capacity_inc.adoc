@@ -54,6 +54,7 @@ Die maximale VMDK-Größe beim Kapazitätsaufbau beträgt 16 TB. Die maximale VM
 
 
 
+[[increase-capacity-for-ontap-select-with-software-raid]]
 == Erhöhen Sie die Kapazität für ONTAP Select mit Software-RAID
 
 Der Assistent zum Hinzufügen von Speicher kann ebenfalls verwendet werden, um die verwaltete Kapazität für ONTAP Select Knoten mit Software-RAID zu erhöhen. Der Assistent zeigt nur die DAS-SDD-Laufwerke an, die verfügbar sind und als RDMs der ONTAP Select -VM zugeordnet werden können.

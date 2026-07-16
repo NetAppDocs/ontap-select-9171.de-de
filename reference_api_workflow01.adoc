@@ -26,6 +26,7 @@ Der Workflow zur Clustererstellung unterscheidet sich in den folgenden Situation
 
 
 
+[[1-register-vcenter-server-credential]]
 == 1. Registrieren Sie die Anmeldeinformationen für den vCenter-Server
 
 Bei der Bereitstellung auf einem ESXi-Host, der von einem vCenter-Server verwaltet wird, müssen Sie vor der Registrierung des Hosts Anmeldeinformationen hinzufügen. Das Deploy-Verwaltungsprogramm kann diese Anmeldeinformationen dann zur Authentifizierung bei vCenter verwenden.
@@ -69,6 +70,7 @@ Ausgabe::
 
 
 
+[[2-register-a-hypervisor-host]]
 == 2. Registrieren Sie einen Hypervisor-Host
 
 Sie müssen einen Hypervisor-Host hinzufügen, auf dem die virtuelle Maschine mit dem ONTAP Select Knoten ausgeführt wird.
@@ -115,6 +117,7 @@ Ausgabe::
 
 
 
+[[3-create-a-cluster]]
 == 3. Erstellen Sie einen Cluster
 
 Wenn Sie einen ONTAP Select Cluster erstellen, wird die grundlegende Clusterkonfiguration registriert und die Knotennamen werden automatisch von Deploy generiert.
@@ -154,6 +157,7 @@ Ausgabe::
 
 
 
+[[4-configure-the-cluster]]
 == 4. Konfigurieren Sie den Cluster
 
 Es gibt mehrere Attribute, die Sie im Rahmen der Clusterkonfiguration angeben müssen.
@@ -195,6 +199,7 @@ Ausgabe:: Keine
 
 
 
+[[5-retrieve-the-node-name]]
 == 5. Rufen Sie den Knotennamen ab
 
 Das Verwaltungsdienstprogramm „Deploy“ generiert beim Erstellen eines Clusters automatisch die Knotenkennungen und -namen. Bevor Sie einen Knoten konfigurieren können, müssen Sie die zugewiesene ID abrufen.
@@ -225,6 +230,7 @@ Ausgabe::
 
 
 
+[[6-configure-the-nodes]]
 == 6. Konfigurieren Sie die Knoten
 
 Sie müssen die Basiskonfiguration für den Knoten angeben. Dies ist der erste von drei API-Aufrufen, die zum Konfigurieren eines Knotens verwendet werden.
@@ -263,6 +269,7 @@ Ausgabe:: Keine
 
 
 
+[[7-retrieve-the-node-networks]]
 == 7. Abrufen der Knotennetzwerke
 
 Sie müssen die vom Knoten im Einzelknotencluster verwendeten Daten- und Verwaltungsnetzwerke identifizieren. Das interne Netzwerk wird bei einem Einzelknotencluster nicht verwendet.
@@ -293,6 +300,7 @@ Ausgabe::
 
 
 
+[[8-configure-the-node-networking]]
 == 8. Konfigurieren Sie die Knotenvernetzung
 
 Sie müssen die Daten- und Verwaltungsnetzwerke konfigurieren. Das interne Netzwerk wird bei einem Einzelknotencluster nicht verwendet.
@@ -329,6 +337,7 @@ Ausgabe:: Keine
 
 
 
+[[9-configure-the-node-storage-pool]]
 == 9. Konfigurieren Sie den Knotenspeicherpool
 
 Der letzte Schritt bei der Konfiguration eines Knotens besteht im Anschließen eines Speicherpools. Sie können die verfügbaren Speicherpools über den vSphere-Webclient oder optional über die Deploy-REST-API ermitteln.
@@ -367,6 +376,7 @@ Ausgabe:: Keine
 
 
 
+[[10-deploy-the-cluster]]
 == 10. Bereitstellen des Clusters
 
 Nachdem Cluster und Knoten konfiguriert wurden, können Sie den Cluster bereitstellen.
