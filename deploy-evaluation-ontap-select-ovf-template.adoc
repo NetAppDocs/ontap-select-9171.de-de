@@ -19,7 +19,6 @@ Sie können mithilfe einer OVF-Vorlage auf VMware ESXi schnell eine 90-Tage-Eval
 .Informationen zu diesem Vorgang
 * Sie müssen weder eine Seriennummer noch eine Speicherkapazitätslizenz von NetApp erwerben.
 * Sie können dieselbe Speichermenge für Benutzerdaten zuweisen wie bei einer erworbenen Lizenz.
-* Sie können den Knoten nicht von einer Evaluierungslizenz auf eine gekaufte Lizenz aktualisieren.
 * Sie können zum Bereitstellen der OVF-Vorlage nur ein vCenter-Konto verwenden. Die direkte Installation auf einem ESXi-Host wird derzeit nicht unterstützt.
 * Sie müssen die OVF-Vorlage (in einer OVA-Datei enthalten) mit dem vSphere-Standalone-Client oder dem vSphere-Webclient installieren (die einzige Option für ESXi 6.5 und höher). Sie verwenden nicht das Verwaltungsdienstprogramm ONTAP Select Deploy.
 
